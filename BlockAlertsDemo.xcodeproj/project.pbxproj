@@ -15,6 +15,28 @@
 		EC9016AF14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016AE14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m */; };
 		EC9016B214BB629F00EF52E1 /* BlockAlertsDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */; };
 		EC9016B514BB629F00EF52E1 /* BlockAlertsDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC9016B314BB629F00EF52E1 /* BlockAlertsDemoViewController.xib */; };
+		EC9016E814BB679C00EF52E1 /* action-black-button-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D114BB679C00EF52E1 /* action-black-button-selected.png */; };
+		EC9016E914BB679C00EF52E1 /* action-black-button-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D214BB679C00EF52E1 /* action-black-button-selected@2x.png */; };
+		EC9016EA14BB679C00EF52E1 /* action-black-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D314BB679C00EF52E1 /* action-black-button.png */; };
+		EC9016EB14BB679C00EF52E1 /* action-black-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D414BB679C00EF52E1 /* action-black-button@2x.png */; };
+		EC9016EC14BB679C00EF52E1 /* action-gray-button-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D514BB679C00EF52E1 /* action-gray-button-selected.png */; };
+		EC9016ED14BB679C00EF52E1 /* action-gray-button-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D614BB679C00EF52E1 /* action-gray-button-selected@2x.png */; };
+		EC9016EE14BB679C00EF52E1 /* action-gray-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D714BB679C00EF52E1 /* action-gray-button.png */; };
+		EC9016EF14BB679C00EF52E1 /* action-gray-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D814BB679C00EF52E1 /* action-gray-button@2x.png */; };
+		EC9016F014BB679C00EF52E1 /* action-red-button-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D914BB679C00EF52E1 /* action-red-button-selected.png */; };
+		EC9016F114BB679C00EF52E1 /* action-red-button-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016DA14BB679C00EF52E1 /* action-red-button-selected@2x.png */; };
+		EC9016F214BB679C00EF52E1 /* action-red-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016DB14BB679C00EF52E1 /* action-red-button.png */; };
+		EC9016F314BB679C00EF52E1 /* action-red-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016DC14BB679C00EF52E1 /* action-red-button@2x.png */; };
+		EC9016F414BB679C00EF52E1 /* action-sheet-panel.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016DD14BB679C00EF52E1 /* action-sheet-panel.png */; };
+		EC9016F514BB679C00EF52E1 /* action-sheet-panel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016DE14BB679C00EF52E1 /* action-sheet-panel@2x.png */; };
+		EC9016F614BB679C00EF52E1 /* alert-black-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016E014BB679C00EF52E1 /* alert-black-button.png */; };
+		EC9016F714BB679C00EF52E1 /* alert-black-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016E114BB679C00EF52E1 /* alert-black-button@2x.png */; };
+		EC9016F814BB679C00EF52E1 /* alert-gray-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016E214BB679C00EF52E1 /* alert-gray-button.png */; };
+		EC9016F914BB679C00EF52E1 /* alert-gray-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016E314BB679C00EF52E1 /* alert-gray-button@2x.png */; };
+		EC9016FA14BB679C00EF52E1 /* alert-red-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016E414BB679C00EF52E1 /* alert-red-button.png */; };
+		EC9016FB14BB679C00EF52E1 /* alert-red-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016E514BB679C00EF52E1 /* alert-red-button@2x.png */; };
+		EC9016FC14BB679C00EF52E1 /* alert-window.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016E614BB679C00EF52E1 /* alert-window.png */; };
+		EC9016FD14BB679C00EF52E1 /* alert-window@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016E714BB679C00EF52E1 /* alert-window@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +53,28 @@
 		EC9016B014BB629F00EF52E1 /* BlockAlertsDemoViewController.h */ = {isa = PBXFileReference; path = BlockAlertsDemoViewController.h; sourceTree = "<group>"; };
 		EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockAlertsDemoViewController.m; sourceTree = "<group>"; };
 		EC9016B414BB629F00EF52E1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BlockAlertsDemoViewController.xib; sourceTree = "<group>"; };
+		EC9016D114BB679C00EF52E1 /* action-black-button-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button-selected.png"; sourceTree = "<group>"; };
+		EC9016D214BB679C00EF52E1 /* action-black-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button-selected@2x.png"; sourceTree = "<group>"; };
+		EC9016D314BB679C00EF52E1 /* action-black-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button.png"; sourceTree = "<group>"; };
+		EC9016D414BB679C00EF52E1 /* action-black-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button@2x.png"; sourceTree = "<group>"; };
+		EC9016D514BB679C00EF52E1 /* action-gray-button-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-gray-button-selected.png"; sourceTree = "<group>"; };
+		EC9016D614BB679C00EF52E1 /* action-gray-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-gray-button-selected@2x.png"; sourceTree = "<group>"; };
+		EC9016D714BB679C00EF52E1 /* action-gray-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-gray-button.png"; sourceTree = "<group>"; };
+		EC9016D814BB679C00EF52E1 /* action-gray-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-gray-button@2x.png"; sourceTree = "<group>"; };
+		EC9016D914BB679C00EF52E1 /* action-red-button-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-red-button-selected.png"; sourceTree = "<group>"; };
+		EC9016DA14BB679C00EF52E1 /* action-red-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-red-button-selected@2x.png"; sourceTree = "<group>"; };
+		EC9016DB14BB679C00EF52E1 /* action-red-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-red-button.png"; sourceTree = "<group>"; };
+		EC9016DC14BB679C00EF52E1 /* action-red-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-red-button@2x.png"; sourceTree = "<group>"; };
+		EC9016DD14BB679C00EF52E1 /* action-sheet-panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-sheet-panel.png"; sourceTree = "<group>"; };
+		EC9016DE14BB679C00EF52E1 /* action-sheet-panel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-sheet-panel@2x.png"; sourceTree = "<group>"; };
+		EC9016E014BB679C00EF52E1 /* alert-black-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-black-button.png"; sourceTree = "<group>"; };
+		EC9016E114BB679C00EF52E1 /* alert-black-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-black-button@2x.png"; sourceTree = "<group>"; };
+		EC9016E214BB679C00EF52E1 /* alert-gray-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-gray-button.png"; sourceTree = "<group>"; };
+		EC9016E314BB679C00EF52E1 /* alert-gray-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-gray-button@2x.png"; sourceTree = "<group>"; };
+		EC9016E414BB679C00EF52E1 /* alert-red-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-red-button.png"; sourceTree = "<group>"; };
+		EC9016E514BB679C00EF52E1 /* alert-red-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-red-button@2x.png"; sourceTree = "<group>"; };
+		EC9016E614BB679C00EF52E1 /* alert-window.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window.png"; sourceTree = "<group>"; };
+		EC9016E714BB679C00EF52E1 /* alert-window@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,12 +134,58 @@
 		EC9016A514BB629F00EF52E1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EC9016CF14BB679C00EF52E1 /* images */,
 				EC9016A614BB629F00EF52E1 /* BlockAlertsDemo-Info.plist */,
 				EC9016A714BB629F00EF52E1 /* InfoPlist.strings */,
 				EC9016AA14BB629F00EF52E1 /* main.m */,
 				EC9016AC14BB629F00EF52E1 /* BlockAlertsDemo-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EC9016CF14BB679C00EF52E1 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				EC9016D014BB679C00EF52E1 /* ActionSheet */,
+				EC9016DF14BB679C00EF52E1 /* AlertView */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		EC9016D014BB679C00EF52E1 /* ActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				EC9016D114BB679C00EF52E1 /* action-black-button-selected.png */,
+				EC9016D214BB679C00EF52E1 /* action-black-button-selected@2x.png */,
+				EC9016D314BB679C00EF52E1 /* action-black-button.png */,
+				EC9016D414BB679C00EF52E1 /* action-black-button@2x.png */,
+				EC9016D514BB679C00EF52E1 /* action-gray-button-selected.png */,
+				EC9016D614BB679C00EF52E1 /* action-gray-button-selected@2x.png */,
+				EC9016D714BB679C00EF52E1 /* action-gray-button.png */,
+				EC9016D814BB679C00EF52E1 /* action-gray-button@2x.png */,
+				EC9016D914BB679C00EF52E1 /* action-red-button-selected.png */,
+				EC9016DA14BB679C00EF52E1 /* action-red-button-selected@2x.png */,
+				EC9016DB14BB679C00EF52E1 /* action-red-button.png */,
+				EC9016DC14BB679C00EF52E1 /* action-red-button@2x.png */,
+				EC9016DD14BB679C00EF52E1 /* action-sheet-panel.png */,
+				EC9016DE14BB679C00EF52E1 /* action-sheet-panel@2x.png */,
+			);
+			path = ActionSheet;
+			sourceTree = "<group>";
+		};
+		EC9016DF14BB679C00EF52E1 /* AlertView */ = {
+			isa = PBXGroup;
+			children = (
+				EC9016E014BB679C00EF52E1 /* alert-black-button.png */,
+				EC9016E114BB679C00EF52E1 /* alert-black-button@2x.png */,
+				EC9016E214BB679C00EF52E1 /* alert-gray-button.png */,
+				EC9016E314BB679C00EF52E1 /* alert-gray-button@2x.png */,
+				EC9016E414BB679C00EF52E1 /* alert-red-button.png */,
+				EC9016E514BB679C00EF52E1 /* alert-red-button@2x.png */,
+				EC9016E614BB679C00EF52E1 /* alert-window.png */,
+				EC9016E714BB679C00EF52E1 /* alert-window@2x.png */,
+			);
+			path = AlertView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +241,28 @@
 			files = (
 				EC9016A914BB629F00EF52E1 /* InfoPlist.strings in Resources */,
 				EC9016B514BB629F00EF52E1 /* BlockAlertsDemoViewController.xib in Resources */,
+				EC9016E814BB679C00EF52E1 /* action-black-button-selected.png in Resources */,
+				EC9016E914BB679C00EF52E1 /* action-black-button-selected@2x.png in Resources */,
+				EC9016EA14BB679C00EF52E1 /* action-black-button.png in Resources */,
+				EC9016EB14BB679C00EF52E1 /* action-black-button@2x.png in Resources */,
+				EC9016EC14BB679C00EF52E1 /* action-gray-button-selected.png in Resources */,
+				EC9016ED14BB679C00EF52E1 /* action-gray-button-selected@2x.png in Resources */,
+				EC9016EE14BB679C00EF52E1 /* action-gray-button.png in Resources */,
+				EC9016EF14BB679C00EF52E1 /* action-gray-button@2x.png in Resources */,
+				EC9016F014BB679C00EF52E1 /* action-red-button-selected.png in Resources */,
+				EC9016F114BB679C00EF52E1 /* action-red-button-selected@2x.png in Resources */,
+				EC9016F214BB679C00EF52E1 /* action-red-button.png in Resources */,
+				EC9016F314BB679C00EF52E1 /* action-red-button@2x.png in Resources */,
+				EC9016F414BB679C00EF52E1 /* action-sheet-panel.png in Resources */,
+				EC9016F514BB679C00EF52E1 /* action-sheet-panel@2x.png in Resources */,
+				EC9016F614BB679C00EF52E1 /* alert-black-button.png in Resources */,
+				EC9016F714BB679C00EF52E1 /* alert-black-button@2x.png in Resources */,
+				EC9016F814BB679C00EF52E1 /* alert-gray-button.png in Resources */,
+				EC9016F914BB679C00EF52E1 /* alert-gray-button@2x.png in Resources */,
+				EC9016FA14BB679C00EF52E1 /* alert-red-button.png in Resources */,
+				EC9016FB14BB679C00EF52E1 /* alert-red-button@2x.png in Resources */,
+				EC9016FC14BB679C00EF52E1 /* alert-window.png in Resources */,
+				EC9016FD14BB679C00EF52E1 /* alert-window@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
