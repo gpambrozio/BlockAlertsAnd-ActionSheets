@@ -1,0 +1,13 @@
+//
+//  BlockAlertsDemoViewController.h
+//  BlockAlertsDemo
+//
+//  Created by Gustavo Ambrozio on 9/1/12.
+//  Copyright (c) 2012 CodeCrop Software. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface BlockAlertsDemoViewController : UIViewController
+
+@end

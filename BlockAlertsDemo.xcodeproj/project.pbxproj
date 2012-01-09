@@ -1,0 +1,280 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EC90169F14BB629F00EF52E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC90169E14BB629F00EF52E1 /* UIKit.framework */; };
+		EC9016A114BB629F00EF52E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9016A014BB629F00EF52E1 /* Foundation.framework */; };
+		EC9016A314BB629F00EF52E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9016A214BB629F00EF52E1 /* CoreGraphics.framework */; };
+		EC9016A914BB629F00EF52E1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC9016A714BB629F00EF52E1 /* InfoPlist.strings */; };
+		EC9016AB14BB629F00EF52E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016AA14BB629F00EF52E1 /* main.m */; };
+		EC9016AF14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016AE14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m */; };
+		EC9016B214BB629F00EF52E1 /* BlockAlertsDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */; };
+		EC9016B514BB629F00EF52E1 /* BlockAlertsDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC9016B314BB629F00EF52E1 /* BlockAlertsDemoViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		EC90169A14BB629F00EF52E1 /* BlockAlertsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlockAlertsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC90169E14BB629F00EF52E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EC9016A014BB629F00EF52E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EC9016A214BB629F00EF52E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EC9016A614BB629F00EF52E1 /* BlockAlertsDemo-Info.plist */ = {isa = PBXFileReference; path = "BlockAlertsDemo-Info.plist"; sourceTree = "<group>"; };
+		EC9016A814BB629F00EF52E1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC9016AA14BB629F00EF52E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EC9016AC14BB629F00EF52E1 /* BlockAlertsDemo-Prefix.pch */ = {isa = PBXFileReference; path = "BlockAlertsDemo-Prefix.pch"; sourceTree = "<group>"; };
+		EC9016AD14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.h */ = {isa = PBXFileReference; path = BlockAlertsDemoAppDelegate.h; sourceTree = "<group>"; };
+		EC9016AE14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockAlertsDemoAppDelegate.m; sourceTree = "<group>"; };
+		EC9016B014BB629F00EF52E1 /* BlockAlertsDemoViewController.h */ = {isa = PBXFileReference; path = BlockAlertsDemoViewController.h; sourceTree = "<group>"; };
+		EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockAlertsDemoViewController.m; sourceTree = "<group>"; };
+		EC9016B414BB629F00EF52E1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BlockAlertsDemoViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC90169714BB629F00EF52E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC90169F14BB629F00EF52E1 /* UIKit.framework in Frameworks */,
+				EC9016A114BB629F00EF52E1 /* Foundation.framework in Frameworks */,
+				EC9016A314BB629F00EF52E1 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EC90168F14BB629F00EF52E1 = {
+			isa = PBXGroup;
+			children = (
+				EC9016A414BB629F00EF52E1 /* BlockAlertsDemo */,
+				EC90169D14BB629F00EF52E1 /* Frameworks */,
+				EC90169B14BB629F00EF52E1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EC90169B14BB629F00EF52E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC90169A14BB629F00EF52E1 /* BlockAlertsDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EC90169D14BB629F00EF52E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC90169E14BB629F00EF52E1 /* UIKit.framework */,
+				EC9016A014BB629F00EF52E1 /* Foundation.framework */,
+				EC9016A214BB629F00EF52E1 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC9016A414BB629F00EF52E1 /* BlockAlertsDemo */ = {
+			isa = PBXGroup;
+			children = (
+				EC9016AD14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.h */,
+				EC9016AE14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m */,
+				EC9016B014BB629F00EF52E1 /* BlockAlertsDemoViewController.h */,
+				EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */,
+				EC9016B314BB629F00EF52E1 /* BlockAlertsDemoViewController.xib */,
+				EC9016A514BB629F00EF52E1 /* Supporting Files */,
+			);
+			path = BlockAlertsDemo;
+			sourceTree = "<group>";
+		};
+		EC9016A514BB629F00EF52E1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EC9016A614BB629F00EF52E1 /* BlockAlertsDemo-Info.plist */,
+				EC9016A714BB629F00EF52E1 /* InfoPlist.strings */,
+				EC9016AA14BB629F00EF52E1 /* main.m */,
+				EC9016AC14BB629F00EF52E1 /* BlockAlertsDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EC90169914BB629F00EF52E1 /* BlockAlertsDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC9016B814BB629F00EF52E1 /* Build configuration list for PBXNativeTarget "BlockAlertsDemo" */;
+			buildPhases = (
+				EC90169614BB629F00EF52E1 /* Sources */,
+				EC90169714BB629F00EF52E1 /* Frameworks */,
+				EC90169814BB629F00EF52E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BlockAlertsDemo;
+			productName = BlockAlertsDemo;
+			productReference = EC90169A14BB629F00EF52E1 /* BlockAlertsDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EC90169114BB629F00EF52E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "CodeCrop Software";
+			};
+			buildConfigurationList = EC90169414BB629F00EF52E1 /* Build configuration list for PBXProject "BlockAlertsDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EC90168F14BB629F00EF52E1;
+			productRefGroup = EC90169B14BB629F00EF52E1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EC90169914BB629F00EF52E1 /* BlockAlertsDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EC90169814BB629F00EF52E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC9016A914BB629F00EF52E1 /* InfoPlist.strings in Resources */,
+				EC9016B514BB629F00EF52E1 /* BlockAlertsDemoViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EC90169614BB629F00EF52E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC9016AB14BB629F00EF52E1 /* main.m in Sources */,
+				EC9016AF14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m in Sources */,
+				EC9016B214BB629F00EF52E1 /* BlockAlertsDemoViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EC9016A714BB629F00EF52E1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC9016A814BB629F00EF52E1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EC9016B314BB629F00EF52E1 /* BlockAlertsDemoViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC9016B414BB629F00EF52E1 /* en */,
+			);
+			name = BlockAlertsDemoViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EC9016B614BB629F00EF52E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EC9016B714BB629F00EF52E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EC9016B914BB629F00EF52E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BlockAlertsDemo/BlockAlertsDemo-Prefix.pch";
+				INFOPLIST_FILE = "BlockAlertsDemo/BlockAlertsDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EC9016BA14BB629F00EF52E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BlockAlertsDemo/BlockAlertsDemo-Prefix.pch";
+				INFOPLIST_FILE = "BlockAlertsDemo/BlockAlertsDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EC90169414BB629F00EF52E1 /* Build configuration list for PBXProject "BlockAlertsDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC9016B614BB629F00EF52E1 /* Debug */,
+				EC9016B714BB629F00EF52E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC9016B814BB629F00EF52E1 /* Build configuration list for PBXNativeTarget "BlockAlertsDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC9016B914BB629F00EF52E1 /* Debug */,
+				EC9016BA14BB629F00EF52E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EC90169114BB629F00EF52E1 /* Project object */;
+}
