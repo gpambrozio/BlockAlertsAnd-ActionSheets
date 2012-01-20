@@ -15,6 +15,9 @@
 		EC9016AF14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016AE14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m */; };
 		EC9016B214BB629F00EF52E1 /* BlockAlertsDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */; };
 		EC9016B514BB629F00EF52E1 /* BlockAlertsDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC9016B314BB629F00EF52E1 /* BlockAlertsDemoViewController.xib */; };
+		EC9016C814BB62ED00EF52E1 /* BlockActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016C314BB62ED00EF52E1 /* BlockActionSheet.m */; };
+		EC9016C914BB62ED00EF52E1 /* BlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016C514BB62ED00EF52E1 /* BlockAlertView.m */; };
+		EC9016CA14BB62ED00EF52E1 /* BlockBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016C714BB62ED00EF52E1 /* BlockBackground.m */; };
 		EC9016E814BB679C00EF52E1 /* action-black-button-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D114BB679C00EF52E1 /* action-black-button-selected.png */; };
 		EC9016E914BB679C00EF52E1 /* action-black-button-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D214BB679C00EF52E1 /* action-black-button-selected@2x.png */; };
 		EC9016EA14BB679C00EF52E1 /* action-black-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D314BB679C00EF52E1 /* action-black-button.png */; };
@@ -50,15 +53,21 @@
 		EC90169E14BB629F00EF52E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EC9016A014BB629F00EF52E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EC9016A214BB629F00EF52E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		EC9016A614BB629F00EF52E1 /* BlockAlertsDemo-Info.plist */ = {isa = PBXFileReference; path = "BlockAlertsDemo-Info.plist"; sourceTree = "<group>"; };
+		EC9016A614BB629F00EF52E1 /* BlockAlertsDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlockAlertsDemo-Info.plist"; sourceTree = "<group>"; };
 		EC9016A814BB629F00EF52E1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC9016AA14BB629F00EF52E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EC9016AC14BB629F00EF52E1 /* BlockAlertsDemo-Prefix.pch */ = {isa = PBXFileReference; path = "BlockAlertsDemo-Prefix.pch"; sourceTree = "<group>"; };
-		EC9016AD14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.h */ = {isa = PBXFileReference; path = BlockAlertsDemoAppDelegate.h; sourceTree = "<group>"; };
+		EC9016AC14BB629F00EF52E1 /* BlockAlertsDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlockAlertsDemo-Prefix.pch"; sourceTree = "<group>"; };
+		EC9016AD14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockAlertsDemoAppDelegate.h; sourceTree = "<group>"; };
 		EC9016AE14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockAlertsDemoAppDelegate.m; sourceTree = "<group>"; };
-		EC9016B014BB629F00EF52E1 /* BlockAlertsDemoViewController.h */ = {isa = PBXFileReference; path = BlockAlertsDemoViewController.h; sourceTree = "<group>"; };
+		EC9016B014BB629F00EF52E1 /* BlockAlertsDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockAlertsDemoViewController.h; sourceTree = "<group>"; };
 		EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockAlertsDemoViewController.m; sourceTree = "<group>"; };
 		EC9016B414BB629F00EF52E1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BlockAlertsDemoViewController.xib; sourceTree = "<group>"; };
+		EC9016C214BB62ED00EF52E1 /* BlockActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActionSheet.h; sourceTree = "<group>"; };
+		EC9016C314BB62ED00EF52E1 /* BlockActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockActionSheet.m; sourceTree = "<group>"; };
+		EC9016C414BB62ED00EF52E1 /* BlockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockAlertView.h; sourceTree = "<group>"; };
+		EC9016C514BB62ED00EF52E1 /* BlockAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockAlertView.m; sourceTree = "<group>"; };
+		EC9016C614BB62ED00EF52E1 /* BlockBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockBackground.h; sourceTree = "<group>"; };
+		EC9016C714BB62ED00EF52E1 /* BlockBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockBackground.m; sourceTree = "<group>"; };
 		EC9016D114BB679C00EF52E1 /* action-black-button-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button-selected.png"; sourceTree = "<group>"; };
 		EC9016D214BB679C00EF52E1 /* action-black-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button-selected@2x.png"; sourceTree = "<group>"; };
 		EC9016D314BB679C00EF52E1 /* action-black-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button.png"; sourceTree = "<group>"; };
@@ -138,6 +147,7 @@
 				EC9016B014BB629F00EF52E1 /* BlockAlertsDemoViewController.h */,
 				EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */,
 				EC9016B314BB629F00EF52E1 /* BlockAlertsDemoViewController.xib */,
+				ECEA27FE14C9D2D6002C2907 /* Needed for your project */,
 				EC9016A514BB629F00EF52E1 /* Supporting Files */,
 			);
 			path = BlockAlertsDemo;
@@ -204,6 +214,19 @@
 				EC9016E714BB679C00EF52E1 /* alert-window@2x.png */,
 			);
 			path = AlertView;
+			sourceTree = "<group>";
+		};
+		ECEA27FE14C9D2D6002C2907 /* Needed for your project */ = {
+			isa = PBXGroup;
+			children = (
+				EC9016C614BB62ED00EF52E1 /* BlockBackground.h */,
+				EC9016C714BB62ED00EF52E1 /* BlockBackground.m */,
+				EC9016C214BB62ED00EF52E1 /* BlockActionSheet.h */,
+				EC9016C314BB62ED00EF52E1 /* BlockActionSheet.m */,
+				EC9016C414BB62ED00EF52E1 /* BlockAlertView.h */,
+				EC9016C514BB62ED00EF52E1 /* BlockAlertView.m */,
+			);
+			name = "Needed for your project";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,6 +323,9 @@
 				EC9016AB14BB629F00EF52E1 /* main.m in Sources */,
 				EC9016AF14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m in Sources */,
 				EC9016B214BB629F00EF52E1 /* BlockAlertsDemoViewController.m in Sources */,
+				EC9016C814BB62ED00EF52E1 /* BlockActionSheet.m in Sources */,
+				EC9016C914BB62ED00EF52E1 /* BlockAlertView.m in Sources */,
+				EC9016CA14BB62ED00EF52E1 /* BlockBackground.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +400,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlockAlertsDemo/BlockAlertsDemo-Prefix.pch";
 				INFOPLIST_FILE = "BlockAlertsDemo/BlockAlertsDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -385,6 +412,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlockAlertsDemo/BlockAlertsDemo-Prefix.pch";
 				INFOPLIST_FILE = "BlockAlertsDemo/BlockAlertsDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -409,6 +437,7 @@
 				EC9016BA14BB629F00EF52E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
