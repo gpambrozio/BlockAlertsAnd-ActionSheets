@@ -7,49 +7,13 @@
 //
 
 #import "BlockAlertsDemoViewController.h"
+#import "BlockAlertView.h"
+#import "BlockActionSheet.h"
 
 @implementation BlockAlertsDemoViewController
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
+@synthesize testKeyboard;
 
 #pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -57,4 +21,96 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+- (IBAction)showAlert:(id)sender
+{
+    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Alert Title" message:@"This is a very long message, designed just to show you how smart this class is"];
+    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
+    [alert setDestructiveButtonWithTitle:@"Kill!" block:nil];
+    [alert addButtonWithTitle:@"Show Action Sheet on top" block:^{
+        [self showActionSheet:nil];
+    }];
+    [alert addButtonWithTitle:@"Show another alert" block:^{
+        [self showAlert:nil];
+    }];
+    [alert show];
+}
+
+- (IBAction)showActionSheet:(id)sender
+{
+    BlockActionSheet *sheet = [BlockActionSheet sheetWithTitle:@"This is a sheet title that will span more than one line"];
+    [sheet setCancelButtonWithTitle:@"Cancel Button" block:nil];
+    [sheet setDestructiveButtonWithTitle:@"Destructive Button" block:nil];
+    [sheet addButtonWithTitle:@"Show Action Sheet on top" block:^{
+        [self showActionSheet:nil];
+    }];
+    [sheet addButtonWithTitle:@"Show another alert" block:^{
+        [self showAlert:nil];
+    }];
+    [sheet showInView:self.view];
+}
+
+- (IBAction)showAlertPlusActionSheet:(id)sender
+{
+    [self showAlert:nil];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self showActionSheet:nil];
+    });
+}
+
+- (IBAction)showActionSheetPlusAlert:(id)sender
+{
+    [self showActionSheet:nil];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self showAlert:nil];
+    });
+}
+
+- (IBAction)goNuts:(id)sender
+{
+    for (int i=0; i<6; i++)
+    {
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5 * i * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            if (arc4random() % 2 == 0)
+                [self showAlert:nil];
+            else
+                [self showActionSheet:nil];
+        });
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self showAlert:nil];
+    return YES;
+}
+
+- (IBAction)whatsArrived:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.getarrived.com"]];
+}
+
+- (IBAction)arrivedBlog:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.getarrived.com/blog/"]];
+}
+
+- (IBAction)dismissKeyboard:(id)sender
+{
+    [self.testKeyboard resignFirstResponder];
+}
+
+- (void)dealloc
+{
+    [testKeyboard release];
+    [super dealloc];
+}
+
+- (void)viewDidUnload
+{
+    [self setTestKeyboard:nil];
+    [super viewDidUnload];
+}
 @end
