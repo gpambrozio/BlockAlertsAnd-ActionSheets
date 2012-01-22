@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BlockBackground : UIWindow {
-    UIWindow *mainWindow;
-}
+@interface BlockBackground : UIWindow
 
 + (BlockBackground *) sharedInstance;
 

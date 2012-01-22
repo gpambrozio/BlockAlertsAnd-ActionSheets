@@ -67,7 +67,6 @@ static BlockBackground *_sharedInstance = nil;
 {
     self = [super initWithFrame:[[UIScreen mainScreen] bounds]];
     if (self) {
-        mainWindow = [[UIApplication sharedApplication] keyWindow];
         self.windowLevel = UIWindowLevelStatusBar;
         self.hidden = YES;
         self.userInteractionEnabled = NO;
@@ -109,7 +108,7 @@ static BlockBackground *_sharedInstance = nil;
     if (self.subviews.count == 0)
     {
         self.hidden = YES;
-        [mainWindow makeKeyAndVisible];
+        [self resignKeyWindow];
     }
     else
     {
