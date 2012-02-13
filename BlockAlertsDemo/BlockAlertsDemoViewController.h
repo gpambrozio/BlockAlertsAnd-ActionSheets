@@ -18,6 +18,7 @@
 - (IBAction)whatsArrived:(id)sender;
 - (IBAction)arrivedBlog:(id)sender;
 - (IBAction)dismissKeyboard:(id)sender;
+- (IBAction)showTextPrompt:(id)sender;
 
 @property (retain, nonatomic) IBOutlet UITextField *testKeyboard;
 
