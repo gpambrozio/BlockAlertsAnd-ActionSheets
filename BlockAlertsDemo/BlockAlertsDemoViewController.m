@@ -9,6 +9,7 @@
 #import "BlockAlertsDemoViewController.h"
 #import "BlockAlertView.h"
 #import "BlockActionSheet.h"
+#import "BlockTextPromptAlertView.h"
 
 @implementation BlockAlertsDemoViewController
 @synthesize testKeyboard;
@@ -24,6 +25,7 @@
 - (IBAction)showAlert:(id)sender
 {
     BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Alert Title" message:@"This is a very long message, designed just to show you how smart this class is"];
+
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];
     [alert setDestructiveButtonWithTitle:@"Kill!" block:nil];
     [alert addButtonWithTitle:@"Show Action Sheet on top" block:^{
@@ -79,6 +81,16 @@
                 [self showActionSheet:nil];
         });
     }
+}
+
+- (IBAction)showTextPrompt:(id)sender
+{
+    BlockTextPromptAlertView *alert = [BlockTextPromptAlertView promptWithTitle:@"Prompt Title" message:@"With prompts you do have to keep in mind limited screen space due to the keyboard" defaultText:@"some default text!"];
+    
+    
+    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
+    [alert addButtonWithTitle:@"Okay" block:nil];
+    [alert show];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

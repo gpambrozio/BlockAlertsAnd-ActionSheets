@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BlockAlertView : NSObject {
-@private
+@protected
     UIView *_view;
     NSMutableArray *_blocks;
     CGFloat _height;
