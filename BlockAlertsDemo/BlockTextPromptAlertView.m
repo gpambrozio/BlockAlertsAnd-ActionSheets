@@ -17,13 +17,22 @@
 
 @implementation BlockTextPromptAlertView
 @synthesize textField;
-@synthesize enteredText;
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
     
     return [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:defaultText] autorelease];
     
 }
+
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField {
+    
+    BlockTextPromptAlertView *prompt = [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:nil] autorelease];
+    
+    *textField = prompt.textField;
+    
+    return prompt;
+}
+
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
    
