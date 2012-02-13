@@ -78,14 +78,33 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGFloat keyboardHeight;
+    
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    if(notification) {
+        NSDictionary* keyboardInfo = [notification userInfo];
+        CGRect keyboardFrame = [[keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+        
+        if(UIInterfaceOrientationIsPortrait(orientation))
+            keyboardHeight = keyboardFrame.size.height;
+        else
+            keyboardHeight = keyboardFrame.size.width;
+    }
     
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+
+    if(UIInterfaceOrientationIsPortrait(orientation))
+        screenHeight = [UIScreen mainScreen].bounds.size.height;
+    else
+        screenHeight = [UIScreen mainScreen].bounds.size.width;
+
+    
     __block CGRect frame = _view.frame;
     
-    if (frame.origin.y + frame.size.height > screenHeight - keyboardSize.height) {
+    if (frame.origin.y + frame.size.height > screenHeight - keyboardHeight) {
         
-        frame.origin.y = screenHeight - keyboardSize.height - frame.size.height;
+        frame.origin.y = screenHeight - keyboardHeight - frame.size.height;
         
         if (frame.origin.y < 0)
             frame.origin.y = 0;
