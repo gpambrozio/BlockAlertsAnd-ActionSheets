@@ -16,9 +16,9 @@
 
 @property (nonatomic, retain) UITextField *textField;
 
-@property (nonatomic, readonly) NSString* enteredText;
-
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;
+
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField;
 
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;

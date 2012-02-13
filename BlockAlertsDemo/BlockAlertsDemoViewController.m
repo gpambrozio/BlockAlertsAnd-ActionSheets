@@ -85,11 +85,14 @@
 
 - (IBAction)showTextPrompt:(id)sender
 {
-    BlockTextPromptAlertView *alert = [BlockTextPromptAlertView promptWithTitle:@"Prompt Title" message:@"With prompts you do have to keep in mind limited screen space due to the keyboard" defaultText:@"some default text!"];
+    UITextField *textField;
+    BlockTextPromptAlertView *alert = [BlockTextPromptAlertView promptWithTitle:@"Prompt Title" message:@"With prompts you do have to keep in mind limited screen space due to the keyboard" textField:&textField];
     
     
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];
-    [alert addButtonWithTitle:@"Okay" block:nil];
+    [alert addButtonWithTitle:@"Okay" block:^{
+        NSLog(@"Text: %@", textField.text);
+    }];
     [alert show];
 }
 
