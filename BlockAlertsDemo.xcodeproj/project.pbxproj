@@ -93,6 +93,7 @@
 		EC9016E514BB679C00EF52E1 /* alert-red-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-red-button@2x.png"; sourceTree = "<group>"; };
 		EC9016E614BB679C00EF52E1 /* alert-window.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window.png"; sourceTree = "<group>"; };
 		EC9016E714BB679C00EF52E1 /* alert-window@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window@2x.png"; sourceTree = "<group>"; };
+		ECAAB39C14EB0C1E00427033 /* BlockUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockUI.h; sourceTree = "<group>"; };
 		ECAF5FF914BE66B00095B359 /* arrived.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrived.png; sourceTree = "<group>"; };
 		ECAF5FFA14BE66B00095B359 /* arrived@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrived@2x.png"; sourceTree = "<group>"; };
 		ECAF5FFE14BE67BB0095B359 /* button_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_grey.png; sourceTree = "<group>"; };
@@ -222,6 +223,7 @@
 		ECEA27FE14C9D2D6002C2907 /* Needed for your project */ = {
 			isa = PBXGroup;
 			children = (
+				ECAAB39C14EB0C1E00427033 /* BlockUI.h */,
 				EC9016C614BB62ED00EF52E1 /* BlockBackground.h */,
 				EC9016C714BB62ED00EF52E1 /* BlockBackground.m */,
 				EC9016C214BB62ED00EF52E1 /* BlockActionSheet.h */,
