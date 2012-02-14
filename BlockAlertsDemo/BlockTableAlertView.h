@@ -38,7 +38,7 @@ typedef enum {
 
 @property (readwrite,copy)	TableAlertIndexBlock didSelectRow;
 @property (readwrite,copy)	TableAlertIndexBlock willDismissWithButtonIndex;
-
+@property (readwrite,copy)	TableAlertGeneralBlock willPresent;
 @property (readwrite,copy)	TableAlertCellSourceBlock cellForRow;
 @property (readwrite,copy)	TableAlertNumberOfRowsBlock numberOfRowsInTableAlert;
 

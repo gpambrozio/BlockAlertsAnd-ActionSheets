@@ -22,8 +22,8 @@
 @synthesize	didSelectRow;
 @synthesize willDismissWithButtonIndex;
 @synthesize maxSelection;
-
 @synthesize cellForRow;
+@synthesize willPresent;
 @synthesize numberOfRowsInTableAlert;
 
 @dynamic indexPathsForSelectedRows;
@@ -76,6 +76,9 @@
 
 - (void)show {
     [self setupDisplay];
+    
+    if (self.willPresent)
+        self.willPresent(self);
     
     if (self.type == BlockTableAlertTypeMultipleSelct && SUPPORTS_MULTIPLE_SELECTION) {
         self.tableView.allowsMultipleSelectionDuringEditing = YES;
