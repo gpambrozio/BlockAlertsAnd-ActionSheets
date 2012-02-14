@@ -79,6 +79,7 @@ static BlockBackground *_sharedInstance = nil;
 {
     if (self.hidden)
     {
+        _previousKeyWindow = [[[UIApplication sharedApplication] keyWindow] retain];
         self.alpha = 0.0f;
         self.hidden = NO;
         self.userInteractionEnabled = YES;
@@ -108,7 +109,9 @@ static BlockBackground *_sharedInstance = nil;
     if (self.subviews.count == 0)
     {
         self.hidden = YES;
-        [self resignKeyWindow];
+        [_previousKeyWindow makeKeyAndVisible];
+        [_previousKeyWindow release];
+        _previousKeyWindow = nil;
     }
     else
     {
