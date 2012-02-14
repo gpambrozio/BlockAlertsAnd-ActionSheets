@@ -67,7 +67,8 @@
                                                      name:UIKeyboardWillShowNotification
                                                    object:nil];
         
-        // actual setup for subclass is done in addComponents which is done by the super in init
+        if ([self class] == [BlockTextPromptAlertView class])
+            [self setupDisplay];
     }
     
     return self;
