@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F1A9CFB14EAD1350068C472 /* BlockTableAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1A9CFA14EAD1350068C472 /* BlockTableAlertView.m */; };
 		B5B0620C14E95174007F2C78 /* BlockTextPromptAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B0620B14E95174007F2C78 /* BlockTextPromptAlertView.m */; };
 		B5B9854014E9E92E00DD4CDA /* alert-window-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = B5B9853E14E9E92E00DD4CDA /* alert-window-landscape.png */; };
 		B5B9854114E9E92E00DD4CDA /* alert-window-landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5B9853F14E9E92E00DD4CDA /* alert-window-landscape@2x.png */; };
@@ -52,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F1A9CF914EAD1350068C472 /* BlockTableAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTableAlertView.h; sourceTree = "<group>"; };
+		6F1A9CFA14EAD1350068C472 /* BlockTableAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTableAlertView.m; sourceTree = "<group>"; };
 		B5B0620A14E95174007F2C78 /* BlockTextPromptAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTextPromptAlertView.h; sourceTree = "<group>"; };
 		B5B0620B14E95174007F2C78 /* BlockTextPromptAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTextPromptAlertView.m; sourceTree = "<group>"; };
 		B5B9853E14E9E92E00DD4CDA /* alert-window-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window-landscape.png"; sourceTree = "<group>"; };
@@ -236,6 +239,8 @@
 				EC9016C514BB62ED00EF52E1 /* BlockAlertView.m */,
 				B5B0620A14E95174007F2C78 /* BlockTextPromptAlertView.h */,
 				B5B0620B14E95174007F2C78 /* BlockTextPromptAlertView.m */,
+				6F1A9CF914EAD1350068C472 /* BlockTableAlertView.h */,
+				6F1A9CFA14EAD1350068C472 /* BlockTableAlertView.m */,
 			);
 			name = "Needed for your project";
 			sourceTree = "<group>";
@@ -340,6 +345,7 @@
 				EC9016C914BB62ED00EF52E1 /* BlockAlertView.m in Sources */,
 				EC9016CA14BB62ED00EF52E1 /* BlockBackground.m in Sources */,
 				B5B0620C14E95174007F2C78 /* BlockTextPromptAlertView.m in Sources */,
+				6F1A9CFB14EAD1350068C472 /* BlockTableAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
