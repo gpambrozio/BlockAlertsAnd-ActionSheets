@@ -47,8 +47,14 @@
         [theTextField setTextAlignment:UITextAlignmentCenter];
         [theTextField setClearButtonMode:UITextFieldViewModeAlways];
         
+        theTextField.delegate = self;
+
+        
         if (defaultText)
             theTextField.text = defaultText;
+        
+        maxLength = 0;
+        buttonIndexForReturn = 1;
         
         [_view addSubview:theTextField];
         
@@ -73,6 +79,8 @@
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
     [super dismissWithClickedButtonIndex:buttonIndex animated:animated];
+    
+    [self.textField resignFirstResponder];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 }
@@ -121,13 +129,21 @@
 
 
 - (void)setAllowableCharacters:(NSString*)accepted {
-    unacceptedInput = [[NSCharacterSet characterSetWithCharactersInString:accepted] invertedSet];
-    self.textField.delegate = self;
+    unacceptedInput = [[[NSCharacterSet characterSetWithCharactersInString:accepted] invertedSet] retain];
 }
 
 - (void)setMaxLength:(NSInteger)max {
     maxLength = max;
-    self.textField.delegate = self;
+}
+
+- (void)setButtonIndexForReturn:(NSInteger)index {
+    buttonIndexForReturn = index;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self dismissWithClickedButtonIndex:buttonIndexForReturn animated:YES];
+    
+    return NO;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -144,6 +160,11 @@
         return NO;
     else 
         return YES;
+}
+
+- (void)dealloc {
+    [unacceptedInput release];
+    [super dealloc];
 }
 
 @end

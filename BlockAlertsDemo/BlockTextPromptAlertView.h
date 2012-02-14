@@ -12,6 +12,7 @@
     
     NSCharacterSet *unacceptedInput;
     NSInteger maxLength;
+    NSInteger buttonIndexForReturn;
 }
 
 @property (nonatomic, retain) UITextField *textField;
@@ -26,5 +27,8 @@
 
 - (void)setAllowableCharacters:(NSString*)accepted;
 - (void)setMaxLength:(NSInteger)max;
+
+- (void)setButtonIndexForReturn:(NSInteger)index;
+
 
 @end
