@@ -7,7 +7,6 @@
 //
 
 #import "BlockTextPromptAlertView.h"
-#import <QuartzCore/QuartzCore.h>
 
 #define kTextBoxHeight      31
 #define kTextBoxSpacing     5
@@ -76,7 +75,7 @@
 
 - (void)show {
     [super show];
-    [self.textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.2];
+    [self.textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.05];
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
@@ -122,21 +121,13 @@
         
         _cancelBounce = YES;
         
-        [UIView animateWithDuration:0.0
+        [UIView animateWithDuration:animationDuration
                               delay:0.0
-                            options:UIViewAnimationOptionBeginFromCurrentState
-                         animations:^{_view.frame = ((CALayer *)_view.layer.presentationLayer).frame;}
-                         completion:^(BOOL finished){
-
-                             [UIView animateWithDuration:animationDuration
-                                                   delay:0.0
-                                                 options:UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
-                                              animations:^{
-                                                  _view.frame = frame;
-                                              } 
-                                              completion:nil];
-                         }
-         ];
+                            options:UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             _view.frame = frame;
+                         } 
+                         completion:nil];
     }
 }
 
