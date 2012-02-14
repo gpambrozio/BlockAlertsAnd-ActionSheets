@@ -19,4 +19,6 @@
 - (void)reduceAlphaIfEmpty;
 - (void)removeView:(UIView *)view;
 
+@property (nonatomic, retain) UIImage *backgroundImage;
+
 @end

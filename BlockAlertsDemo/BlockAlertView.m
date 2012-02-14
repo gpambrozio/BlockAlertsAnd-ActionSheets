@@ -9,6 +9,7 @@
 @implementation BlockAlertView
 
 @synthesize view = _view;
+@synthesize backgroundImage = _backgroundImage;
 
 static UIImage *background = nil;
 static UIFont *titleFont = nil;
@@ -109,6 +110,7 @@ static UIFont *buttonFont = nil;
 
 - (void)dealloc 
 {
+    [_backgroundImage release];
     [_view release];
     [_blocks release];
     [super dealloc];
@@ -228,6 +230,13 @@ static UIFont *buttonFont = nil;
     modalBackground.contentMode = UIViewContentModeScaleToFill;
     [_view insertSubview:modalBackground atIndex:0];
     [modalBackground release];
+    
+    if (_backgroundImage)
+    {
+        [BlockBackground sharedInstance].backgroundImage = _backgroundImage;
+        [_backgroundImage release];
+        _backgroundImage = nil;
+    }
     
     [[BlockBackground sharedInstance] addToMainWindow:_view];
 
