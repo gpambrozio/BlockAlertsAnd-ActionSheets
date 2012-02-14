@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B5B0620C14E95174007F2C78 /* BlockTextPromptAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B0620B14E95174007F2C78 /* BlockTextPromptAlertView.m */; };
 		EC90169F14BB629F00EF52E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC90169E14BB629F00EF52E1 /* UIKit.framework */; };
 		EC9016A114BB629F00EF52E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9016A014BB629F00EF52E1 /* Foundation.framework */; };
 		EC9016A314BB629F00EF52E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9016A214BB629F00EF52E1 /* CoreGraphics.framework */; };
@@ -16,9 +15,6 @@
 		EC9016AF14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016AE14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m */; };
 		EC9016B214BB629F00EF52E1 /* BlockAlertsDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */; };
 		EC9016B514BB629F00EF52E1 /* BlockAlertsDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC9016B314BB629F00EF52E1 /* BlockAlertsDemoViewController.xib */; };
-		EC9016C814BB62ED00EF52E1 /* BlockActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016C314BB62ED00EF52E1 /* BlockActionSheet.m */; };
-		EC9016C914BB62ED00EF52E1 /* BlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016C514BB62ED00EF52E1 /* BlockAlertView.m */; };
-		EC9016CA14BB62ED00EF52E1 /* BlockBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9016C714BB62ED00EF52E1 /* BlockBackground.m */; };
 		EC9016E814BB679C00EF52E1 /* action-black-button-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D114BB679C00EF52E1 /* action-black-button-selected.png */; };
 		EC9016E914BB679C00EF52E1 /* action-black-button-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D214BB679C00EF52E1 /* action-black-button-selected@2x.png */; };
 		EC9016EA14BB679C00EF52E1 /* action-black-button.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9016D314BB679C00EF52E1 /* action-black-button.png */; };
@@ -47,11 +43,13 @@
 		ECAF600314BE67BB0095B359 /* button_grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECAF5FFF14BE67BB0095B359 /* button_grey@2x.png */; };
 		ECAF600414BE67BB0095B359 /* button_red.png in Resources */ = {isa = PBXBuildFile; fileRef = ECAF600014BE67BB0095B359 /* button_red.png */; };
 		ECAF600514BE67BB0095B359 /* button_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECAF600114BE67BB0095B359 /* button_red@2x.png */; };
+		ECFC5EFE14EB1DA4004BFD45 /* BlockActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFC5EF714EB1DA4004BFD45 /* BlockActionSheet.m */; };
+		ECFC5EFF14EB1DA4004BFD45 /* BlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFC5EF914EB1DA4004BFD45 /* BlockAlertView.m */; };
+		ECFC5F0014EB1DA4004BFD45 /* BlockBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFC5EFB14EB1DA4004BFD45 /* BlockBackground.m */; };
+		ECFC5F0114EB1DA4004BFD45 /* BlockTextPromptAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFC5EFD14EB1DA4004BFD45 /* BlockTextPromptAlertView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B5B0620A14E95174007F2C78 /* BlockTextPromptAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTextPromptAlertView.h; sourceTree = "<group>"; };
-		B5B0620B14E95174007F2C78 /* BlockTextPromptAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTextPromptAlertView.m; sourceTree = "<group>"; };
 		EC90169A14BB629F00EF52E1 /* BlockAlertsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlockAlertsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC90169E14BB629F00EF52E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EC9016A014BB629F00EF52E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -65,12 +63,6 @@
 		EC9016B014BB629F00EF52E1 /* BlockAlertsDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockAlertsDemoViewController.h; sourceTree = "<group>"; };
 		EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockAlertsDemoViewController.m; sourceTree = "<group>"; };
 		EC9016B414BB629F00EF52E1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BlockAlertsDemoViewController.xib; sourceTree = "<group>"; };
-		EC9016C214BB62ED00EF52E1 /* BlockActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActionSheet.h; sourceTree = "<group>"; };
-		EC9016C314BB62ED00EF52E1 /* BlockActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockActionSheet.m; sourceTree = "<group>"; };
-		EC9016C414BB62ED00EF52E1 /* BlockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockAlertView.h; sourceTree = "<group>"; };
-		EC9016C514BB62ED00EF52E1 /* BlockAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockAlertView.m; sourceTree = "<group>"; };
-		EC9016C614BB62ED00EF52E1 /* BlockBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockBackground.h; sourceTree = "<group>"; };
-		EC9016C714BB62ED00EF52E1 /* BlockBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockBackground.m; sourceTree = "<group>"; };
 		EC9016D114BB679C00EF52E1 /* action-black-button-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button-selected.png"; sourceTree = "<group>"; };
 		EC9016D214BB679C00EF52E1 /* action-black-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button-selected@2x.png"; sourceTree = "<group>"; };
 		EC9016D314BB679C00EF52E1 /* action-black-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button.png"; sourceTree = "<group>"; };
@@ -93,13 +85,21 @@
 		EC9016E514BB679C00EF52E1 /* alert-red-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-red-button@2x.png"; sourceTree = "<group>"; };
 		EC9016E614BB679C00EF52E1 /* alert-window.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window.png"; sourceTree = "<group>"; };
 		EC9016E714BB679C00EF52E1 /* alert-window@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window@2x.png"; sourceTree = "<group>"; };
-		ECAAB39C14EB0C1E00427033 /* BlockUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockUI.h; sourceTree = "<group>"; };
 		ECAF5FF914BE66B00095B359 /* arrived.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrived.png; sourceTree = "<group>"; };
 		ECAF5FFA14BE66B00095B359 /* arrived@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrived@2x.png"; sourceTree = "<group>"; };
 		ECAF5FFE14BE67BB0095B359 /* button_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_grey.png; sourceTree = "<group>"; };
 		ECAF5FFF14BE67BB0095B359 /* button_grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_grey@2x.png"; sourceTree = "<group>"; };
 		ECAF600014BE67BB0095B359 /* button_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_red.png; sourceTree = "<group>"; };
 		ECAF600114BE67BB0095B359 /* button_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_red@2x.png"; sourceTree = "<group>"; };
+		ECFC5EF414EB1DA4004BFD45 /* BlockUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockUI.h; sourceTree = "<group>"; };
+		ECFC5EF614EB1DA4004BFD45 /* BlockActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActionSheet.h; sourceTree = "<group>"; };
+		ECFC5EF714EB1DA4004BFD45 /* BlockActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockActionSheet.m; sourceTree = "<group>"; };
+		ECFC5EF814EB1DA4004BFD45 /* BlockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockAlertView.h; sourceTree = "<group>"; };
+		ECFC5EF914EB1DA4004BFD45 /* BlockAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockAlertView.m; sourceTree = "<group>"; };
+		ECFC5EFA14EB1DA4004BFD45 /* BlockBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockBackground.h; sourceTree = "<group>"; };
+		ECFC5EFB14EB1DA4004BFD45 /* BlockBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockBackground.m; sourceTree = "<group>"; };
+		ECFC5EFC14EB1DA4004BFD45 /* BlockTextPromptAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTextPromptAlertView.h; sourceTree = "<group>"; };
+		ECFC5EFD14EB1DA4004BFD45 /* BlockTextPromptAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTextPromptAlertView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +151,8 @@
 				EC9016B014BB629F00EF52E1 /* BlockAlertsDemoViewController.h */,
 				EC9016B114BB629F00EF52E1 /* BlockAlertsDemoViewController.m */,
 				EC9016B314BB629F00EF52E1 /* BlockAlertsDemoViewController.xib */,
-				ECEA27FE14C9D2D6002C2907 /* Needed for your project */,
+				ECFC5EF314EB1DA4004BFD45 /* ProjectSpecific */,
+				ECFC5EF514EB1DA4004BFD45 /* ToAddToYourProjects */,
 				EC9016A514BB629F00EF52E1 /* Supporting Files */,
 			);
 			path = BlockAlertsDemo;
@@ -220,20 +221,27 @@
 			path = AlertView;
 			sourceTree = "<group>";
 		};
-		ECEA27FE14C9D2D6002C2907 /* Needed for your project */ = {
+		ECFC5EF314EB1DA4004BFD45 /* ProjectSpecific */ = {
 			isa = PBXGroup;
 			children = (
-				ECAAB39C14EB0C1E00427033 /* BlockUI.h */,
-				EC9016C614BB62ED00EF52E1 /* BlockBackground.h */,
-				EC9016C714BB62ED00EF52E1 /* BlockBackground.m */,
-				EC9016C214BB62ED00EF52E1 /* BlockActionSheet.h */,
-				EC9016C314BB62ED00EF52E1 /* BlockActionSheet.m */,
-				EC9016C414BB62ED00EF52E1 /* BlockAlertView.h */,
-				EC9016C514BB62ED00EF52E1 /* BlockAlertView.m */,
-				B5B0620A14E95174007F2C78 /* BlockTextPromptAlertView.h */,
-				B5B0620B14E95174007F2C78 /* BlockTextPromptAlertView.m */,
+				ECFC5EF414EB1DA4004BFD45 /* BlockUI.h */,
 			);
-			name = "Needed for your project";
+			path = ProjectSpecific;
+			sourceTree = "<group>";
+		};
+		ECFC5EF514EB1DA4004BFD45 /* ToAddToYourProjects */ = {
+			isa = PBXGroup;
+			children = (
+				ECFC5EF614EB1DA4004BFD45 /* BlockActionSheet.h */,
+				ECFC5EF714EB1DA4004BFD45 /* BlockActionSheet.m */,
+				ECFC5EF814EB1DA4004BFD45 /* BlockAlertView.h */,
+				ECFC5EF914EB1DA4004BFD45 /* BlockAlertView.m */,
+				ECFC5EFA14EB1DA4004BFD45 /* BlockBackground.h */,
+				ECFC5EFB14EB1DA4004BFD45 /* BlockBackground.m */,
+				ECFC5EFC14EB1DA4004BFD45 /* BlockTextPromptAlertView.h */,
+				ECFC5EFD14EB1DA4004BFD45 /* BlockTextPromptAlertView.m */,
+			);
+			path = ToAddToYourProjects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,10 +338,10 @@
 				EC9016AB14BB629F00EF52E1 /* main.m in Sources */,
 				EC9016AF14BB629F00EF52E1 /* BlockAlertsDemoAppDelegate.m in Sources */,
 				EC9016B214BB629F00EF52E1 /* BlockAlertsDemoViewController.m in Sources */,
-				EC9016C814BB62ED00EF52E1 /* BlockActionSheet.m in Sources */,
-				EC9016C914BB62ED00EF52E1 /* BlockAlertView.m in Sources */,
-				EC9016CA14BB62ED00EF52E1 /* BlockBackground.m in Sources */,
-				B5B0620C14E95174007F2C78 /* BlockTextPromptAlertView.m in Sources */,
+				ECFC5EFE14EB1DA4004BFD45 /* BlockActionSheet.m in Sources */,
+				ECFC5EFF14EB1DA4004BFD45 /* BlockAlertView.m in Sources */,
+				ECFC5F0014EB1DA4004BFD45 /* BlockBackground.m in Sources */,
+				ECFC5F0114EB1DA4004BFD45 /* BlockTextPromptAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
