@@ -62,6 +62,11 @@
         maxLength = 0;
         buttonIndexForReturn = 1;
         
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillShow:)
+                                                     name:UIKeyboardWillShowNotification
+                                                   object:nil];
+        
         // actual setup for subclass is done in addComponents which is done by the super in init
     }
     
@@ -69,10 +74,6 @@
 }
 
 - (void)show {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
     
     [super show];
     
@@ -148,9 +149,8 @@
     return NO;
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    NSUInteger newLength = [self.textField.text length] + [string length] - range.length;
+- (BOOL)textField:(UITextField *)aTextField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger newLength = [aTextField.text length] + [string length] - range.length;
     
     if (maxLength > 0 && newLength > maxLength)
         return NO;
