@@ -32,6 +32,8 @@
 - (void)show;
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated;
 
+- (void)setupDisplay;
+
 @property (nonatomic, readonly) UIView *view;
 
 @end

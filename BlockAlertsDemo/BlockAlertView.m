@@ -158,8 +158,9 @@ static UIFont *buttonFont = nil;
                                                  selector:@selector(setupDisplay) 
                                                      name:UIApplicationDidChangeStatusBarOrientationNotification 
                                                    object:nil];   
-
-        [self setupDisplay];
+        
+        if ([self class] == [BlockAlertView class])
+            [self setupDisplay];
     }
     
     return self;
