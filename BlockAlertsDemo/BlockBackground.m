@@ -65,8 +65,6 @@ static BlockBackground *_sharedInstance = nil;
 
 - (void)setRotation:(NSNotification*)notification 
 {
-    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) return;
-    
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
     CGRect orientationFrame = [UIScreen mainScreen].bounds;
@@ -110,6 +108,9 @@ static BlockBackground *_sharedInstance = nil;
     
     self.transform = CGAffineTransformMakeRotation(rotateAngle);
     self.center = newCenter;
+    
+    [self setNeedsLayout];
+    [self layoutSubviews];
 }
 
 
@@ -134,6 +135,9 @@ static BlockBackground *_sharedInstance = nil;
 - (void)addToMainWindow:(UIView *)view
 {
     [self setRotation:nil];
+
+    if ([self.subviews containsObject:view]) return;
+    
     if (self.hidden)
     {
         self.alpha = 0.0f;
@@ -145,11 +149,6 @@ static BlockBackground *_sharedInstance = nil;
     if (self.subviews.count > 0)
     {
         ((UIView*)[self.subviews lastObject]).userInteractionEnabled = NO;
-    }
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        // have subview reposition itself when rotated on an iPad
-        view.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     }
     
     [self addSubview:view];

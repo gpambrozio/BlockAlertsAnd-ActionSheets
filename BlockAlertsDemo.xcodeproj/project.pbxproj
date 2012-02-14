@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B5B0620C14E95174007F2C78 /* BlockTextPromptAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B0620B14E95174007F2C78 /* BlockTextPromptAlertView.m */; };
+		B5B9854014E9E92E00DD4CDA /* alert-window-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = B5B9853E14E9E92E00DD4CDA /* alert-window-landscape.png */; };
+		B5B9854114E9E92E00DD4CDA /* alert-window-landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5B9853F14E9E92E00DD4CDA /* alert-window-landscape@2x.png */; };
 		EC90169F14BB629F00EF52E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC90169E14BB629F00EF52E1 /* UIKit.framework */; };
 		EC9016A114BB629F00EF52E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9016A014BB629F00EF52E1 /* Foundation.framework */; };
 		EC9016A314BB629F00EF52E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9016A214BB629F00EF52E1 /* CoreGraphics.framework */; };
@@ -52,6 +54,8 @@
 /* Begin PBXFileReference section */
 		B5B0620A14E95174007F2C78 /* BlockTextPromptAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTextPromptAlertView.h; sourceTree = "<group>"; };
 		B5B0620B14E95174007F2C78 /* BlockTextPromptAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTextPromptAlertView.m; sourceTree = "<group>"; };
+		B5B9853E14E9E92E00DD4CDA /* alert-window-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window-landscape.png"; sourceTree = "<group>"; };
+		B5B9853F14E9E92E00DD4CDA /* alert-window-landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window-landscape@2x.png"; sourceTree = "<group>"; };
 		EC90169A14BB629F00EF52E1 /* BlockAlertsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlockAlertsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC90169E14BB629F00EF52E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EC9016A014BB629F00EF52E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -207,6 +211,8 @@
 		EC9016DF14BB679C00EF52E1 /* AlertView */ = {
 			isa = PBXGroup;
 			children = (
+				B5B9853E14E9E92E00DD4CDA /* alert-window-landscape.png */,
+				B5B9853F14E9E92E00DD4CDA /* alert-window-landscape@2x.png */,
 				EC9016E014BB679C00EF52E1 /* alert-black-button.png */,
 				EC9016E114BB679C00EF52E1 /* alert-black-button@2x.png */,
 				EC9016E214BB679C00EF52E1 /* alert-gray-button.png */,
@@ -315,6 +321,8 @@
 				ECAF600314BE67BB0095B359 /* button_grey@2x.png in Resources */,
 				ECAF600414BE67BB0095B359 /* button_red.png in Resources */,
 				ECAF600514BE67BB0095B359 /* button_red@2x.png in Resources */,
+				B5B9854014E9E92E00DD4CDA /* alert-window-landscape.png in Resources */,
+				B5B9854114E9E92E00DD4CDA /* alert-window-landscape@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

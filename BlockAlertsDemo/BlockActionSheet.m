@@ -48,6 +48,9 @@ static UIFont *buttonFont = nil;
         CGRect frame = parentView.bounds;
         
         _view = [[UIView alloc] initWithFrame:frame];
+        
+        _view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        
         _blocks = [[NSMutableArray alloc] init];
         _height = kTopMargin;
 
@@ -67,6 +70,9 @@ static UIFont *buttonFont = nil;
             labelView.shadowColor = [UIColor blackColor];
             labelView.shadowOffset = CGSizeMake(0, -1);
             labelView.text = title;
+            
+            labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
             [_view addSubview:labelView];
             [labelView release];
             
@@ -169,6 +175,8 @@ static UIFont *buttonFont = nil;
         
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         
+        button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
         [_view addSubview:button];
         _height += kButtonHeight + kBorder;
     }
@@ -176,6 +184,7 @@ static UIFont *buttonFont = nil;
     UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
     modalBackground.image = background;
     modalBackground.contentMode = UIViewContentModeScaleToFill;
+    modalBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_view insertSubview:modalBackground atIndex:0];
     [modalBackground release];
     

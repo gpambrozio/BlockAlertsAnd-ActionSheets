@@ -10,6 +10,9 @@
     UIView *_view;
     NSMutableArray *_blocks;
     CGFloat _height;
+    NSString *_title;
+    NSString *_message;
+    BOOL _shown;
 }
 
 + (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message;
