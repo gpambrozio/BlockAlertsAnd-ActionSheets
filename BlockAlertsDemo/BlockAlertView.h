@@ -17,6 +17,9 @@
 
 + (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message;
 
++ (void)showInfoAlertWithTitle:(NSString *)title message:(NSString *)message;
++ (void)showErrorAlert:(NSError *)error;
+
 - (id)initWithTitle:(NSString *)title message:(NSString *)message;
 
 - (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block;

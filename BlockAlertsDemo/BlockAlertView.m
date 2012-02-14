@@ -49,6 +49,20 @@ static UIFont *buttonFont = nil;
     return [[[BlockAlertView alloc] initWithTitle:title message:message] autorelease];
 }
 
++ (void)showInfoAlertWithTitle:(NSString *)title message:(NSString *)message
+{
+    BlockAlertView *alert = [[BlockAlertView alloc] initWithTitle:title message:message];
+    [alert setCancelButtonWithTitle:@"Dismiss" block:nil];
+    [alert show];
+}
+
++ (void)showErrorAlert:(NSError *)error
+{
+    BlockAlertView *alert = [[BlockAlertView alloc] initWithTitle:@"Operation Failed" message:[NSString stringWithFormat:@"The operation did not complete successfully: %@", error]];
+    [alert setCancelButtonWithTitle:@"Dismiss" block:nil];
+    [alert show];
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - NSObject
 
@@ -127,7 +141,9 @@ static UIFont *buttonFont = nil;
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message 
 {
-    if ((self = [super init]))
+    self = [super init];
+    
+    if (self)
     {
         _title = [title copy];
         _message = [message copy];
