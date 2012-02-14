@@ -45,6 +45,9 @@
         
         self.textField = theTextField;
     }
+    else {
+        self.textField.frame = CGRectMake(kTextBoxHorizontalMargin, _height, frame.size.width - kTextBoxHorizontalMargin * 2, kTextBoxHeight);
+    }
     
     [_view addSubview:self.textField];
     _height += kTextBoxHeight + kTextBoxSpacing;
