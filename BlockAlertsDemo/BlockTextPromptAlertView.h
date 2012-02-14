@@ -12,11 +12,10 @@
     
     NSCharacterSet *unacceptedInput;
     NSInteger maxLength;
+    NSInteger buttonIndexForReturn;
 }
 
 @property (nonatomic, retain) UITextField *textField;
-
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField;
 
@@ -26,5 +25,8 @@
 
 - (void)setAllowableCharacters:(NSString*)accepted;
 - (void)setMaxLength:(NSInteger)max;
+
+- (void)setButtonIndexForReturn:(NSInteger)index;
+
 
 @end

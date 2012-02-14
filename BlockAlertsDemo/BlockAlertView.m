@@ -11,6 +11,7 @@
 @synthesize view = _view;
 
 static UIImage *background = nil;
+static UIImage *backgroundlandscape = nil;
 static UIFont *titleFont = nil;
 static UIFont *messageFont = nil;
 static UIFont *buttonFont = nil;
@@ -22,6 +23,7 @@ static UIFont *buttonFont = nil;
 #define kAlertFontColor    [UIColor colorWithWhite:244.0/255.0 alpha:1.0]
 
 #define kAlertViewBackground   @"alert-window.png"
+#define kAlertViewBackgroundLandscape   @"alert-window-landscape.png"
 #define kAlertViewBackgroundCapHeight  38
 
 #pragma mark - init
@@ -32,6 +34,10 @@ static UIFont *buttonFont = nil;
     {
         background = [UIImage imageNamed:kAlertViewBackground];
         background = [[background stretchableImageWithLeftCapWidth:0 topCapHeight:kAlertViewBackgroundCapHeight] retain];
+        
+        backgroundlandscape = [UIImage imageNamed:kAlertViewBackgroundLandscape];
+        backgroundlandscape = [[backgroundlandscape stretchableImageWithLeftCapWidth:0 topCapHeight:kAlertViewBackgroundCapHeight] retain];
+        
         titleFont = [[UIFont boldSystemFontOfSize:20] retain];
         messageFont = [[UIFont systemFontOfSize:18] retain];
         buttonFont = [[UIFont boldSystemFontOfSize:18] retain];
@@ -43,65 +49,118 @@ static UIFont *buttonFont = nil;
     return [[[BlockAlertView alloc] initWithTitle:title message:message] autorelease];
 }
 
++ (void)showInfoAlertWithTitle:(NSString *)title message:(NSString *)message
+{
+    BlockAlertView *alert = [[BlockAlertView alloc] initWithTitle:title message:message];
+    [alert setCancelButtonWithTitle:@"Dismiss" block:nil];
+    [alert show];
+}
+
++ (void)showErrorAlert:(NSError *)error
+{
+    BlockAlertView *alert = [[BlockAlertView alloc] initWithTitle:@"Operation Failed" message:[NSString stringWithFormat:@"The operation did not complete successfully: %@", error]];
+    [alert setCancelButtonWithTitle:@"Dismiss" block:nil];
+    [alert show];
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - NSObject
 
+- (void)addComponents:(CGRect)frame {
+    if (_title)
+    {
+        CGSize size = [_title sizeWithFont:titleFont
+                         constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
+                             lineBreakMode:UILineBreakModeWordWrap];
+        
+        UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
+        labelView.font = titleFont;
+        labelView.numberOfLines = 0;
+        labelView.lineBreakMode = UILineBreakModeWordWrap;
+        labelView.textColor = kAlertFontColor;
+        labelView.backgroundColor = [UIColor clearColor];
+        labelView.textAlignment = UITextAlignmentCenter;
+        labelView.shadowColor = [UIColor blackColor];
+        labelView.shadowOffset = CGSizeMake(0, -1);
+        labelView.text = _title;
+        [_view addSubview:labelView];
+        [labelView release];
+        
+        _height += size.height + kBorder;
+    }
+    
+    if (_message)
+    {
+        CGSize size = [_message sizeWithFont:messageFont
+                           constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
+                               lineBreakMode:UILineBreakModeWordWrap];
+        
+        UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
+        labelView.font = messageFont;
+        labelView.numberOfLines = 0;
+        labelView.lineBreakMode = UILineBreakModeWordWrap;
+        labelView.textColor = kAlertFontColor;
+        labelView.backgroundColor = [UIColor clearColor];
+        labelView.textAlignment = UITextAlignmentCenter;
+        labelView.shadowColor = [UIColor blackColor];
+        labelView.shadowOffset = CGSizeMake(0, -1);
+        labelView.text = _message;
+        [_view addSubview:labelView];
+        [labelView release];
+        
+        _height += size.height + kBorder;
+    }
+}
+
+- (void)setupDisplay
+{
+    [[_view subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [obj removeFromSuperview];
+    }];
+    
+    UIWindow *parentView = [BlockBackground sharedInstance];
+    CGRect frame = parentView.bounds;
+    frame.origin.x = (frame.size.width - background.size.width) * 0.5;
+    frame.size.width = background.size.width;
+    
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        frame.size.width += 150;
+        frame.origin.x -= 75;
+    }
+    
+    _view.frame = frame;
+    
+    _height = kBorder + 15;
+    
+    [self addComponents:frame];
+
+    if (_shown)
+        [self show];
+}
+
 - (id)initWithTitle:(NSString *)title message:(NSString *)message 
 {
-    if ((self = [super init]))
+    self = [super init];
+    
+    if (self)
     {
-        UIWindow *parentView = [BlockBackground sharedInstance];
-        CGRect frame = parentView.bounds;
-        frame.origin.x = (frame.size.width - background.size.width) * 0.5;
-        frame.size.width = background.size.width;
+        _title = [title copy];
+        _message = [message copy];
         
-        _view = [[UIView alloc] initWithFrame:frame];
+        _view = [[UIView alloc] init];
+        
+        _view.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        
         _blocks = [[NSMutableArray alloc] init];
-        _height = kBorder + 15;
-
-        if (title)
-        {
-            CGSize size = [title sizeWithFont:titleFont
-                            constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
-                                lineBreakMode:UILineBreakModeWordWrap];
-
-            UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
-            labelView.font = titleFont;
-            labelView.numberOfLines = 0;
-            labelView.lineBreakMode = UILineBreakModeWordWrap;
-            labelView.textColor = kAlertFontColor;
-            labelView.backgroundColor = [UIColor clearColor];
-            labelView.textAlignment = UITextAlignmentCenter;
-            labelView.shadowColor = [UIColor blackColor];
-            labelView.shadowOffset = CGSizeMake(0, -1);
-            labelView.text = title;
-            [_view addSubview:labelView];
-            [labelView release];
-            
-            _height += size.height + kBorder;
-        }
         
-        if (message)
-        {
-            CGSize size = [message sizeWithFont:messageFont
-                              constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
-                                  lineBreakMode:UILineBreakModeWordWrap];
-            
-            UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
-            labelView.font = messageFont;
-            labelView.numberOfLines = 0;
-            labelView.lineBreakMode = UILineBreakModeWordWrap;
-            labelView.textColor = kAlertFontColor;
-            labelView.backgroundColor = [UIColor clearColor];
-            labelView.textAlignment = UITextAlignmentCenter;
-            labelView.shadowColor = [UIColor blackColor];
-            labelView.shadowOffset = CGSizeMake(0, -1);
-            labelView.text = message;
-            [_view addSubview:labelView];
-            [labelView release];
-            
-            _height += size.height + kBorder;
-        }
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(setupDisplay) 
+                                                     name:UIApplicationDidChangeStatusBarOrientationNotification 
+                                                   object:nil];   
+        
+        if ([self class] == [BlockAlertView class])
+            [self setupDisplay];
     }
     
     return self;
@@ -109,6 +168,8 @@ static UIFont *buttonFont = nil;
 
 - (void)dealloc 
 {
+    [_title release];
+    [_message release];
     [_view release];
     [_blocks release];
     [super dealloc];
@@ -143,6 +204,8 @@ static UIFont *buttonFont = nil;
 
 - (void)show
 {
+    _shown = YES;
+    
     BOOL isSecondButton = NO;
     NSUInteger index = 0;
     for (NSUInteger i = 0; i < _blocks.count; i++)
@@ -224,7 +287,12 @@ static UIFont *buttonFont = nil;
     _view.frame = frame;
     
     UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
-    modalBackground.image = background;
+    
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+        modalBackground.image = backgroundlandscape;
+    else
+        modalBackground.image = background;
+
     modalBackground.contentMode = UIViewContentModeScaleToFill;
     [_view insertSubview:modalBackground atIndex:0];
     [modalBackground release];
@@ -234,6 +302,8 @@ static UIFont *buttonFont = nil;
     __block CGPoint center = _view.center;
     center.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) + kBounce;
     
+    _cancelBounce = NO;
+    
     [UIView animateWithDuration:0.4
                           delay:0.0
                         options:UIViewAnimationCurveEaseOut
@@ -242,6 +312,8 @@ static UIFont *buttonFont = nil;
                          _view.center = center;
                      } 
                      completion:^(BOOL finished) {
+                         if (_cancelBounce) return;
+                         
                          [UIView animateWithDuration:0.1
                                                delay:0.0
                                              options:0
@@ -257,6 +329,10 @@ static UIFont *buttonFont = nil;
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated 
 {
+    _shown = NO;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     if (buttonIndex >= 0 && buttonIndex < [_blocks count])
     {
         id obj = [[_blocks objectAtIndex: buttonIndex] objectAtIndex:0];

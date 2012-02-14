@@ -63,6 +63,57 @@ static BlockBackground *_sharedInstance = nil;
     return self;
 }
 
+- (void)setRotation:(NSNotification*)notification 
+{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    CGRect orientationFrame = [UIScreen mainScreen].bounds;
+    
+    if(
+       (UIInterfaceOrientationIsLandscape(orientation) && orientationFrame.size.height > orientationFrame.size.width) ||
+       (UIInterfaceOrientationIsPortrait(orientation) && orientationFrame.size.width > orientationFrame.size.height)
+       ) {
+        float temp = orientationFrame.size.width;
+        orientationFrame.size.width = orientationFrame.size.height;
+        orientationFrame.size.height = temp;
+    }
+    
+    self.transform = CGAffineTransformIdentity;
+    self.frame = orientationFrame;    
+    
+    CGFloat posY = orientationFrame.size.height/2;
+    CGFloat posX = orientationFrame.size.width/2;
+    
+    CGPoint newCenter;
+    CGFloat rotateAngle;
+    
+    switch (orientation) { 
+        case UIInterfaceOrientationPortraitUpsideDown:
+            rotateAngle = M_PI; 
+            newCenter = CGPointMake(posX, orientationFrame.size.height-posY);
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            rotateAngle = -M_PI/2.0f;
+            newCenter = CGPointMake(posY, posX);
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            rotateAngle = M_PI/2.0f;
+            newCenter = CGPointMake(orientationFrame.size.height-posY, posX);
+            break;
+        default: // UIInterfaceOrientationPortrait
+            rotateAngle = 0.0;
+            newCenter = CGPointMake(posX, posY);
+            break;
+    }
+    
+    self.transform = CGAffineTransformMakeRotation(rotateAngle);
+    self.center = newCenter;
+    
+    [self setNeedsLayout];
+    [self layoutSubviews];
+}
+
+
 - (id)init
 {
     self = [super initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -71,12 +122,22 @@ static BlockBackground *_sharedInstance = nil;
         self.hidden = YES;
         self.userInteractionEnabled = NO;
         self.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.5f];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(setRotation:) 
+                                                     name:UIApplicationDidChangeStatusBarOrientationNotification 
+                                                   object:nil];          
+        [self setRotation:nil];
     }
     return self;
 }
 
 - (void)addToMainWindow:(UIView *)view
 {
+    [self setRotation:nil];
+
+    if ([self.subviews containsObject:view]) return;
+    
     if (self.hidden)
     {
         self.alpha = 0.0f;
