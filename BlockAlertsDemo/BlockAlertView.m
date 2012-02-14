@@ -301,6 +301,8 @@ static UIFont *buttonFont = nil;
     __block CGPoint center = _view.center;
     center.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) + kBounce;
     
+    _cancelBounce = NO;
+    
     [UIView animateWithDuration:0.4
                           delay:0.0
                         options:UIViewAnimationCurveEaseOut
@@ -309,6 +311,8 @@ static UIFont *buttonFont = nil;
                          _view.center = center;
                      } 
                      completion:^(BOOL finished) {
+                         if (_cancelBounce) return;
+                         
                          [UIView animateWithDuration:0.1
                                                delay:0.0
                                              options:0

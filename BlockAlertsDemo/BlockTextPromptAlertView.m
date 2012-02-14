@@ -7,6 +7,7 @@
 //
 
 #import "BlockTextPromptAlertView.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kTextBoxHeight      31
 #define kTextBoxSpacing     5
@@ -74,10 +75,8 @@
 }
 
 - (void)show {
-    
     [super show];
-    
-    [self.textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.5];
+    [self.textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.2];
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
@@ -90,13 +89,14 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     CGFloat keyboardHeight;
-    
+    CGFloat animationDuration = 0.3;
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
     if(notification) {
         NSDictionary* keyboardInfo = [notification userInfo];
         CGRect keyboardFrame = [[keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-        
+        animationDuration = [[keyboardInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+
         if(UIInterfaceOrientationIsPortrait(orientation))
             keyboardHeight = keyboardFrame.size.height;
         else
@@ -115,18 +115,28 @@
     
     if (frame.origin.y + frame.size.height > screenHeight - keyboardHeight) {
         
-        frame.origin.y = screenHeight - keyboardHeight - frame.size.height;
+        frame.origin.y = screenHeight - keyboardHeight - frame.size.height - 10;
         
         if (frame.origin.y < 0)
             frame.origin.y = 0;
         
-        [UIView animateWithDuration:0.3
+        _cancelBounce = YES;
+        
+        [UIView animateWithDuration:0.0
                               delay:0.0
-                            options:UIViewAnimationCurveEaseOut
-                         animations:^{
-                             _view.frame = frame;
-                         } 
-                         completion:nil];
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{_view.frame = ((CALayer *)_view.layer.presentationLayer).frame;}
+                         completion:^(BOOL finished){
+
+                             [UIView animateWithDuration:animationDuration
+                                                   delay:0.0
+                                                 options:UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                                              animations:^{
+                                                  _view.frame = frame;
+                                              } 
+                                              completion:nil];
+                         }
+         ];
     }
 }
 
