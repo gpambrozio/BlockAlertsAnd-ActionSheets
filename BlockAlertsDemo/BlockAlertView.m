@@ -52,6 +52,52 @@ static UIFont *buttonFont = nil;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - NSObject
 
+- (void)addComponents:(CGRect)frame {
+    if (_title)
+    {
+        CGSize size = [_title sizeWithFont:titleFont
+                         constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
+                             lineBreakMode:UILineBreakModeWordWrap];
+        
+        UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
+        labelView.font = titleFont;
+        labelView.numberOfLines = 0;
+        labelView.lineBreakMode = UILineBreakModeWordWrap;
+        labelView.textColor = kAlertFontColor;
+        labelView.backgroundColor = [UIColor clearColor];
+        labelView.textAlignment = UITextAlignmentCenter;
+        labelView.shadowColor = [UIColor blackColor];
+        labelView.shadowOffset = CGSizeMake(0, -1);
+        labelView.text = _title;
+        [_view addSubview:labelView];
+        [labelView release];
+        
+        _height += size.height + kBorder;
+    }
+    
+    if (_message)
+    {
+        CGSize size = [_message sizeWithFont:messageFont
+                           constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
+                               lineBreakMode:UILineBreakModeWordWrap];
+        
+        UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
+        labelView.font = messageFont;
+        labelView.numberOfLines = 0;
+        labelView.lineBreakMode = UILineBreakModeWordWrap;
+        labelView.textColor = kAlertFontColor;
+        labelView.backgroundColor = [UIColor clearColor];
+        labelView.textAlignment = UITextAlignmentCenter;
+        labelView.shadowColor = [UIColor blackColor];
+        labelView.shadowOffset = CGSizeMake(0, -1);
+        labelView.text = _message;
+        [_view addSubview:labelView];
+        [labelView release];
+        
+        _height += size.height + kBorder;
+    }
+}
+
 - (void)setupDisplay
 {
     [[_view subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -73,49 +119,7 @@ static UIFont *buttonFont = nil;
     
     _height = kBorder + 15;
     
-    if (_title)
-    {
-        CGSize size = [_title sizeWithFont:titleFont
-                        constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
-                            lineBreakMode:UILineBreakModeWordWrap];
-        
-        UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
-        labelView.font = titleFont;
-        labelView.numberOfLines = 0;
-        labelView.lineBreakMode = UILineBreakModeWordWrap;
-        labelView.textColor = kAlertFontColor;
-        labelView.backgroundColor = [UIColor clearColor];
-        labelView.textAlignment = UITextAlignmentCenter;
-        labelView.shadowColor = [UIColor blackColor];
-        labelView.shadowOffset = CGSizeMake(0, -1);
-        labelView.text = _title;
-        [_view addSubview:labelView];
-        [labelView release];
-        
-        _height += size.height + kBorder;
-    }
-    
-    if (_message)
-    {
-        CGSize size = [_message sizeWithFont:messageFont
-                          constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
-                              lineBreakMode:UILineBreakModeWordWrap];
-        
-        UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
-        labelView.font = messageFont;
-        labelView.numberOfLines = 0;
-        labelView.lineBreakMode = UILineBreakModeWordWrap;
-        labelView.textColor = kAlertFontColor;
-        labelView.backgroundColor = [UIColor clearColor];
-        labelView.textAlignment = UITextAlignmentCenter;
-        labelView.shadowColor = [UIColor blackColor];
-        labelView.shadowOffset = CGSizeMake(0, -1);
-        labelView.text = _message;
-        [_view addSubview:labelView];
-        [labelView release];
-        
-        _height += size.height + kBorder;
-    }
+    [self addComponents:frame];
 
     if (_shown)
         [self show];

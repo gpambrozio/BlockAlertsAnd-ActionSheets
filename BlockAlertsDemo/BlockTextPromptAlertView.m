@@ -18,12 +18,6 @@
 @implementation BlockTextPromptAlertView
 @synthesize textField;
 
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
-    
-    return [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:defaultText] autorelease];
-    
-}
-
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField {
     
     BlockTextPromptAlertView *prompt = [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:nil] autorelease];
@@ -33,13 +27,11 @@
     return prompt;
 }
 
-
-- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
-   
-    self = [super initWithTitle:title message:message];
+- (void)addComponents:(CGRect)frame {
+    [super addComponents:frame];
     
-    if (self) {
-        UITextField *theTextField = [[UITextField alloc] initWithFrame:CGRectMake(kTextBoxHorizontalMargin, _height, _view.bounds.size.width - kTextBoxHorizontalMargin * 2, kTextBoxHeight)]; 
+    if (!self.textField) {
+        UITextField *theTextField = [[UITextField alloc] initWithFrame:CGRectMake(kTextBoxHorizontalMargin, _height, frame.size.width - kTextBoxHorizontalMargin * 2, kTextBoxHeight)]; 
         
         [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
@@ -47,20 +39,27 @@
         [theTextField setTextAlignment:UITextAlignmentCenter];
         [theTextField setClearButtonMode:UITextFieldViewModeAlways];
         
+        theTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
         theTextField.delegate = self;
+        
+        self.textField = theTextField;
+    }
+    
+    [_view addSubview:self.textField];
+    _height += kTextBoxHeight + kTextBoxSpacing;
 
-        
-        if (defaultText)
-            theTextField.text = defaultText;
-        
+}
+
+- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
+   
+    self = [super initWithTitle:title message:message];
+    
+    if (self) {        
         maxLength = 0;
         buttonIndexForReturn = 1;
         
-        [_view addSubview:theTextField];
-        
-        self.textField = theTextField;
-        
-        _height += kTextBoxHeight + kTextBoxSpacing;
+        // actual setup for subclass is done in addComponents which is done by the super in init
     }
     
     return self;
