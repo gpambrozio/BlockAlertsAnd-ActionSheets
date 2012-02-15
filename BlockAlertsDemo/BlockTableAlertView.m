@@ -75,7 +75,8 @@
 }
 
 - (void)show {
-    [self setupDisplay];
+    if (!_shown)
+        [self setupDisplay];
     
     if (self.willPresent)
         self.willPresent(self);
