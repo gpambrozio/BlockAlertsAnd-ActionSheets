@@ -11,6 +11,7 @@
 
 @synthesize view = _view;
 @synthesize backgroundImage = _backgroundImage;
+@synthesize vignetteBackground = _vignetteBackground;
 
 static UIImage *background = nil;
 static UIFont *titleFont = nil;
@@ -95,6 +96,8 @@ static UIFont *buttonFont = nil;
             
             _height += size.height + kAlertViewBorder;
         }
+        
+        _vignetteBackground = YES;
     }
     
     return self;
@@ -261,7 +264,7 @@ static UIFont *buttonFont = nil;
         [_backgroundImage release];
         _backgroundImage = nil;
     }
-    
+    [BlockBackground sharedInstance].vignetteBackground = _vignetteBackground;
     [[BlockBackground sharedInstance] addToMainWindow:_view];
 
     __block CGPoint center = _view.center;

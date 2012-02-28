@@ -25,5 +25,6 @@
 
 @property (nonatomic, retain) UIImage *backgroundImage;
 @property (nonatomic, readonly) UIView *view;
+@property (nonatomic, readwrite) BOOL vignetteBackground;
 
 @end
