@@ -10,6 +10,7 @@
 @implementation BlockActionSheet
 
 @synthesize view = _view;
+@synthesize vignetteBackground = _vignetteBackground;
 
 static UIImage *background = nil;
 static UIFont *titleFont = nil;
@@ -65,6 +66,7 @@ static UIFont *buttonFont = nil;
             
             _height += size.height + 5;
         }
+        _vignetteBackground = YES;
     }
     
     return self;
@@ -172,6 +174,7 @@ static UIFont *buttonFont = nil;
     [_view insertSubview:modalBackground atIndex:0];
     [modalBackground release];
     
+    [BlockBackground sharedInstance].vignetteBackground = _vignetteBackground;
     [[BlockBackground sharedInstance] addToMainWindow:_view];
     CGRect frame = _view.frame;
     frame.origin.y = [BlockBackground sharedInstance].bounds.size.height;
