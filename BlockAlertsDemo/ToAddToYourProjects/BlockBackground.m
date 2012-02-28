@@ -74,7 +74,7 @@ static BlockBackground *_sharedInstance = nil;
         self.hidden = YES;
         self.userInteractionEnabled = NO;
         self.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.5f];
-        self.vignetteBackground = YES;
+        self.vignetteBackground = NO;
     }
     return self;
 }

@@ -66,7 +66,7 @@ static UIFont *buttonFont = nil;
             
             _height += size.height + 5;
         }
-        _vignetteBackground = YES;
+        _vignetteBackground = NO;
     }
     
     return self;
