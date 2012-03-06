@@ -8,6 +8,10 @@
 
 #import "BlockAlertView.h"
 
+@class BlockTextPromptAlertView;
+
+typedef BOOL (^BlockTextPromptAlertShouldDismiss)(NSInteger buttonIndex, BlockTextPromptAlertView* theAlert);
+
 @interface BlockTextPromptAlertView : BlockAlertView <UITextFieldDelegate> {
     
     NSCharacterSet *unacceptedInput;
@@ -22,6 +26,7 @@
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;
 
+@property (readwrite, copy) BlockTextPromptAlertShouldDismiss shouldDismiss;
 
 - (void)setAllowableCharacters:(NSString*)accepted;
 - (void)setMaxLength:(NSInteger)max;

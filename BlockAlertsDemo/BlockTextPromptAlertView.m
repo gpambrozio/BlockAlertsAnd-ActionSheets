@@ -17,6 +17,7 @@
 
 @implementation BlockTextPromptAlertView
 @synthesize textField;
+@synthesize shouldDismiss;
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField {
     
@@ -80,6 +81,11 @@
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
+    if (self.shouldDismiss) {
+        if (!self.shouldDismiss(buttonIndex, self))
+            return;
+    }
+    
     [super dismissWithClickedButtonIndex:buttonIndex animated:animated];
     
     [self.textField resignFirstResponder];
