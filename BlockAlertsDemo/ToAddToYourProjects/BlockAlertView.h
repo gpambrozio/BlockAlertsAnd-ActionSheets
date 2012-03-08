@@ -21,6 +21,8 @@
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())block;
 
 - (void)show;
+- (void)showTo:(CGPoint )endPos andFromTop:(BOOL)bTop;
+- (void)showFrom:(CGPoint )startPos toPos:(CGPoint)endPos andFromTop:(BOOL)bTop;
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated;
 
 @property (nonatomic, retain) UIImage *backgroundImage;
