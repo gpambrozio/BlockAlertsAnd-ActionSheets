@@ -74,6 +74,29 @@
     [super dismissWithClickedButtonIndex:buttonIndex animated:animated];
 }
 
+- (void)reloadData {
+    CGFloat oldTableHeight = _tableView.frame.size.height;
+    
+    [self.tableView reloadData];
+    
+    CGFloat newTableHeight = kDefaultRowHeight * MIN(self.numberOfRowsInTableAlert(self), kNumMaximumVisibleRowsInTableView);
+
+    if (newTableHeight != oldTableHeight) {
+        CGFloat diff = newTableHeight - oldTableHeight;
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                UIView *v = obj;
+                if (v.frame.origin.y >= _tableView.frame.origin.y + _tableView.frame.size.height)
+                    v.frame = CGRectMake(v.frame.origin.x, v.frame.origin.y + diff, v.frame.size.width, v.frame.size.height);
+            }];
+            
+            _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, newTableHeight);
+            self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height + diff);
+        }];
+
+    }
+}
+
 - (void)show {
     if (!_shown)
         [self setupDisplay];

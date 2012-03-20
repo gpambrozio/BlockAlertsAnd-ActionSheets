@@ -294,6 +294,7 @@ static UIFont *buttonFont = nil;
         modalBackground.image = background;
 
     modalBackground.contentMode = UIViewContentModeScaleToFill;
+    modalBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_view insertSubview:modalBackground atIndex:0];
     [modalBackground release];
     

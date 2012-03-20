@@ -50,6 +50,8 @@ typedef enum {
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message;
 
+- (void)reloadData;
+
 + (BlockTableAlertView *)tableAlertWithTitle:(NSString *)title message:(NSString *)message;
 
 @end
