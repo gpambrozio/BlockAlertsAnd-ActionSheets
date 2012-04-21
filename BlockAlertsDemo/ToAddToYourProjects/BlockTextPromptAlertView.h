@@ -8,6 +8,8 @@
 
 #import "BlockAlertView.h"
 
+typedef void(^TextFieldCallBack)(UITextField *);
+
 @interface BlockTextPromptAlertView : BlockAlertView <UITextFieldDelegate> {
     
     NSCharacterSet *unacceptedInput;
@@ -17,11 +19,14 @@
 @property (nonatomic, retain) UITextField *textField;
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block:(TextFieldCallBack) block;
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField;
 
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField block:(TextFieldCallBack) block;
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;
+
+- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block: (TextFieldCallBack) block;
 
 
 - (void)setAllowableCharacters:(NSString*)accepted;
