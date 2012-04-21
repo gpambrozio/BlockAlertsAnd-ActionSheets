@@ -25,7 +25,7 @@
 - (IBAction)showAlert:(id)sender
 {
     BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Alert Title" message:@"This is a very long message, designed just to show you how smart this class is"];
-
+    
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];
     [alert setDestructiveButtonWithTitle:@"Kill!" block:nil];
     [alert addButtonWithTitle:@"Show Action Sheet on top" block:^{
@@ -72,7 +72,7 @@
 - (IBAction)goNuts:(id)sender
 {
     for (int i=0; i<6; i++)
-    {
+     {
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5 * i * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             if (arc4random() % 2 == 0)
@@ -80,13 +80,16 @@
             else
                 [self showActionSheet:nil];
         });
-    }
+     }
 }
 
 - (IBAction)showTextPrompt:(id)sender
 {
     UITextField *textField;
-    BlockTextPromptAlertView *alert = [BlockTextPromptAlertView promptWithTitle:@"Prompt Title" message:@"With prompts you do have to keep in mind limited screen space due to the keyboard" textField:&textField];
+    BlockTextPromptAlertView *alert = [BlockTextPromptAlertView promptWithTitle:@"Prompt Title" message:@"With prompts you do have to keep in mind limited screen space due to the keyboard" textField:&textField block:^(BlockTextPromptAlertView *alert){
+        [alert.textField resignFirstResponder];
+        return YES;
+    }];
     
     
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];

@@ -14,28 +14,38 @@
 
 #define kKeyboardResizeBounce         20
 
+@interface BlockTextPromptAlertView()
+@property(copy) TextFieldReturnCallBack callBack;
+@end
 
 @implementation BlockTextPromptAlertView
-@synthesize textField;
+@synthesize textField, callBack;
+
+
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
-    
-    return [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:defaultText] autorelease];
-    
+    return [self promptWithTitle:title message:message defaultText:defaultText block:nil];
+}
+
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block:(TextFieldReturnCallBack)block {
+    return [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:defaultText block:block] autorelease];
 }
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField {
-    
-    BlockTextPromptAlertView *prompt = [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:nil] autorelease];
+    return [self promptWithTitle:title message:message textField:textField block:nil];
+}
+
+
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField block:(TextFieldReturnCallBack) block{
+    BlockTextPromptAlertView *prompt = [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:nil block:block] autorelease];
     
     *textField = prompt.textField;
     
     return prompt;
 }
 
-
-- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
-   
+- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block: (TextFieldReturnCallBack) block {
+    
     self = [super initWithTitle:title message:message];
     
     if (self) {
@@ -50,11 +60,17 @@
         if (defaultText)
             theTextField.text = defaultText;
         
+        if(block){
+            theTextField.delegate = self;
+        }
+        
         [_view addSubview:theTextField];
         
         self.textField = theTextField;
         
         _height += kTextBoxHeight + kTextBoxSpacing;
+        
+        callBack = block;
     }
     
     return self;
@@ -109,6 +125,13 @@
 - (void)setMaxLength:(NSInteger)max {
     maxLength = max;
     self.textField.delegate = self;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)_textField{
+    if(callBack){
+        return callBack(self);
+    }
+    return NO;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
