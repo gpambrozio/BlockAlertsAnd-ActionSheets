@@ -15,7 +15,7 @@
 #define kKeyboardResizeBounce         20
 
 @interface BlockTextPromptAlertView()
-@property(copy) TextFieldCallBack callBack;
+@property(copy) TextFieldReturnCallBack callBack;
 @end
 
 @implementation BlockTextPromptAlertView
@@ -27,7 +27,7 @@
     return [self promptWithTitle:title message:message defaultText:defaultText block:nil];
 }
 
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block:(TextFieldCallBack)block {
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block:(TextFieldReturnCallBack)block {
     return [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:defaultText block:block] autorelease];
 }
 
@@ -36,7 +36,7 @@
 }
 
 
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField block:(TextFieldCallBack) block{
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField block:(TextFieldReturnCallBack) block{
     BlockTextPromptAlertView *prompt = [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:nil block:block] autorelease];
     
     *textField = prompt.textField;
@@ -44,7 +44,7 @@
     return prompt;
 }
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block: (TextFieldCallBack) block {
+- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block: (TextFieldReturnCallBack) block {
     
     self = [super initWithTitle:title message:message];
     
@@ -129,9 +129,9 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)_textField{
     if(callBack){
-        callBack(_textField);
+        return callBack(self);
     }
-    return YES;
+    return NO;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
