@@ -138,7 +138,61 @@ static UIFont *buttonFont = nil;
     [self addButtonWithTitle:title color:@"red" block:block];
 }
 
-- (void)show
+- (void)showDefaultStyle
+{
+    __block CGPoint center = _view.center;
+    center.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) + kAlertViewBounce;
+    
+    [UIView animateWithDuration:0.4
+                          delay:0.0
+                        options:UIViewAnimationCurveEaseOut
+                     animations:^{
+                         [BlockBackground sharedInstance].alpha = 1.0f;
+                         _view.center = center;
+                     } 
+                     completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.1
+                                               delay:0.0
+                                             options:0
+                                          animations:^{
+                                              center.y -= kAlertViewBounce;
+                                              _view.center = center;
+                                          } 
+                                          completion:nil];
+                     }];
+}
+
+- (void)showStyleLeftRoRight
+{
+    CGRect frame = _view.frame;
+    frame.origin.y +=  _height * 2;
+    frame.size.height = _height;
+    frame.origin.x  = -frame.size.width;
+    _view.frame = frame;
+    
+    __block CGPoint center = _view.center;
+    center.x = floorf([BlockBackground sharedInstance].bounds.size.width * 0.5) + kAlertViewBounce;
+    
+    [UIView animateWithDuration:0.4
+                          delay:0.0
+                        options:UIViewAnimationCurveEaseOut
+                     animations:^{
+                         [BlockBackground sharedInstance].alpha = 1.0f;
+                         _view.center = center;
+                     } 
+                     completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.1
+                                               delay:0.0
+                                             options:0
+                                          animations:^{
+                                              center.x -= kAlertViewBounce;
+                                              _view.center = center;
+                                          } 
+                                          completion:nil];
+                     }];
+}
+
+- (void)setControl
 {
     BOOL isSecondButton = NO;
     NSUInteger index = 0;
@@ -147,7 +201,7 @@ static UIFont *buttonFont = nil;
         NSArray *block = [_blocks objectAtIndex:i];
         NSString *title = [block objectAtIndex:1];
         NSString *color = [block objectAtIndex:2];
-
+        
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"alert-%@-button.png", color]];
         image = [image stretchableImageWithLeftCapWidth:(int)(image.size.width+1)>>1 topCapHeight:0];
         
@@ -197,7 +251,7 @@ static UIFont *buttonFont = nil;
                                actualFontSize:nil
                                      forWidth:_view.bounds.size.width-kAlertViewBorder*2 
                                 lineBreakMode:UILineBreakModeClip];
-
+            
             size.width = MAX(size.width, 80);
             if (size.width + 2 * kAlertViewBorder < width)
             {
@@ -246,7 +300,7 @@ static UIFont *buttonFont = nil;
             btn.frame = frame;
         }
     }
-
+    
     CGRect frame = _view.frame;
     frame.origin.y = - _height;
     frame.size.height = _height;
@@ -266,9 +320,73 @@ static UIFont *buttonFont = nil;
     }
     [BlockBackground sharedInstance].vignetteBackground = _vignetteBackground;
     [[BlockBackground sharedInstance] addToMainWindow:_view];
+}
 
-    __block CGPoint center = _view.center;
-    center.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) + kAlertViewBounce;
+- (void)show
+{
+    CGPoint pt = CGPointMake([BlockBackground sharedInstance].bounds.size.width / 2, 
+                             [BlockBackground sharedInstance].bounds.size.height / 2);
+    
+    CGPoint start = CGPointMake([BlockBackground sharedInstance].bounds.size.width / 2, 
+                                0);
+    
+    [self showFrom:start toPos:pt andFromTop:YES];
+}
+
+- (void)showTo:(CGPoint )endPos andFromTop:(BOOL)bTop
+{
+    CGPoint startPoint = CGPointMake(0, 0);
+    if (bTop) {
+        startPoint.y = floorf([BlockBackground sharedInstance].bounds.size.height* 0.5) + kAlertViewBounce;
+        startPoint.x = endPos.x;
+    }
+    else {
+        startPoint.x = floorf([BlockBackground sharedInstance].bounds.size.width * 0.5) + kAlertViewBounce;
+        startPoint.y = endPos.y;
+    }
+    
+    [self showFrom:startPoint toPos:endPos andFromTop:bTop];
+}
+
+- (void)showFrom:(CGPoint )startPos toPos:(CGPoint)endPos andFromTop:(BOOL)bTop
+{
+    [self setControl];
+    
+    BOOL bAnimatedToDown = YES;
+    if (bTop) {
+        bAnimatedToDown = (endPos.y > startPos.y);
+    }
+    else {
+        bAnimatedToDown = (endPos.x > startPos.x);
+    }
+    
+    CGSize size = _view.bounds.size;
+    
+    __block CGPoint center = startPos;
+    
+    int minX = size.width / 2 + kAlertViewBounce;
+    int minY = size.height / 2 + kAlertViewBounce;
+    int maxX = [BlockBackground sharedInstance].bounds.size.width - minX;
+    int maxY = [BlockBackground sharedInstance].bounds.size.height - minY;
+    
+    center.x = MAX(center.x, minX);
+    center.x = MIN(center.x, maxX);
+    center.y = MAX(center.y, minY);
+    center.y = MIN(center.y, maxY);
+    
+    _view.center = center;
+    
+    if (bTop) {
+        center.y = floorf(bAnimatedToDown ? endPos.y + kAlertViewBounce : endPos.y - kAlertViewBounce);
+    }
+    else {
+        center.x = floorf(bAnimatedToDown ? endPos.x + kAlertViewBounce : endPos.x - kAlertViewBounce);
+    }
+    
+    center.x = MAX(center.x, minX);
+    center.x = MIN(center.x, maxX);
+    center.y = MAX(center.y, minY);
+    center.y = MIN(center.y, maxY);
     
     [UIView animateWithDuration:0.4
                           delay:0.0
@@ -282,7 +400,14 @@ static UIFont *buttonFont = nil;
                                                delay:0.0
                                              options:0
                                           animations:^{
-                                              center.y -= kAlertViewBounce;
+                                              
+                                              if (bTop) {
+                                                  center.y -= bAnimatedToDown ? kAlertViewBounce : -kAlertViewBounce;
+                                              }
+                                              else {
+                                                  center.x -= bAnimatedToDown ? kAlertViewBounce : -kAlertViewBounce;
+                                              }
+                                              
                                               _view.center = center;
                                           } 
                                           completion:nil];
