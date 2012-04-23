@@ -15,7 +15,7 @@
 #define kKeyboardResizeBounce         20
 
 @interface BlockTextPromptAlertView()
-@property(copy) TextFieldReturnCallBack callBack;
+@property(nonatomic, copy) TextFieldReturnCallBack callBack;
 @end
 
 @implementation BlockTextPromptAlertView
@@ -70,12 +70,11 @@
         
         _height += kTextBoxHeight + kTextBoxSpacing;
         
-        callBack = block;
+        self.callBack = block;
     }
     
     return self;
 }
-
 - (void)show {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -148,6 +147,12 @@
         return NO;
     else 
         return YES;
+}
+
+- (void)dealloc
+{
+    self.callBack = nil;
+    [super dealloc];
 }
 
 @end
