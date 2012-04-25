@@ -23,7 +23,7 @@ static BlockBackground *_sharedInstance = nil;
 
     @synchronized(self) {
         if (_sharedInstance == nil) {
-            [[[self alloc] init] autorelease];
+            _sharedInstance = [[self alloc] init];
         }
     }
 
@@ -47,25 +47,6 @@ static BlockBackground *_sharedInstance = nil;
     return self;
 }
 
-- (id)retain
-{
-    return self;
-}
-
-- (unsigned)retainCount
-{
-    return UINT_MAX;
-}
-
-- (oneway void)release
-{
-}
-
-- (id)autorelease
-{
-    return self;
-}
-
 - (id)init
 {
     self = [super initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -83,7 +64,7 @@ static BlockBackground *_sharedInstance = nil;
 {
     if (self.hidden)
     {
-        _previousKeyWindow = [[[UIApplication sharedApplication] keyWindow] retain];
+        _previousKeyWindow = [[UIApplication sharedApplication] keyWindow];
         self.alpha = 0.0f;
         self.hidden = NO;
         self.userInteractionEnabled = YES;
@@ -101,8 +82,6 @@ static BlockBackground *_sharedInstance = nil;
         backgroundView.frame = self.bounds;
         backgroundView.contentMode = UIViewContentModeScaleToFill;
         [self addSubview:backgroundView];
-        [backgroundView release];
-        [_backgroundImage release];
         _backgroundImage = nil;
     }
     
@@ -133,7 +112,6 @@ static BlockBackground *_sharedInstance = nil;
     {
         self.hidden = YES;
         [_previousKeyWindow makeKeyWindow];
-        [_previousKeyWindow release];
         _previousKeyWindow = nil;
     }
     else
