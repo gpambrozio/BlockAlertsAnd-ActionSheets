@@ -15,6 +15,7 @@
 }
 
 @property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) UIView* view;
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;
 

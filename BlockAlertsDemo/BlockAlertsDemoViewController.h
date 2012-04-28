@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface BlockAlertsDemoViewController : UIViewController <UITextFieldDelegate>
-
+{
+  NSMutableArray* alertViews;
+  NSMutableArray* actionSheetViews;
+}
 - (IBAction)showAlert:(id)sender;
 - (IBAction)showActionSheet:(id)sender;
 - (IBAction)showAlertPlusActionSheet:(id)sender;
@@ -20,6 +23,6 @@
 - (IBAction)dismissKeyboard:(id)sender;
 - (IBAction)showTextPrompt:(id)sender;
 
-@property (retain, nonatomic) IBOutlet UITextField *testKeyboard;
+@property (strong, nonatomic) IBOutlet UITextField *testKeyboard;
 
 @end

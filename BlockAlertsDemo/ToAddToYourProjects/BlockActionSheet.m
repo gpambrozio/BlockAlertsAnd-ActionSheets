@@ -40,7 +40,6 @@ static UIFont *buttonFont = nil;
     {
         UIWindow *parentView = [BlockBackground sharedInstance];
         CGRect frame = parentView.bounds;
-        
         _view = [[UIView alloc] initWithFrame:frame];
         _blocks = [[NSMutableArray alloc] init];
         _height = kActionSheetTopMargin;
@@ -127,7 +126,7 @@ static UIFont *buttonFont = nil;
     [self addButtonWithTitle:title color:@"gray" block:block atIndex:index];
 }
 
-- (void)showInView:(UIView *)view
+- (void)showInView:(UIView *)passedView
 {
     NSUInteger i = 1;
     for (NSArray *block in _blocks)

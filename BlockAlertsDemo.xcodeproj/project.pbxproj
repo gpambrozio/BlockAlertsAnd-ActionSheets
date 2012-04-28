@@ -413,6 +413,7 @@
 		EC9016B914BB629F00EF52E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlockAlertsDemo/BlockAlertsDemo-Prefix.pch";
 				INFOPLIST_FILE = "BlockAlertsDemo/BlockAlertsDemo-Info.plist";
@@ -426,6 +427,7 @@
 		EC9016BA14BB629F00EF52E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlockAlertsDemo/BlockAlertsDemo-Prefix.pch";
 				INFOPLIST_FILE = "BlockAlertsDemo/BlockAlertsDemo-Info.plist";

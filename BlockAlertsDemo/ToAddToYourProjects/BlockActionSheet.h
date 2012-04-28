@@ -10,12 +10,11 @@
  */
 @interface BlockActionSheet : NSObject {
 @private
-    UIView *_view;
     NSMutableArray *_blocks;
     CGFloat _height;
 }
 
-@property (nonatomic, readonly) UIView *view;
+@property (nonatomic, readonly, strong) UIView *view;
 @property (nonatomic, readwrite) BOOL vignetteBackground;
 
 + (id)sheetWithTitle:(NSString *)title;
@@ -30,7 +29,9 @@
 - (void)setDestructiveButtonWithTitle:(NSString *) title atIndex:(NSInteger)index block:(void (^)()) block;
 - (void)addButtonWithTitle:(NSString *) title atIndex:(NSInteger)index block:(void (^)()) block;
 
-- (void)showInView:(UIView *)view;
+- (void)showInView:(UIView *)passedView;
+
+- (void)buttonClicked:(id)sender;
 
 - (NSUInteger)buttonCount;
 

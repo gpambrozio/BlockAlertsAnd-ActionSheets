@@ -17,6 +17,7 @@
 
 @implementation BlockTextPromptAlertView
 @synthesize textField;
+@synthesize view = _view;
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
     

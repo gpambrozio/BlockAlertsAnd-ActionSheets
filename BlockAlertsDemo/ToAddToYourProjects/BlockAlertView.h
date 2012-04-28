@@ -7,7 +7,6 @@
 
 @interface BlockAlertView : NSObject {
 @protected
-    UIView *_view;
     NSMutableArray *_blocks;
     CGFloat _height;
 }
@@ -23,8 +22,10 @@
 - (void)show;
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated;
 
+- (void)buttonClicked:(id)sender;
+
 @property (nonatomic, strong) UIImage *backgroundImage;
-@property (nonatomic, readonly) UIView *view;
+@property (nonatomic, readonly, strong) UIView *view;
 @property (nonatomic, readwrite) BOOL vignetteBackground;
 
 @end

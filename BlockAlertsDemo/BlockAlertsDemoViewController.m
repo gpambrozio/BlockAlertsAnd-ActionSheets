@@ -24,61 +24,74 @@
 
 - (IBAction)showAlert:(id)sender
 {
-    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Alert Title" message:@"This is a very long message, designed just to show you how smart this class is"];
-
+  
+    if (!alertViews) 
+      alertViews = [[NSMutableArray alloc] init];
+  
+    BlockAlertView* alert = [BlockAlertView alertWithTitle:@"Alert Title" message:@"This is a very long message, designed just to show you how smart this class is"];
+    __block BlockAlertsDemoViewController* currentViewController = self;
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];
     [alert setDestructiveButtonWithTitle:@"Kill!" block:nil];
     [alert addButtonWithTitle:@"Show Action Sheet on top" block:^{
-        [self showActionSheet:nil];
+        [currentViewController showActionSheet:nil];
     }];
     [alert addButtonWithTitle:@"Show another alert" block:^{
-        [self showAlert:nil];
+        [currentViewController showAlert:nil];
     }];
     [alert show];
+    [alertViews addObject:alert];
 }
 
 - (IBAction)showActionSheet:(id)sender
 {
+    if (!actionSheetViews) 
+      actionSheetViews = [[NSMutableArray alloc] init];
+  
     BlockActionSheet *sheet = [BlockActionSheet sheetWithTitle:@"This is a sheet title that will span more than one line"];
+    __block BlockAlertsDemoViewController* currentViewController = self;
     [sheet setCancelButtonWithTitle:@"Cancel Button" block:nil];
     [sheet setDestructiveButtonWithTitle:@"Destructive Button" block:nil];
     [sheet addButtonWithTitle:@"Show Action Sheet on top" block:^{
-        [self showActionSheet:nil];
+        [currentViewController showActionSheet:nil];
     }];
     [sheet addButtonWithTitle:@"Show another alert" block:^{
-        [self showAlert:nil];
+        [currentViewController showAlert:nil];
     }];
     [sheet showInView:self.view];
+    [actionSheetViews addObject:sheet];
 }
 
 - (IBAction)showAlertPlusActionSheet:(id)sender
 {
     [self showAlert:nil];
+    __block BlockAlertsDemoViewController* currentViewController = self;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self showActionSheet:nil];
+        [currentViewController showActionSheet:nil];
     });
 }
 
 - (IBAction)showActionSheetPlusAlert:(id)sender
 {
     [self showActionSheet:nil];
+    __block BlockAlertsDemoViewController* currentViewController = self;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self showAlert:nil];
+        [currentViewController showAlert:nil];
     });
 }
 
 - (IBAction)goNuts:(id)sender
 {
+    __block BlockAlertsDemoViewController* currentViewController = self;
     for (int i=0; i<6; i++)
     {
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5 * i * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             if (arc4random() % 2 == 0)
-                [self showAlert:nil];
+                [currentViewController showAlert:nil];
             else
-                [self showActionSheet:nil];
+                [currentViewController showActionSheet:nil];
         });
     }
 }
@@ -86,7 +99,7 @@
 - (IBAction)showTextPrompt:(id)sender
 {
     UITextField *textField;
-    BlockTextPromptAlertView *alert = [BlockTextPromptAlertView promptWithTitle:@"Prompt Title" message:@"With prompts you do have to keep in mind limited screen space due to the keyboard" textField:&textField];
+    BlockTextPromptAlertView* alert = [BlockTextPromptAlertView promptWithTitle:@"Prompt Title" message:@"With prompts you do have to keep in mind limited screen space due to the keyboard" textField:&textField];
     
     
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];
@@ -94,6 +107,7 @@
         NSLog(@"Text: %@", textField.text);
     }];
     [alert show];
+    [alertViews addObject:alert];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -117,11 +131,6 @@
     [self.testKeyboard resignFirstResponder];
 }
 
-- (void)dealloc
-{
-    [testKeyboard release];
-    [super dealloc];
-}
 
 - (void)viewDidUnload
 {
