@@ -83,12 +83,13 @@
     
     [super show];
     
-    [self.textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.5];
+    [[NSNotificationCenter defaultCenter] addObserver:textField selector:@selector(becomeFirstResponder) name:@"AlertViewFinishedAnimations" object:nil];
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
     [super dismissWithClickedButtonIndex:buttonIndex animated:animated];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:textField];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 }
 

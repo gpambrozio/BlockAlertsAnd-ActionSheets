@@ -285,7 +285,9 @@ static UIFont *buttonFont = nil;
                                               center.y -= kAlertViewBounce;
                                               _view.center = center;
                                           } 
-                                          completion:nil];
+                                          completion:^(BOOL finished) {
+                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"AlertViewFinishedAnimations" object:nil];
+                                          }];
                      }];
     
     [self retain];
