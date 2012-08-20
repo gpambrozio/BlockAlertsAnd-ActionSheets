@@ -54,6 +54,7 @@ static UIFont *buttonFont = nil;
     BlockAlertView *alert = [[BlockAlertView alloc] initWithTitle:title message:message];
     [alert setCancelButtonWithTitle:NSLocalizedString(@"Dismiss", nil) block:nil];
     [alert show];
+    [alert release];
 }
 
 + (void)showErrorAlert:(NSError *)error
@@ -61,6 +62,7 @@ static UIFont *buttonFont = nil;
     BlockAlertView *alert = [[BlockAlertView alloc] initWithTitle:NSLocalizedString(@"Operation Failed", nil) message:[NSString stringWithFormat:NSLocalizedString(@"The operation did not complete successfully: %@", nil), error]];
     [alert setCancelButtonWithTitle:@"Dismiss" block:nil];
     [alert show];
+    [alert release];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
