@@ -94,7 +94,7 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    CGFloat keyboardHeight;
+    CGFloat keyboardHeight = 0;
     CGFloat animationDuration = 0.3;
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
@@ -109,7 +109,7 @@
             keyboardHeight = keyboardFrame.size.width;
     }
     
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat screenHeight = 0;
 
     if(UIInterfaceOrientationIsPortrait(orientation))
         screenHeight = [UIScreen mainScreen].bounds.size.height;
