@@ -10,6 +10,7 @@
 #import "BlockAlertView.h"
 #import "BlockActionSheet.h"
 #import "BlockTextPromptAlertView.h"
+#import "BlockTextAlertViewConfig.h"
 
 @implementation BlockAlertsDemoViewController
 @synthesize testKeyboard;
@@ -85,11 +86,14 @@
 
 - (IBAction)showTextPrompt:(id)sender
 {
+    BlockTextAlertViewConfig *config = [BlockTextAlertViewConfig defaultConfig];
+    [config setPlaceholder:@"Placeholder"];
+    
     UITextField *textField;
     BlockTextPromptAlertView *alert = [BlockTextPromptAlertView promptWithTitle:@"Prompt Title" message:@"With prompts you do have to keep in mind limited screen space due to the keyboard" textField:&textField block:^(BlockTextPromptAlertView *alert){
         [alert.textField resignFirstResponder];
         return YES;
-    }];
+    } forConfig:config];
     
     
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];

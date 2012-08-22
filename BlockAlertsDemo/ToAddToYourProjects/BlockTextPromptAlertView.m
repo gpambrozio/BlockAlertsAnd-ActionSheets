@@ -7,7 +7,7 @@
 //
 
 #import "BlockTextPromptAlertView.h"
-
+#import "BlockTextAlertViewConfig.h"
 #define kTextBoxHeight      31
 #define kTextBoxSpacing     5
 #define kTextBoxHorizontalMargin 12
@@ -20,6 +20,7 @@
 
 @implementation BlockTextPromptAlertView
 @synthesize textField, callBack;
+@synthesize config = _config;
 
 
 
@@ -28,34 +29,38 @@
 }
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block:(TextFieldReturnCallBack)block {
-    return [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:defaultText block:block] autorelease];
+    return [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:defaultText block:block forConfig:nil] autorelease];
 }
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField {
-    return [self promptWithTitle:title message:message textField:textField block:nil];
+    return [self promptWithTitle:title message:message textField:textField block:nil forConfig:nil];
 }
 
 
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField block:(TextFieldReturnCallBack) block{
-    BlockTextPromptAlertView *prompt = [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:nil block:block] autorelease];
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField block:(TextFieldReturnCallBack) block forConfig:(BlockTextAlertViewConfig *)config{
+    BlockTextPromptAlertView *prompt = [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:nil block:block forConfig:config] autorelease];
     
     *textField = prompt.textField;
     
     return prompt;
 }
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block: (TextFieldReturnCallBack) block {
+- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block: (TextFieldReturnCallBack) block forConfig: (BlockTextAlertViewConfig *) config {
     
     self = [super initWithTitle:title message:message];
     
     if (self) {
+        _config = config;
+        
         UITextField *theTextField = [[[UITextField alloc] initWithFrame:CGRectMake(kTextBoxHorizontalMargin, _height, _view.bounds.size.width - kTextBoxHorizontalMargin * 2, kTextBoxHeight)] autorelease]; 
         
-        [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
-        [theTextField setBorderStyle:UITextBorderStyleRoundedRect];
-        [theTextField setTextAlignment:UITextAlignmentCenter];
-        [theTextField setClearButtonMode:UITextFieldViewModeAlways];
+        [theTextField setContentVerticalAlignment:[self.config contentVerticalAlignment]];
+        [theTextField setAutocapitalizationType:[self.config autocapitalizationType]];
+        [theTextField setBorderStyle:[self.config borderStyle]];
+        [theTextField setTextAlignment:[self.config textAlignment]];
+        [theTextField setClearButtonMode:[self.config clearButtonMode]];
+        [theTextField setFont:[self.config font]];
+        [theTextField setPlaceholder:[self.config placeholder]];
         
         if (defaultText)
             theTextField.text = defaultText;
@@ -148,6 +153,13 @@
         return NO;
     else 
         return YES;
+}
+
+-(BlockTextAlertViewConfig *)config {
+    if(!_config){
+        _config = [BlockTextAlertViewConfig defaultConfig];
+    }
+    return _config;
 }
 
 - (void)dealloc
