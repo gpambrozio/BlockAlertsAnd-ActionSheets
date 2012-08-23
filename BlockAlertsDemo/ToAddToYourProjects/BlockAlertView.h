@@ -5,9 +5,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^BlockAlert)();
+
+typedef enum {
+    BlockAlertViewButtonClorsBlack = 0,
+    BlockAlertViewButtonClorsGray,
+    BlockAlertViewButtonClorsRed,
+} BlockAlertViewButtonClors;
+
 @interface BlockAlertView : NSObject {
 @protected
-    UIView *_view;
+    UIScrollView *_view;
     NSMutableArray *_blocks;
     CGFloat _height;
 }
