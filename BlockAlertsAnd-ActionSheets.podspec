@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "BlockAlertsAnd-ActionSheets-BJ"
+  s.name         = "BlockAlertsAnd-ActionSheets"
   s.version      = "0.0.1"
   s.summary      = "Fork of Arrived's BlockAlertsAndActionSheets to add rotation support, a text prompt alert, and a table select alert."
   s.homepage     = "https://github.com/barrettj/BlockAlertsAnd-ActionSheets"
