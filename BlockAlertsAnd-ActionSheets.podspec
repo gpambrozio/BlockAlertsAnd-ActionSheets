@@ -8,5 +8,5 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/barrettj/BlockAlertsAnd-ActionSheets.git" }
   s.platform     = :ios, '4.3'
   s.source_files =  "BlockAlertsDemo/BlockActionSheet.{h,m}", "BlockAlertsDemo/BlockAlertView.{h,m}", "BlockAlertsDemo/BlockBackground.{h,m}", "BlockAlertsDemo/BlockTableAlertView.{h,m}", "BlockAlertsDemo/BlockTextPromptAlertView.{h,m}"
-  s.resources = "BlockAlertsDemo/images/*.png"
+  s.resources = "BlockAlertsDemo/images/*.png", "BlockAlertsDemo/images/ActionSheet/*.png", "BlockAlertsDemo/images/AlertView/*.png"
 end
