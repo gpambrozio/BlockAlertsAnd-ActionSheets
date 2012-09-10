@@ -16,9 +16,11 @@ static UIFont *titleFont = nil;
 static UIFont *messageFont = nil;
 static UIFont *buttonFont = nil;
 
+#define NeedsLandscapePhoneTweaks (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+
 #define kBounce         20
-#define kBorder         10
-#define kButtonHeight   44
+#define kBorder         (NeedsLandscapePhoneTweaks ? 5 : 10)
+#define kButtonHeight   (NeedsLandscapePhoneTweaks ? 35 : 44)
 
 #define kAlertFontColor    [UIColor colorWithWhite:244.0/255.0 alpha:1.0]
 
@@ -135,6 +137,10 @@ static UIFont *buttonFont = nil;
     
     _height = kBorder + 15;
     
+    if (NeedsLandscapePhoneTweaks) {
+        _height -= 15; // landscape phones need to trimmed a bit
+    }
+
     [self addComponents:frame];
 
     if (_shown)
