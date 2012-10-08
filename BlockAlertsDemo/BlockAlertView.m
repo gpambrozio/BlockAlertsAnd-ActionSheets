@@ -28,6 +28,16 @@ static UIFont *buttonFont = nil;
 #define kAlertViewBackgroundLandscape   @"alert-window-landscape.png"
 #define kAlertViewBackgroundCapHeight  38
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 60000
+#define NSTextAlignmentCenter       UITextAlignmentCenter
+#define NSLineBreakByWordWrapping   UILineBreakModeWordWrap
+#define NSLineBreakByClipping       UILineBreakModeClip
+#endif
+
+#ifndef IOS_LESS_THAN_6
+#define IOS_LESS_THAN_6 !([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] != NSOrderedAscending)
+
+#endif
 #pragma mark - init
 
 + (void)initialize
@@ -75,15 +85,15 @@ static UIFont *buttonFont = nil;
     {
         CGSize size = [_title sizeWithFont:titleFont
                          constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
-                             lineBreakMode:UILineBreakModeWordWrap];
+                             lineBreakMode:NSLineBreakByWordWrapping];
         
         UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
         labelView.font = titleFont;
         labelView.numberOfLines = 0;
-        labelView.lineBreakMode = UILineBreakModeWordWrap;
+        labelView.lineBreakMode = NSLineBreakByWordWrapping;
         labelView.textColor = kAlertFontColor;
         labelView.backgroundColor = [UIColor clearColor];
-        labelView.textAlignment = UITextAlignmentCenter;
+        labelView.textAlignment = NSTextAlignmentCenter;
         labelView.shadowColor = [UIColor blackColor];
         labelView.shadowOffset = CGSizeMake(0, -1);
         labelView.text = _title;
@@ -97,15 +107,15 @@ static UIFont *buttonFont = nil;
     {
         CGSize size = [_message sizeWithFont:messageFont
                            constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
-                               lineBreakMode:UILineBreakModeWordWrap];
+                               lineBreakMode:NSLineBreakByWordWrapping];
         
         UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
         labelView.font = messageFont;
         labelView.numberOfLines = 0;
-        labelView.lineBreakMode = UILineBreakModeWordWrap;
+        labelView.lineBreakMode = NSLineBreakByWordWrapping;
         labelView.textColor = kAlertFontColor;
         labelView.backgroundColor = [UIColor clearColor];
-        labelView.textAlignment = UITextAlignmentCenter;
+        labelView.textAlignment = NSTextAlignmentCenter;
         labelView.shadowColor = [UIColor blackColor];
         labelView.shadowOffset = CGSizeMake(0, -1);
         labelView.text = _message;
@@ -242,7 +252,7 @@ static UIFont *buttonFont = nil;
                                   minFontSize:10 
                                actualFontSize:nil
                                      forWidth:_view.bounds.size.width-kBorder*2 
-                                lineBreakMode:UILineBreakModeClip];
+                                lineBreakMode:NSLineBreakByClipping];
             
             if (size.width < maxHalfWidth - kBorder)
             {
@@ -253,7 +263,7 @@ static UIFont *buttonFont = nil;
                                 minFontSize:10 
                              actualFontSize:nil
                                    forWidth:_view.bounds.size.width-kBorder*2 
-                              lineBreakMode:UILineBreakModeClip];
+                              lineBreakMode:NSLineBreakByClipping];
                 
                 if (size.width < maxHalfWidth - kBorder)
                 {
@@ -267,8 +277,18 @@ static UIFont *buttonFont = nil;
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(xOffset, _height, width, kButtonHeight);
         button.titleLabel.font = buttonFont;
-        button.titleLabel.minimumFontSize = 10;
-        button.titleLabel.textAlignment = UITextAlignmentCenter;
+        if (IOS_LESS_THAN_6) {
+#pragma clan diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            button.titleLabel.minimumFontSize = 10;
+#pragma clan diagnostic pop
+        }
+        else {
+            button.titleLabel.adjustsFontSizeToFitWidth = YES;
+            button.titleLabel.adjustsLetterSpacingToFitWidth = YES;
+            button.titleLabel.minimumScaleFactor = 0.1;
+        }
+        button.titleLabel.textAlignment = NSTextAlignmentCenter;
         button.titleLabel.shadowOffset = CGSizeMake(0, -1);
         button.backgroundColor = [UIColor clearColor];
         button.tag = i+1;

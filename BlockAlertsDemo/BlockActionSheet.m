@@ -22,6 +22,17 @@ static UIFont *buttonFont = nil;
 #define kActionSheetBackground   @"action-sheet-panel.png"
 #define kActionSheetBackgroundCapHeight  30
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 60000
+#define NSTextAlignmentCenter       UITextAlignmentCenter
+#define NSLineBreakByWordWrapping   UILineBreakModeWordWrap
+#endif
+
+#ifndef IOS_LESS_THAN_6
+#define IOS_LESS_THAN_6 !([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] != NSOrderedAscending)
+
+#endif
+
+
 #pragma mark - init
 
 + (void)initialize
@@ -58,15 +69,15 @@ static UIFont *buttonFont = nil;
         {
             CGSize size = [title sizeWithFont:titleFont
                             constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
-                                lineBreakMode:UILineBreakModeWordWrap];
+                                lineBreakMode:NSLineBreakByWordWrapping];
             
             UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
             labelView.font = titleFont;
             labelView.numberOfLines = 0;
-            labelView.lineBreakMode = UILineBreakModeWordWrap;
+            labelView.lineBreakMode = NSLineBreakByWordWrapping;
             labelView.textColor = [UIColor whiteColor];
             labelView.backgroundColor = [UIColor clearColor];
-            labelView.textAlignment = UITextAlignmentCenter;
+            labelView.textAlignment = NSTextAlignmentCenter;
             labelView.shadowColor = [UIColor blackColor];
             labelView.shadowOffset = CGSizeMake(0, -1);
             labelView.text = title;
@@ -160,9 +171,17 @@ static UIFont *buttonFont = nil;
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(kBorder, _height, _view.bounds.size.width-kBorder*2, kButtonHeight);
         button.titleLabel.font = buttonFont;
-        button.titleLabel.minimumFontSize = 6;
+        if (IOS_LESS_THAN_6) {
+#pragma clan diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            button.titleLabel.minimumFontSize = 10;
+#pragma clan diagnostic pop
+        }
+        else {
+            button.titleLabel.minimumScaleFactor = 0.1;
+        }
         button.titleLabel.adjustsFontSizeToFitWidth = YES;
-        button.titleLabel.textAlignment = UITextAlignmentCenter;
+        button.titleLabel.textAlignment = NSTextAlignmentCenter;
         button.titleLabel.shadowOffset = CGSizeMake(0, -1);
         button.backgroundColor = [UIColor clearColor];
         button.tag = i++;

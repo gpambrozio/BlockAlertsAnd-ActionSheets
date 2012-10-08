@@ -14,6 +14,10 @@
 
 #define kKeyboardResizeBounce         20
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 60000
+#define NSTextAlignmentCenter       UITextAlignmentCenter
+#endif
+
 
 @implementation BlockTextPromptAlertView
 @synthesize textField;
@@ -37,7 +41,7 @@
         [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
         [theTextField setBorderStyle:UITextBorderStyleRoundedRect];
-        [theTextField setTextAlignment:UITextAlignmentCenter];
+        [theTextField setTextAlignment:NSTextAlignmentCenter];
         [theTextField setClearButtonMode:UITextFieldViewModeAlways];
         
         theTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
