@@ -15,8 +15,6 @@ typedef void (^TableAlertGeneralBlock)(BlockTableAlertView*);
 typedef NSUInteger (^TableAlertNumberOfRowsBlock)(BlockTableAlertView*);
 typedef UITableViewCell* (^TableAlertCellSourceBlock)(BlockTableAlertView*,NSInteger);
 
-
-#define kNumMaximumVisibleRowsInTableView 15
 #define kDefaultRowHeight 40.0
 #define kTableCornerRadius 5
 

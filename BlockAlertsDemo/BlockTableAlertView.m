@@ -11,6 +11,13 @@
 #define kVerticalSpacing     5
 #define kHorizontalMargin   12
 
+#define IS_IPAD UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
+
+#define IS_LANDSCAPE UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])
+
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
+#define kNumMaximumVisibleRowsInTableView (IS_IPAD ? 15 : (IS_LANDSCAPE ? 4 : (IS_IPHONE_5 ? 6 : 5)))
 
 #import "BlockTableAlertView.h"
 #import <QuartzCore/QuartzCore.h>
