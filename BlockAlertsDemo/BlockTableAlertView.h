@@ -50,6 +50,9 @@ typedef enum {
 
 - (void)reloadData;
 
+- (void)insertRowsAtIndexPaths:(NSArray*)rows;
+- (void)deleteRowsAtIndexPaths:(NSArray*)rows;
+
 + (BlockTableAlertView *)tableAlertWithTitle:(NSString *)title message:(NSString *)message;
 
 @end

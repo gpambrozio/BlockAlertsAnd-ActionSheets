@@ -81,13 +81,9 @@
     [super dismissWithClickedButtonIndex:buttonIndex animated:animated];
 }
 
-- (void)reloadData {
-    CGFloat oldTableHeight = _tableView.frame.size.height;
-    
-    [self.tableView reloadData];
-    
+- (void)updateAlertHeight:(CGFloat)oldTableHeight {
     CGFloat newTableHeight = kDefaultRowHeight * MIN(self.numberOfRowsInTableAlert(self), kNumMaximumVisibleRowsInTableView);
-
+    
     if (newTableHeight != oldTableHeight) {
         CGFloat diff = newTableHeight - oldTableHeight;
         [UIView animateWithDuration:0.3 animations:^{
@@ -100,9 +96,33 @@
             _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, newTableHeight);
             self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height + diff);
         }];
-
     }
 }
+
+- (void)reloadData {
+    CGFloat oldTableHeight = _tableView.frame.size.height;
+
+    [self.tableView reloadData];
+    
+    [self updateAlertHeight:oldTableHeight];
+}
+
+- (void)insertRowsAtIndexPaths:(NSArray*)rows {
+    CGFloat oldTableHeight = _tableView.frame.size.height;
+    
+    [self.tableView insertRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [self updateAlertHeight:oldTableHeight];
+}
+
+- (void)deleteRowsAtIndexPaths:(NSArray*)rows {
+    CGFloat oldTableHeight = _tableView.frame.size.height;
+    
+    [self.tableView deleteRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [self updateAlertHeight:oldTableHeight];
+}
+
 
 - (void)show {
     if (!_shown)
