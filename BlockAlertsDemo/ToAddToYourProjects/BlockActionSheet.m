@@ -7,8 +7,14 @@
 #import "BlockBackground.h"
 #import "BlockUI.h"
 
+@interface BlockActionSheet ()
+@property (nonatomic, strong) BlockActionSheet *retainedSelf;
+
+@end
+
 @implementation BlockActionSheet
 
+@synthesize retainedSelf = _retainedSelf;
 @synthesize view = _view;
 @synthesize vignetteBackground = _vignetteBackground;
 
@@ -190,6 +196,7 @@ static UIFont *buttonFont = nil;
                                           } completion:nil];
                      }];
     
+    [self setRetainedSelf:self];
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated 
@@ -217,11 +224,13 @@ static UIFont *buttonFont = nil;
                              [[BlockBackground sharedInstance] removeView:_view];
                              _view = nil;
                          }];
+        [self setRetainedSelf:nil];
     }
     else
     {
         [[BlockBackground sharedInstance] removeView:_view];
         _view = nil;
+        [self setRetainedSelf:nil];
     }
 }
 

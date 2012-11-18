@@ -25,9 +25,6 @@
 - (IBAction)showAlert:(id)sender
 {
   
-    if (!alertViews) 
-      alertViews = [[NSMutableArray alloc] init];
-  
     BlockAlertView* alert = [BlockAlertView alertWithTitle:@"Alert Title" message:@"This is a very long message, designed just to show you how smart this class is"];
     __block BlockAlertsDemoViewController* currentViewController = self;
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];
@@ -39,14 +36,10 @@
         [currentViewController showAlert:nil];
     }];
     [alert show];
-    [alertViews addObject:alert];
 }
 
 - (IBAction)showActionSheet:(id)sender
 {
-    if (!actionSheetViews) 
-      actionSheetViews = [[NSMutableArray alloc] init];
-  
     BlockActionSheet *sheet = [BlockActionSheet sheetWithTitle:@"This is a sheet title that will span more than one line"];
     __block BlockAlertsDemoViewController* currentViewController = self;
     [sheet setCancelButtonWithTitle:@"Cancel Button" block:nil];
@@ -58,7 +51,6 @@
         [currentViewController showAlert:nil];
     }];
     [sheet showInView:self.view];
-    [actionSheetViews addObject:sheet];
 }
 
 - (IBAction)showAlertPlusActionSheet:(id)sender
@@ -107,7 +99,6 @@
         NSLog(@"Text: %@", textField.text);
     }];
     [alert show];
-    [alertViews addObject:alert];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
