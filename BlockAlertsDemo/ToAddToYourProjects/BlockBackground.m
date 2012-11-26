@@ -7,6 +7,7 @@
 //
 
 #import "BlockBackground.h"
+#import "BlockUI.h"
 
 @implementation BlockBackground
 
@@ -73,7 +74,7 @@ static BlockBackground *_sharedInstance = nil;
         self.windowLevel = UIWindowLevelStatusBar;
         self.hidden = YES;
         self.userInteractionEnabled = NO;
-        self.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.5f];
+        self.backgroundColor = [UIColor colorWithWhite:kBlockUIBackgroundWhite alpha:kBlockUIBackgroundAlpha];
         self.vignetteBackground = NO;
     }
     return self;
