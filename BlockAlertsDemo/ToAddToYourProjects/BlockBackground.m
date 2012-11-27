@@ -5,9 +5,12 @@
 //  Created by Gustavo Ambrozio on 29/11/11.
 //  Copyright (c) 2011 N/A. All rights reserved.
 //
-
+#import <QuartzCore/QuartzCore.h>
 #import "BlockBackground.h"
 #import "BlockUI.h"
+
+static inline double radians (double degrees) {return degrees * M_PI/180.0;}
+
 
 @implementation BlockBackground
 
@@ -79,6 +82,46 @@ static BlockBackground *_sharedInstance = nil;
     }
     return self;
 }
+
+
+
+- (void)applyInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
+
+    switch( interfaceOrientation )
+    {
+        case UIInterfaceOrientationPortrait:
+            self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.width, mainScreenBounds.size.height);
+            self.layer.transform = CATransform3DMakeRotation(radians(0), 0, 0, 1);
+            break;
+
+        case UIInterfaceOrientationPortraitUpsideDown:
+            if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+            {
+                self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.width, mainScreenBounds.size.height);
+                self.layer.transform = CATransform3DMakeRotation(radians(180), 0, 0, 1);
+            }
+            else  // Phone isn't allowed to do upside down orientation
+            {
+                self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.width, mainScreenBounds.size.height);
+                self.layer.transform = CATransform3DMakeRotation(radians(0), 0, 0, 1);
+            }
+            break;
+
+        case UIInterfaceOrientationLandscapeLeft:
+            self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.height, mainScreenBounds.size.width);
+            self.layer.transform = CATransform3DMakeRotation(radians(-90), 0, 0, 1);
+            break;
+
+        case UIInterfaceOrientationLandscapeRight:
+            self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.height, mainScreenBounds.size.width);
+            self.layer.transform = CATransform3DMakeRotation(radians(90), 0, 0, 1);
+            break;
+    }
+}
+
+
 
 - (void)addToMainWindow:(UIView *)view
 {

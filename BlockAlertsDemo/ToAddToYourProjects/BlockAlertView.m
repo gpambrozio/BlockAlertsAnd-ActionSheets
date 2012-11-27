@@ -37,13 +37,37 @@ static UIFont *buttonFont = nil;
     return [[[BlockAlertView alloc] initWithTitle:title message:message] autorelease];
 }
 
+
++ (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message usingInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return [[[BlockAlertView alloc] initWithTitle:title message:message usingInterfaceOrientation:interfaceOrientation] autorelease];
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - NSObject
 
+
+
+
 - (id)initWithTitle:(NSString *)title message:(NSString *)message 
+{
+    self = [self initWithTitle:title message:message usingInterfaceOrientation:UIInterfaceOrientationPortrait];
+    if( self != nil )
+    {
+    }
+    
+    return self;
+}
+
+
+
+- (id)initWithTitle:(NSString *)title message:(NSString *)message usingInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     if ((self = [super init]))
     {
+        [[BlockBackground sharedInstance] applyInterfaceOrientation:interfaceOrientation];
+
         UIWindow *parentView = [BlockBackground sharedInstance];
         CGRect frame = parentView.bounds;
         frame.origin.x = floorf((frame.size.width - background.size.width) * 0.5);
@@ -139,7 +163,7 @@ static UIFont *buttonFont = nil;
 }
 
 - (void)show
-{
+{    
     BOOL isSecondButton = NO;
     NSUInteger index = 0;
     for (NSUInteger i = 0; i < _blocks.count; i++)

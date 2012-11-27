@@ -19,6 +19,8 @@
 - (void)reduceAlphaIfEmpty;
 - (void)removeView:(UIView *)view;
 
+- (void)applyInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
+
 @property (nonatomic, retain) UIImage *backgroundImage;
 @property (nonatomic, readwrite) BOOL vignetteBackground;
 
