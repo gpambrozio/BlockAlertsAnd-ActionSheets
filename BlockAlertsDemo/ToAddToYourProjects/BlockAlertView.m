@@ -7,6 +7,12 @@
 #import "BlockBackground.h"
 #import "BlockUI.h"
 
+
+@interface BlockAlertView ()
+- (void)showNow;
+@end
+
+
 @implementation BlockAlertView
 
 @synthesize view = _view;
@@ -162,7 +168,18 @@ static UIFont *buttonFont = nil;
     [self addButtonWithTitle:title color:@"red" block:block];
 }
 
+
 - (void)show
+{
+    // Make sure we are showing the alert on the main thread.
+    //
+    dispatch_async( dispatch_get_main_queue(), ^{
+        [self showNow];
+    } );
+}
+
+
+- (void)showNow
 {    
     BOOL isSecondButton = NO;
     NSUInteger index = 0;

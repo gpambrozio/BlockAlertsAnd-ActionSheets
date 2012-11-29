@@ -150,8 +150,13 @@ static BlockBackground *_sharedInstance = nil;
         _backgroundImage = nil;
     }
     
+    // Make sure the view is on the top and that user interation is enabled
     [self addSubview:view];
+    view.userInteractionEnabled = YES;
 }
+
+
+
 
 - (void)reduceAlphaIfEmpty
 {
@@ -161,6 +166,9 @@ static BlockBackground *_sharedInstance = nil;
         self.userInteractionEnabled = NO;
     }
 }
+
+
+
 
 - (void)removeView:(UIView *)view
 {
@@ -185,6 +193,9 @@ static BlockBackground *_sharedInstance = nil;
         ((UIView*)[self.subviews lastObject]).userInteractionEnabled = YES;
     }
 }
+
+
+
 
 - (void)drawRect:(CGRect)rect 
 {    
