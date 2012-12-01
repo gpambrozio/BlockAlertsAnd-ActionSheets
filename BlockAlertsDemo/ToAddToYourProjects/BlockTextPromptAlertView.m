@@ -45,7 +45,7 @@
         [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
         [theTextField setBorderStyle:UITextBorderStyleRoundedRect];
-        [theTextField setTextAlignment:UITextAlignmentCenter];
+        [theTextField setTextAlignment:NSTextAlignmentCenter];
         [theTextField setClearButtonMode:UITextFieldViewModeAlways];
         
         if (defaultText)
