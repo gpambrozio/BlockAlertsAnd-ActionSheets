@@ -125,15 +125,18 @@ static BlockBackground *_sharedInstance = nil;
 
 - (void)addToMainWindow:(UIView *)view
 {
-    if (self.hidden)
+    if( self.hidden )
     {
         _previousKeyWindow = [[[UIApplication sharedApplication] keyWindow] retain];
         self.alpha = 0.0f;
         self.hidden = NO;
-        self.userInteractionEnabled = YES;
-        [self makeKeyWindow];
     }
     
+    // Make sure user interaction is enabled and that we are the key window
+    self.userInteractionEnabled = YES;
+    [self makeKeyWindow];
+
+    // If there is a previous view, we turn off userInteraction for it so only the top view will get events.
     if (self.subviews.count > 0)
     {
         ((UIView*)[self.subviews lastObject]).userInteractionEnabled = NO;
@@ -181,7 +184,7 @@ static BlockBackground *_sharedInstance = nil;
         [topView removeFromSuperview];
     }
     
-    if (self.subviews.count == 0)
+    if( self.subviews.count == 0 )
     {
         self.hidden = YES;
         [_previousKeyWindow makeKeyWindow];

@@ -366,18 +366,18 @@ static UIFont *buttonFont = nil;
                                                   [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
                                               } 
                                               completion:^(BOOL finished) {
-                                                  [[BlockBackground sharedInstance] removeView:_view];
-                                                  [_view release]; _view = nil;
-                                                  [self autorelease];
+                                                  // Animation completed
                                               }];
                          }];
     }
-    else
-    {
+    
+    // Animations can't be counted on to complete so we do this as a dispatch that will complete at
+    // the same time as the animation, or we don't wait if there was no animation.
+    dispatch_after( dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * (animated ? 0.5 : 0.0)), dispatch_get_main_queue(), ^{
         [[BlockBackground sharedInstance] removeView:_view];
         [_view release]; _view = nil;
         [self autorelease];
-    }
+    });
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
