@@ -44,7 +44,7 @@ static UIFont *buttonFont = nil;
 {
     if ((self = [super init]))
     {
-        UIWindow *parentView = [BlockBackground sharedInstance];
+        UIView *parentView = [BlockBackground sharedInstance];
         CGRect frame = parentView.bounds;
         frame.origin.x = floorf((frame.size.width - background.size.width) * 0.5);
         frame.size.width = background.size.width;
@@ -251,7 +251,7 @@ static UIFont *buttonFont = nil;
     frame.origin.y = - _height;
     frame.size.height = _height;
     _view.frame = frame;
-    
+    _view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
     modalBackground.image = background;
     modalBackground.contentMode = UIViewContentModeScaleToFill;

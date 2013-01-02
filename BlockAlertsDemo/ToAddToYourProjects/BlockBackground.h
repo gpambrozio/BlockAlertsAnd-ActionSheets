@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BlockBackground : UIWindow {
-@private
-    UIWindow *_previousKeyWindow;
+@interface BlockBackground : UIView {
 }
 
 + (BlockBackground *) sharedInstance;

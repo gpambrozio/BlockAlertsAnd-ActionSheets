@@ -38,10 +38,12 @@ static UIFont *buttonFont = nil;
 {
     if ((self = [super init]))
     {
-        UIWindow *parentView = [BlockBackground sharedInstance];
+        UIView *parentView = [BlockBackground sharedInstance];
         CGRect frame = parentView.bounds;
         
         _view = [[UIView alloc] initWithFrame:frame];
+        _view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+
         _blocks = [[NSMutableArray alloc] init];
         _height = kActionSheetTopMargin;
 
@@ -52,6 +54,7 @@ static UIFont *buttonFont = nil;
                                 lineBreakMode:UILineBreakModeWordWrap];
             
             UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kActionSheetBorder, _height, frame.size.width-kActionSheetBorder*2, size.height)];
+            labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             labelView.font = titleFont;
             labelView.numberOfLines = 0;
             labelView.lineBreakMode = UILineBreakModeWordWrap;
@@ -148,6 +151,7 @@ static UIFont *buttonFont = nil;
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(kActionSheetBorder, _height, _view.bounds.size.width-kActionSheetBorder*2, kActionSheetButtonHeight);
+        button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         button.titleLabel.font = buttonFont;
         button.titleLabel.minimumFontSize = 6;
         button.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -170,6 +174,7 @@ static UIFont *buttonFont = nil;
     
     UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
     modalBackground.image = background;
+    modalBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     modalBackground.contentMode = UIViewContentModeScaleToFill;
     [_view insertSubview:modalBackground atIndex:0];
     [modalBackground release];
@@ -180,7 +185,8 @@ static UIFont *buttonFont = nil;
     frame.origin.y = [BlockBackground sharedInstance].bounds.size.height;
     frame.size.height = _height + kActionSheetBounce;
     _view.frame = frame;
-    
+    _view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+
     __block CGPoint center = _view.center;
     center.y -= _height + kActionSheetBounce;
     
