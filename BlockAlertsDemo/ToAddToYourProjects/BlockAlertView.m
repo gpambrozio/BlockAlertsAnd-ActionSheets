@@ -251,7 +251,7 @@ static UIFont *buttonFont = nil;
     frame.origin.y = - _height;
     frame.size.height = _height;
     _view.frame = frame;
-    
+    _view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
     modalBackground.image = background;
     modalBackground.contentMode = UIViewContentModeScaleToFill;
