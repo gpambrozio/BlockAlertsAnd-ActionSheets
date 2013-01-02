@@ -68,9 +68,9 @@ static BlockBackground *_sharedInstance = nil;
 
 - (id)init
 {
-    self = [super initWithFrame:[[UIScreen mainScreen] bounds]];
+    self = [super initWithFrame:[[BlockBackground firstWindowSubview] bounds]];
     if (self) {
-        self.windowLevel = UIWindowLevelStatusBar;
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.hidden = YES;
         self.userInteractionEnabled = NO;
         self.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.5f];
@@ -83,11 +83,10 @@ static BlockBackground *_sharedInstance = nil;
 {
     if (self.hidden)
     {
-        _previousKeyWindow = [[[UIApplication sharedApplication] keyWindow] retain];
         self.alpha = 0.0f;
         self.hidden = NO;
         self.userInteractionEnabled = YES;
-        [self makeKeyWindow];
+        [self removeFromSuperview];
     }
     
     if (self.subviews.count > 0)
@@ -105,8 +104,9 @@ static BlockBackground *_sharedInstance = nil;
         [_backgroundImage release];
         _backgroundImage = nil;
     }
-    
+
     [self addSubview:view];
+    [[BlockBackground firstWindowSubview] addSubview:self];
 }
 
 - (void)reduceAlphaIfEmpty
@@ -132,9 +132,6 @@ static BlockBackground *_sharedInstance = nil;
     if (self.subviews.count == 0)
     {
         self.hidden = YES;
-        [_previousKeyWindow makeKeyWindow];
-        [_previousKeyWindow release];
-        _previousKeyWindow = nil;
     }
     else
     {
@@ -158,6 +155,14 @@ static BlockBackground *_sharedInstance = nil;
 	float radius = MIN(self.bounds.size.width , self.bounds.size.height) ;
 	CGContextDrawRadialGradient (context, gradient, center, 0, center, radius, kCGGradientDrawsAfterEndLocation);
 	CGGradientRelease(gradient);
+}
+
++(UIView*) firstWindowSubview {
+    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    if (!window) {
+        window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+    }
+    return [[window subviews] objectAtIndex:0];
 }
 
 @end

@@ -38,7 +38,7 @@ static UIFont *buttonFont = nil;
 {
     if ((self = [super init]))
     {
-        UIWindow *parentView = [BlockBackground sharedInstance];
+        UIView *parentView = [BlockBackground sharedInstance];
         CGRect frame = parentView.bounds;
         
         _view = [[UIView alloc] initWithFrame:frame];

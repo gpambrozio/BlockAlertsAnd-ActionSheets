@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BlockBackground : UIWindow {
+@interface BlockBackground : UIView {
 @private
     UIWindow *_previousKeyWindow;
 }
