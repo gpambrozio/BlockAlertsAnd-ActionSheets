@@ -23,10 +23,6 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [[BlockBackground sharedInstance] applyInterfaceOrientation:toInterfaceOrientation duration:duration];
-}
-
 - (IBAction)showAlert:(id)sender
 {
     BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Alert Title" message:@"This is a very long message, designed just to show you how smart this class is"];

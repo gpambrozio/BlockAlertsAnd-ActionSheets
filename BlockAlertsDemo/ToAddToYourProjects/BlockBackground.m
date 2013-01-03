@@ -79,6 +79,11 @@ static BlockBackground *_sharedInstance = nil;
         self.userInteractionEnabled = NO;
         self.backgroundColor = [UIColor colorWithWhite:kBlockUIBackgroundWhite alpha:kBlockUIBackgroundAlpha];
         self.vignetteBackground = NO;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(rotated:)
+                                                     name:UIDeviceOrientationDidChangeNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -219,6 +224,13 @@ static BlockBackground *_sharedInstance = nil;
     float radius = MIN(self.bounds.size.width , self.bounds.size.height) ;
     CGContextDrawRadialGradient (context, gradient, center, 0, center, radius, kCGGradientDrawsAfterEndLocation);
     CGGradientRelease(gradient);
+}
+
+#pragma mark Notifications
+
+-(void) rotated:(NSNotification*) notification {
+    [[BlockBackground sharedInstance] applyInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]
+                                                       duration:0.4];
 }
 
 @end
