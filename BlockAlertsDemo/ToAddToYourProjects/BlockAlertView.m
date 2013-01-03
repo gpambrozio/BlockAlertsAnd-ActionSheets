@@ -7,6 +7,12 @@
 #import "BlockBackground.h"
 #import "BlockUI.h"
 
+
+@interface BlockAlertView ()
+- (void)showNow;
+@end
+
+
 @implementation BlockAlertView
 
 @synthesize view = _view;
@@ -34,16 +40,40 @@ static UIFont *buttonFont = nil;
 
 + (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message
 {
-    return [[[BlockAlertView alloc] initWithTitle:title message:message] autorelease];
+    return [[[BlockAlertView alloc] initWithTitle:title message:message usingInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]] autorelease];
 }
+
+
++ (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message usingInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return [[[BlockAlertView alloc] initWithTitle:title message:message usingInterfaceOrientation:interfaceOrientation] autorelease];
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - NSObject
 
+
+
+
 - (id)initWithTitle:(NSString *)title message:(NSString *)message 
 {
-    if ((self = [super init]))
+    self = [self initWithTitle:title message:message usingInterfaceOrientation:UIInterfaceOrientationPortrait];
+    if( self != nil )
     {
+    }
+    
+    return self;
+}
+
+
+
+- (id)initWithTitle:(NSString *)title message:(NSString *)message usingInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if ((self = [super init]))
+    {        
+        [[BlockBackground sharedInstance] applyInterfaceOrientation:interfaceOrientation];
+
         UIWindow *parentView = [BlockBackground sharedInstance];
         CGRect frame = parentView.bounds;
         frame.origin.x = floorf((frame.size.width - background.size.width) * 0.5);
@@ -53,6 +83,8 @@ static UIFont *buttonFont = nil;
         _blocks = [[NSMutableArray alloc] init];
         _height = kAlertViewBorder + 6;
 
+        _view.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        
         if (title)
         {
             CGSize size = [title sizeWithFont:titleFont
@@ -138,8 +170,19 @@ static UIFont *buttonFont = nil;
     [self addButtonWithTitle:title color:@"red" block:block];
 }
 
+
 - (void)show
 {
+    // Make sure we are showing the alert on the main thread.
+    //
+    dispatch_async( dispatch_get_main_queue(), ^{
+        [self showNow];
+    } );
+}
+
+
+- (void)showNow
+{    
     BOOL isSecondButton = NO;
     NSUInteger index = 0;
     for (NSUInteger i = 0; i < _blocks.count; i++)
@@ -325,18 +368,18 @@ static UIFont *buttonFont = nil;
                                                   [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
                                               } 
                                               completion:^(BOOL finished) {
-                                                  [[BlockBackground sharedInstance] removeView:_view];
-                                                  [_view release]; _view = nil;
-                                                  [self autorelease];
+                                                  // Animation completed
                                               }];
                          }];
     }
-    else
-    {
+    
+    // Animations can't be counted on to complete so we do this as a dispatch that will complete at
+    // the same time as the animation, or we don't wait if there was no animation.
+    dispatch_after( dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * (animated ? 0.5 : 0.0)), dispatch_get_main_queue(), ^{
         [[BlockBackground sharedInstance] removeView:_view];
         [_view release]; _view = nil;
         [self autorelease];
-    }
+    });
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

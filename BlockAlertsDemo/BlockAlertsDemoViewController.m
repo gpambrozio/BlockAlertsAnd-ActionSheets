@@ -10,6 +10,7 @@
 #import "BlockAlertView.h"
 #import "BlockActionSheet.h"
 #import "BlockTextPromptAlertView.h"
+#import "BlockBackground.h"
 
 @implementation BlockAlertsDemoViewController
 @synthesize testKeyboard;
