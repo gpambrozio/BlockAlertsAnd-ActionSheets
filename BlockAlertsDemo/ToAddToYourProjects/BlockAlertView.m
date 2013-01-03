@@ -71,7 +71,7 @@ static UIFont *buttonFont = nil;
 - (id)initWithTitle:(NSString *)title message:(NSString *)message usingInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     if ((self = [super init]))
-    {
+    {        
         [[BlockBackground sharedInstance] applyInterfaceOrientation:interfaceOrientation];
 
         UIWindow *parentView = [BlockBackground sharedInstance];
@@ -83,6 +83,8 @@ static UIFont *buttonFont = nil;
         _blocks = [[NSMutableArray alloc] init];
         _height = kAlertViewBorder + 6;
 
+        _view.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        
         if (title)
         {
             CGSize size = [title sizeWithFont:titleFont
