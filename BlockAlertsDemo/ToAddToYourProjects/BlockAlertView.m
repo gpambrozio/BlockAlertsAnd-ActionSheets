@@ -40,7 +40,7 @@ static UIFont *buttonFont = nil;
 
 + (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message
 {
-    return [[[BlockAlertView alloc] initWithTitle:title message:message] autorelease];
+    return [[[BlockAlertView alloc] initWithTitle:title message:message usingInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]] autorelease];
 }
 
 

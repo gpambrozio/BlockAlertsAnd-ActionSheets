@@ -10,6 +10,7 @@
 #import "BlockAlertView.h"
 #import "BlockActionSheet.h"
 #import "BlockTextPromptAlertView.h"
+#import "BlockBackground.h"
 
 @implementation BlockAlertsDemoViewController
 @synthesize testKeyboard;
@@ -20,6 +21,10 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [[BlockBackground sharedInstance] applyInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (IBAction)showAlert:(id)sender

@@ -83,45 +83,48 @@ static BlockBackground *_sharedInstance = nil;
     return self;
 }
 
-
-
 - (void)applyInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
-
     switch( interfaceOrientation )
     {
         case UIInterfaceOrientationPortrait:
             self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.width, mainScreenBounds.size.height);
-            self.layer.transform = CATransform3DMakeRotation(radians(0), 0, 0, 1);
+            self.transform = CGAffineTransformMakeRotation(0);
             break;
-
+            
         case UIInterfaceOrientationPortraitUpsideDown:
             if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
             {
                 self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.width, mainScreenBounds.size.height);
-                self.layer.transform = CATransform3DMakeRotation(radians(180), 0, 0, 1);
+                self.transform = CGAffineTransformMakeRotation(radians(180));
             }
-            else  // Phone isn't allowed to do upside down orientation
+            else // Phone isn't allowed to do upside down orientation
             {
                 self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.width, mainScreenBounds.size.height);
-                self.layer.transform = CATransform3DMakeRotation(radians(0), 0, 0, 1);
+                self.transform = CGAffineTransformMakeRotation(0);
             }
             break;
-
+            
         case UIInterfaceOrientationLandscapeLeft:
             self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.height, mainScreenBounds.size.width);
-            self.layer.transform = CATransform3DMakeRotation(radians(-90), 0, 0, 1);
+            self.transform = CGAffineTransformMakeRotation(radians(-90));
+            
             break;
-
+            
         case UIInterfaceOrientationLandscapeRight:
             self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.height, mainScreenBounds.size.width);
-            self.layer.transform = CATransform3DMakeRotation(radians(90), 0, 0, 1);
+            self.transform = CGAffineTransformMakeRotation(radians(90));
             break;
     }
 }
 
-
+- (void)applyInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+    [UIView animateWithDuration:duration animations:^{
+        [self applyInterfaceOrientation:interfaceOrientation];
+    }];
+}
 
 - (void)addToMainWindow:(UIView *)view
 {
@@ -205,17 +208,17 @@ static BlockBackground *_sharedInstance = nil;
     if (_backgroundImage || !_vignetteBackground) return;
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-	size_t locationsCount = 2;
-	CGFloat locations[2] = {0.0f, 1.0f};
-	CGFloat colors[8] = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.75f}; 
-	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-	CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, colors, locations, locationsCount);
-	CGColorSpaceRelease(colorSpace);
-	
-	CGPoint center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-	float radius = MIN(self.bounds.size.width , self.bounds.size.height) ;
-	CGContextDrawRadialGradient (context, gradient, center, 0, center, radius, kCGGradientDrawsAfterEndLocation);
-	CGGradientRelease(gradient);
+    size_t locationsCount = 2;
+    CGFloat locations[2] = {0.0f, 1.0f};
+    CGFloat colors[8] = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.75f}; 
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, colors, locations, locationsCount);
+    CGColorSpaceRelease(colorSpace);
+    
+    CGPoint center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    float radius = MIN(self.bounds.size.width , self.bounds.size.height) ;
+    CGContextDrawRadialGradient (context, gradient, center, 0, center, radius, kCGGradientDrawsAfterEndLocation);
+    CGGradientRelease(gradient);
 }
 
 @end
