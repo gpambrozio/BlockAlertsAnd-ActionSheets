@@ -206,7 +206,11 @@ static UIFont *buttonFont = nil;
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(xOffset, _height, width, kAlertButtonHeight);
         button.titleLabel.font = buttonFont;
-        button.titleLabel.minimumScaleFactor = 0.5;
+        if ([button.titleLabel respondsToSelector:@selector(setMinimumScaleFactor:)]) {
+            button.titleLabel.minimumScaleFactor = 0.5;
+        } else {
+            button.titleLabel.minimumFontSize = 0.5;
+        }
         button.titleLabel.textAlignment = NSTextAlignmentCenter;
         button.titleLabel.shadowOffset = kAlertViewButtonShadowOffset;
         button.backgroundColor = [UIColor clearColor];

@@ -146,7 +146,11 @@ static UIFont *buttonFont = nil;
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(kActionSheetBorder, _height, _view.bounds.size.width-kActionSheetBorder*2, kActionSheetButtonHeight);
         button.titleLabel.font = buttonFont;
-        button.titleLabel.minimumScaleFactor = 0.5;
+        if ([button.titleLabel respondsToSelector:@selector(setMinimumScaleFactor:)]) {
+            button.titleLabel.minimumScaleFactor = 0.5;
+        } else {
+            button.titleLabel.minimumFontSize = 0.5;
+        }
         button.titleLabel.adjustsFontSizeToFitWidth = YES;
         button.titleLabel.textAlignment = NSTextAlignmentCenter;
         button.titleLabel.shadowOffset = kActionSheetButtonShadowOffset;
