@@ -147,6 +147,10 @@
     unacceptedInput = [[[NSCharacterSet characterSetWithCharactersInString:accepted] invertedSet] retain];
 }
 
+- (void)setUnacceptedInput:(NSCharacterSet*)charSet {
+    unacceptedInput = [charSet copy];
+}
+
 - (void)setMaxLength:(NSInteger)max {
     maxLength = max;
 }

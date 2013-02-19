@@ -29,6 +29,7 @@ typedef BOOL (^BlockTextPromptAlertShouldDismiss)(NSInteger buttonIndex, BlockTe
 @property (readwrite, copy) BlockTextPromptAlertShouldDismiss shouldDismiss;
 
 - (void)setAllowableCharacters:(NSString*)accepted;
+- (void)setUnacceptedInput:(NSCharacterSet*)charSet;
 - (void)setMaxLength:(NSInteger)max;
 
 - (void)setButtonIndexForReturn:(NSInteger)index;
