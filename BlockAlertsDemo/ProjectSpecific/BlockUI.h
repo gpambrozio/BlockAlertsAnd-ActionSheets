@@ -7,6 +7,12 @@
 #ifndef BlockUI_h
 #define BlockUI_h
 
+// Background Color
+
+#define kBlockUIBackgroundWhite 0.4f
+#define kBlockUIBackgroundAlpha 0.5f
+
+
 // Action Sheet constants
 
 #define kActionSheetBounce         10

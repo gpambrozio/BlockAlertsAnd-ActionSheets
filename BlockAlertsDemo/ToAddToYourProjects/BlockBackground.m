@@ -5,8 +5,12 @@
 //  Created by Gustavo Ambrozio on 29/11/11.
 //  Copyright (c) 2011 N/A. All rights reserved.
 //
-
+#import <QuartzCore/QuartzCore.h>
 #import "BlockBackground.h"
+#import "BlockUI.h"
+
+static inline double radians (double degrees) {return degrees * M_PI/180.0;}
+
 
 @implementation BlockBackground
 
@@ -73,23 +77,66 @@ static BlockBackground *_sharedInstance = nil;
         self.windowLevel = UIWindowLevelStatusBar;
         self.hidden = YES;
         self.userInteractionEnabled = NO;
-        self.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.5f];
+        self.backgroundColor = [UIColor colorWithWhite:kBlockUIBackgroundWhite alpha:kBlockUIBackgroundAlpha];
         self.vignetteBackground = NO;
     }
     return self;
 }
 
+
+
+- (void)applyInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
+
+    switch( interfaceOrientation )
+    {
+        case UIInterfaceOrientationPortrait:
+            self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.width, mainScreenBounds.size.height);
+            self.layer.transform = CATransform3DMakeRotation(radians(0), 0, 0, 1);
+            break;
+
+        case UIInterfaceOrientationPortraitUpsideDown:
+            if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+            {
+                self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.width, mainScreenBounds.size.height);
+                self.layer.transform = CATransform3DMakeRotation(radians(180), 0, 0, 1);
+            }
+            else  // Phone isn't allowed to do upside down orientation
+            {
+                self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.width, mainScreenBounds.size.height);
+                self.layer.transform = CATransform3DMakeRotation(radians(0), 0, 0, 1);
+            }
+            break;
+
+        case UIInterfaceOrientationLandscapeLeft:
+            self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.height, mainScreenBounds.size.width);
+            self.layer.transform = CATransform3DMakeRotation(radians(-90), 0, 0, 1);
+            break;
+
+        case UIInterfaceOrientationLandscapeRight:
+            self.bounds = CGRectMake( self.bounds.origin.x, self.bounds.origin.y, mainScreenBounds.size.height, mainScreenBounds.size.width);
+            self.layer.transform = CATransform3DMakeRotation(radians(90), 0, 0, 1);
+            break;
+    }
+}
+
+
+
 - (void)addToMainWindow:(UIView *)view
 {
-    if (self.hidden)
+    if( self.hidden )
     {
         _previousKeyWindow = [[[UIApplication sharedApplication] keyWindow] retain];
         self.alpha = 0.0f;
         self.hidden = NO;
-        self.userInteractionEnabled = YES;
-        [self makeKeyWindow];
     }
     
+    // Make sure user interaction is enabled and that we are the key window
+    self.userInteractionEnabled = YES;
+    [self makeKeyWindow];
+
+    // If there is a previous view, we turn off userInteraction for it so only the top view will get events.
     if (self.subviews.count > 0)
     {
         ((UIView*)[self.subviews lastObject]).userInteractionEnabled = NO;
@@ -106,8 +153,13 @@ static BlockBackground *_sharedInstance = nil;
         _backgroundImage = nil;
     }
     
+    // Make sure the view is on the top and that user interation is enabled
     [self addSubview:view];
+    view.userInteractionEnabled = YES;
 }
+
+
+
 
 - (void)reduceAlphaIfEmpty
 {
@@ -117,6 +169,9 @@ static BlockBackground *_sharedInstance = nil;
         self.userInteractionEnabled = NO;
     }
 }
+
+
+
 
 - (void)removeView:(UIView *)view
 {
@@ -129,7 +184,7 @@ static BlockBackground *_sharedInstance = nil;
         [topView removeFromSuperview];
     }
     
-    if (self.subviews.count == 0)
+    if( self.subviews.count == 0 )
     {
         self.hidden = YES;
         [_previousKeyWindow makeKeyWindow];
@@ -141,6 +196,9 @@ static BlockBackground *_sharedInstance = nil;
         ((UIView*)[self.subviews lastObject]).userInteractionEnabled = YES;
     }
 }
+
+
+
 
 - (void)drawRect:(CGRect)rect 
 {    

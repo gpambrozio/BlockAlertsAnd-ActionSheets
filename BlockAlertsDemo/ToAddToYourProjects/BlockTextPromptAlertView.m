@@ -108,7 +108,7 @@
         
         [UIView animateWithDuration:0.3
                               delay:0.0
-                            options:UIViewAnimationCurveEaseOut
+                            options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
                              _view.frame = frame;
                          } 

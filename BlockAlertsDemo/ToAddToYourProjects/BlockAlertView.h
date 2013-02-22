@@ -13,8 +13,10 @@
 }
 
 + (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message;
++ (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message usingInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message;
+- (id)initWithTitle:(NSString *)title message:(NSString *)message usingInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
 - (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block;
 - (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block;
