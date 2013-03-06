@@ -16,7 +16,7 @@
 
 
 @implementation BlockTextPromptAlertView
-@synthesize textField;
+@synthesize textField = _textField;
 @synthesize view = _view;
 
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
@@ -45,13 +45,13 @@
         [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
         [theTextField setBorderStyle:UITextBorderStyleRoundedRect];
-        [theTextField setTextAlignment:UITextAlignmentCenter];
+        [theTextField setTextAlignment:NSTextAlignmentCenter];
         [theTextField setClearButtonMode:UITextFieldViewModeAlways];
         
         if (defaultText)
             theTextField.text = defaultText;
         
-        [_view addSubview:theTextField];
+        [self.view addSubview:theTextField];
         
         self.textField = theTextField;
         

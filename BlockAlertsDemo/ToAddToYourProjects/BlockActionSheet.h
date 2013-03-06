@@ -9,7 +9,7 @@
  * A simple block-enabled API wrapper on top of UIActionSheet.
  */
 @interface BlockActionSheet : NSObject {
-@private
+@protected
     NSMutableArray *_blocks;
     CGFloat _height;
 }

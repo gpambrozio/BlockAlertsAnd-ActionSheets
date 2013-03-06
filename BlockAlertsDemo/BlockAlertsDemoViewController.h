@@ -9,10 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BlockAlertsDemoViewController : UIViewController <UITextFieldDelegate>
-{
-  NSMutableArray* alertViews;
-  NSMutableArray* actionSheetViews;
-}
+
 - (IBAction)showAlert:(id)sender;
 - (IBAction)showActionSheet:(id)sender;
 - (IBAction)showAlertPlusActionSheet:(id)sender;
