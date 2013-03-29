@@ -11,6 +11,7 @@
 
 @synthesize view = _view;
 @synthesize backgroundImage = _backgroundImage;
+@synthesize vignetteBackground = _vignetteBackground;
 
 static UIImage *background = nil;
 static UIImage *backgroundlandscape = nil;
@@ -160,6 +161,8 @@ static UIFont *buttonFont = nil;
         
         if ([self class] == [BlockAlertView class])
             [self setupDisplay];
+        
+        _vignetteBackground = NO;
     }
     
     return self;
@@ -348,6 +351,7 @@ static UIFont *buttonFont = nil;
         _backgroundImage = nil;
     }
     
+    [BlockBackground sharedInstance].vignetteBackground = _vignetteBackground;
     [[BlockBackground sharedInstance] addToMainWindow:_view];
 
     __block CGPoint center = _view.center;
@@ -372,7 +376,9 @@ static UIFont *buttonFont = nil;
                                               center.y -= kAlertViewBounce;
                                               _view.center = center;
                                           } 
-                                          completion:nil];
+                                          completion:^(BOOL finished) {
+                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"AlertViewFinishedAnimations" object:nil];
+                                          }];
                      }];
     
     [self retain];

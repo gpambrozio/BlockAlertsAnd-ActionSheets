@@ -11,6 +11,7 @@
 @class BlockTextPromptAlertView;
 
 typedef BOOL (^BlockTextPromptAlertShouldDismiss)(NSInteger buttonIndex, BlockTextPromptAlertView* theAlert);
+typedef BOOL(^TextFieldReturnCallBack)(BlockTextPromptAlertView *);
 
 @interface BlockTextPromptAlertView : BlockAlertView <UITextFieldDelegate> {
     
@@ -24,10 +25,16 @@ typedef BOOL (^BlockTextPromptAlertShouldDismiss)(NSInteger buttonIndex, BlockTe
 @property (nonatomic, assign) BOOL disableAutoBecomeFirstResponder;
 @property (nonatomic, assign) BOOL selectAllOnBeginEdit;
 
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block:(TextFieldReturnCallBack) block;
+
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField;
 
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField block:(TextFieldReturnCallBack) block;
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;
+
+- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block: (TextFieldReturnCallBack) block;
 
 @property (readwrite, copy) BlockTextPromptAlertShouldDismiss shouldDismiss;
 
