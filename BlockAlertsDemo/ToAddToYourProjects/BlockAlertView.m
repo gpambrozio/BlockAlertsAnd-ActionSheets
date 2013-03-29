@@ -271,7 +271,7 @@ static UIFont *buttonFont = nil;
     
     [UIView animateWithDuration:0.4
                           delay:0.0
-                        options:UIViewAnimationCurveEaseOut
+                        options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          [BlockBackground sharedInstance].alpha = 1.0f;
                          self.view.center = center;
@@ -314,7 +314,7 @@ static UIFont *buttonFont = nil;
                          completion:^(BOOL finished) {
                              [UIView animateWithDuration:0.4
                                                    delay:0.0 
-                                                 options:UIViewAnimationCurveEaseIn
+                                                 options:UIViewAnimationOptionCurveEaseIn
                                               animations:^{
                                                   CGRect frame = self.view.frame;
                                                   frame.origin.y = -frame.size.height;
