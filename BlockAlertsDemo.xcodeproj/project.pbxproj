@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5422F0B1705EB6200CF13D7 /* BlockTableAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5422F0A1705EB6200CF13D7 /* BlockTableAlertView.m */; };
 		EC90169F14BB629F00EF52E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC90169E14BB629F00EF52E1 /* UIKit.framework */; };
 		EC9016A114BB629F00EF52E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9016A014BB629F00EF52E1 /* Foundation.framework */; };
 		EC9016A314BB629F00EF52E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9016A214BB629F00EF52E1 /* CoreGraphics.framework */; };
@@ -50,6 +51,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B5422F091705EB6200CF13D7 /* BlockTableAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTableAlertView.h; sourceTree = "<group>"; };
+		B5422F0A1705EB6200CF13D7 /* BlockTableAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTableAlertView.m; sourceTree = "<group>"; };
 		EC90169A14BB629F00EF52E1 /* BlockAlertsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlockAlertsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC90169E14BB629F00EF52E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EC9016A014BB629F00EF52E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -240,6 +243,8 @@
 				ECFC5EFB14EB1DA4004BFD45 /* BlockBackground.m */,
 				ECFC5EFC14EB1DA4004BFD45 /* BlockTextPromptAlertView.h */,
 				ECFC5EFD14EB1DA4004BFD45 /* BlockTextPromptAlertView.m */,
+				B5422F091705EB6200CF13D7 /* BlockTableAlertView.h */,
+				B5422F0A1705EB6200CF13D7 /* BlockTableAlertView.m */,
 			);
 			path = ToAddToYourProjects;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 				ECFC5EFF14EB1DA4004BFD45 /* BlockAlertView.m in Sources */,
 				ECFC5F0014EB1DA4004BFD45 /* BlockBackground.m in Sources */,
 				ECFC5F0114EB1DA4004BFD45 /* BlockTextPromptAlertView.m in Sources */,
+				B5422F0B1705EB6200CF13D7 /* BlockTableAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
