@@ -5,6 +5,7 @@
 
 #import "BlockActionSheet.h"
 #import "BlockBackground.h"
+#import "BlockUI.h"
 
 @implementation BlockActionSheet
 
@@ -13,24 +14,6 @@
 static UIImage *background = nil;
 static UIFont *titleFont = nil;
 static UIFont *buttonFont = nil;
-
-#define kBounce         10
-#define kBorder         10
-#define kButtonHeight   45
-#define kTopMargin      15
-
-#define kActionSheetBackground   @"action-sheet-panel.png"
-#define kActionSheetBackgroundCapHeight  30
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 60000
-#define NSTextAlignmentCenter       UITextAlignmentCenter
-#define NSLineBreakByWordWrapping   UILineBreakModeWordWrap
-#endif
-
-#ifndef IOS_LESS_THAN_6
-#define IOS_LESS_THAN_6 !([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] != NSOrderedAscending)
-
-#endif
 
 
 #pragma mark - init
@@ -41,8 +24,8 @@ static UIFont *buttonFont = nil;
     {
         background = [UIImage imageNamed:kActionSheetBackground];
         background = [[background stretchableImageWithLeftCapWidth:0 topCapHeight:kActionSheetBackgroundCapHeight] retain];
-        titleFont = [[UIFont systemFontOfSize:18] retain];
-        buttonFont = [[UIFont boldSystemFontOfSize:20] retain];
+        titleFont = [kActionSheetTitleFont retain];
+        buttonFont = [kActionSheetButtonFont retain];
     }
 }
 
@@ -63,23 +46,23 @@ static UIFont *buttonFont = nil;
         _view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
         
         _blocks = [[NSMutableArray alloc] init];
-        _height = kTopMargin;
+        _height = kActionSheetTopMargin;
 
         if (title)
         {
             CGSize size = [title sizeWithFont:titleFont
-                            constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
+                            constrainedToSize:CGSizeMake(frame.size.width-kActionSheetBorder*2, 1000)
                                 lineBreakMode:NSLineBreakByWordWrapping];
             
-            UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height, frame.size.width-kBorder*2, size.height)];
+            UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kActionSheetBorder, _height, frame.size.width-kActionSheetBorder*2, size.height)];
             labelView.font = titleFont;
             labelView.numberOfLines = 0;
             labelView.lineBreakMode = NSLineBreakByWordWrapping;
-            labelView.textColor = [UIColor whiteColor];
+            labelView.textColor = kActionSheetTitleTextColor;
             labelView.backgroundColor = [UIColor clearColor];
             labelView.textAlignment = NSTextAlignmentCenter;
-            labelView.shadowColor = [UIColor blackColor];
-            labelView.shadowOffset = CGSizeMake(0, -1);
+            labelView.shadowColor = kActionSheetTitleShadowColor;
+            labelView.shadowOffset = kActionSheetTitleShadowOffset;
             labelView.text = title;
             
             labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -169,7 +152,7 @@ static UIFont *buttonFont = nil;
         image = [image stretchableImageWithLeftCapWidth:(int)(image.size.width)>>1 topCapHeight:0];
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(kBorder, _height, _view.bounds.size.width-kBorder*2, kButtonHeight);
+        button.frame = CGRectMake(kActionSheetBorder, _height, _view.bounds.size.width-kActionSheetBorder*2, kActionSheetButtonHeight);
         button.titleLabel.font = buttonFont;
         if (IOS_LESS_THAN_6) {
 #pragma clan diagnostic push
@@ -182,13 +165,13 @@ static UIFont *buttonFont = nil;
         }
         button.titleLabel.adjustsFontSizeToFitWidth = YES;
         button.titleLabel.textAlignment = NSTextAlignmentCenter;
-        button.titleLabel.shadowOffset = CGSizeMake(0, -1);
+        button.titleLabel.shadowOffset = kActionSheetButtonShadowOffset;
         button.backgroundColor = [UIColor clearColor];
         button.tag = i++;
         
         [button setBackgroundImage:image forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitleColor:kActionSheetButtonTextColor forState:UIControlStateNormal];
+        [button setTitleShadowColor:kActionSheetButtonShadowColor forState:UIControlStateNormal];
         [button setTitle:title forState:UIControlStateNormal];
         button.accessibilityLabel = title;
         
@@ -197,7 +180,7 @@ static UIFont *buttonFont = nil;
         button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
         [_view addSubview:button];
-        _height += kButtonHeight + kBorder;
+        _height += kActionSheetButtonHeight + kActionSheetBorder;
     }
     
     UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
@@ -210,11 +193,11 @@ static UIFont *buttonFont = nil;
     [[BlockBackground sharedInstance] addToMainWindow:_view];
     CGRect frame = _view.frame;
     frame.origin.y = [BlockBackground sharedInstance].bounds.size.height;
-    frame.size.height = _height + kBounce;
+    frame.size.height = _height + kActionSheetBounce;
     _view.frame = frame;
     
     __block CGPoint center = _view.center;
-    center.y -= _height + kBounce;
+    center.y -= _height + kActionSheetBounce;
     
     [UIView animateWithDuration:0.4
                           delay:0.0
@@ -227,7 +210,7 @@ static UIFont *buttonFont = nil;
                                                delay:0.0
                                              options:UIViewAnimationOptionAllowUserInteraction
                                           animations:^{
-                                              center.y += kBounce;
+                                              center.y += kActionSheetBounce;
                                               _view.center = center;
                                           } completion:nil];
                      }];
