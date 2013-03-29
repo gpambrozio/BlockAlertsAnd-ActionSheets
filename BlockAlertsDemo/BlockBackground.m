@@ -10,6 +10,8 @@
 
 @implementation BlockBackground
 
+@synthesize backgroundImage = _backgroundImage;
+
 static BlockBackground *_sharedInstance = nil;
 
 + (BlockBackground*)sharedInstance
@@ -152,12 +154,23 @@ static BlockBackground *_sharedInstance = nil;
         ((UIView*)[self.subviews lastObject]).userInteractionEnabled = NO;
     }
     
+    if (_backgroundImage)
+    {
+        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:_backgroundImage];
+        backgroundView.frame = self.bounds;
+        backgroundView.contentMode = UIViewContentModeScaleToFill;
+        [self addSubview:backgroundView];
+        [backgroundView release];
+        [_backgroundImage release];
+        _backgroundImage = nil;
+    }
+    
     [self addSubview:view];
 }
 
 - (void)reduceAlphaIfEmpty
 {
-    if (self.subviews.count == 1)
+    if (self.subviews.count == 1 || (self.subviews.count == 2 && [[self.subviews objectAtIndex:0] isKindOfClass:[UIImageView class]]))
     {
         self.alpha = 0.0f;
         self.userInteractionEnabled = NO;
@@ -167,6 +180,14 @@ static BlockBackground *_sharedInstance = nil;
 - (void)removeView:(UIView *)view
 {
     [view removeFromSuperview];
+
+    UIView *topView = [self.subviews lastObject];
+    if ([topView isKindOfClass:[UIImageView class]])
+    {
+        // It's a background. Remove it too
+        [topView removeFromSuperview];
+    }
+    
     if (self.subviews.count == 0)
     {
         self.hidden = YES;

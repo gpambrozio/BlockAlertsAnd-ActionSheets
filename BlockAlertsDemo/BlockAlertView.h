@@ -34,6 +34,8 @@
 
 - (void)setupDisplay;
 
+@property (nonatomic, retain) UIImage *backgroundImage;
+
 @property (nonatomic, readonly) UIView *view;
 
 @end
