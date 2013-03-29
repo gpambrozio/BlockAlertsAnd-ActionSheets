@@ -1,12 +1,17 @@
 Pod::Spec.new do |s|
   s.name         = "BlockAlertsAnd-ActionSheets"
-  s.version      = "0.0.1"
-  s.summary      = "Fork of Arrived's BlockAlertsAndActionSheets to add rotation support, a text prompt alert, and a table select alert."
-  s.homepage     = "https://github.com/barrettj/BlockAlertsAnd-ActionSheets"
+  s.version      = "1.0.1"
+  s.summary  	 = 'Beautifully done UIAlertView and UIActionSheet replacements inspired by TweetBot.'
+  s.homepage     = "https://github.com/gpambrozio/BlockAlertsAnd-ActionSheets"
   s.license      = 'MIT'
-  s.author       = { "Barrett Jacobsen" => "admin@barretj.com" }
-  s.source       = { :git => "https://github.com/barrettj/BlockAlertsAnd-ActionSheets.git" }
+  s.author       = { 'Gustavo Ambrozio' => '', "Barrett Jacobsen" => "admin@barretj.com" }
+  s.source       = { :git => 'https://github.com/gpambrozio/BlockAlertsAnd-ActionSheets.git', :tag => '1.0.1' }
   s.platform     = :ios, '4.3'
-  s.source_files =  "BlockAlertsDemo/BlockActionSheet.{h,m}", "BlockAlertsDemo/BlockAlertView.{h,m}", "BlockAlertsDemo/BlockBackground.{h,m}", "BlockAlertsDemo/BlockTableAlertView.{h,m}", "BlockAlertsDemo/BlockTextPromptAlertView.{h,m}"
+  s.source_files =  "BlockAlertsDemo/ToAddToYourProjects/BlockActionSheet.{h,m}", "BlockAlertsDemo/ToAddToYourProjects/BlockAlertView.{h,m}", "BlockAlertsDemo/ToAddToYourProjects/BlockBackground.{h,m}", "BlockAlertsDemo/ToAddToYourProjects/BlockTextPromptAlertView.{h,m}", 'BlockAlertsDemo/ProjectSpecific/BlockUI.h'
   s.resources = "BlockAlertsDemo/images/*.png", "BlockAlertsDemo/images/ActionSheet/*.png", "BlockAlertsDemo/images/AlertView/*.png"
+
+  s.subspec 'TableAlertView' do |table|
+    table.source_files = "BlockAlertsDemo/ToAddToYourProjects/BlockTableAlertView.{h,m}"
+  end
 end
+
