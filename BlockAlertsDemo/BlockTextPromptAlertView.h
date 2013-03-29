@@ -21,6 +21,9 @@ typedef BOOL (^BlockTextPromptAlertShouldDismiss)(NSInteger buttonIndex, BlockTe
 
 @property (nonatomic, retain) UITextField *textField;
 
+@property (nonatomic, assign) BOOL disableAutoBecomeFirstResponder;
+@property (nonatomic, assign) BOOL selectAllOnBeginEdit;
+
 + (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField;
 
 

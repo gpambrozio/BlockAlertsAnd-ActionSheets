@@ -81,7 +81,9 @@
 
 - (void)show {
     [super show];
-    [self.textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.05];
+    
+    if (!self.disableAutoBecomeFirstResponder)
+        [self.textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.05];
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
@@ -157,6 +159,12 @@
 
 - (void)setButtonIndexForReturn:(NSInteger)index {
     buttonIndexForReturn = index;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)aTextField {
+    if (self.selectAllOnBeginEdit) {
+        [aTextField selectAll:self];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
