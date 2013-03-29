@@ -146,7 +146,7 @@ static BlockBackground *_sharedInstance = nil;
         self.alpha = 0.0f;
         self.hidden = NO;
         self.userInteractionEnabled = YES;
-        [self makeKeyAndVisible];
+        [self makeKeyWindow];
     }
     
     if (self.subviews.count > 0)
@@ -191,7 +191,7 @@ static BlockBackground *_sharedInstance = nil;
     if (self.subviews.count == 0)
     {
         self.hidden = YES;
-        [_previousKeyWindow makeKeyAndVisible];
+        [_previousKeyWindow makeKeyWindow];
         [_previousKeyWindow release];
         _previousKeyWindow = nil;
     }
