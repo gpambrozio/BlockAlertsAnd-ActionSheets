@@ -310,7 +310,7 @@ static UIFont *buttonFont = nil;
         index++;
     }
 
-    _height += 10;  // Margin for the shadow
+    //_height += 10;  // Margin for the shadow // not sure where this came from, but it's making things look strange (I don't see a shadow, either)
     
     if (_height < background.size.height)
     {
