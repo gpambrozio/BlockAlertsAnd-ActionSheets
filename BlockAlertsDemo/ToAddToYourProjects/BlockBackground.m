@@ -147,9 +147,11 @@ static BlockBackground *_sharedInstance = nil;
         _previousKeyWindow = [[[UIApplication sharedApplication] keyWindow] retain];
         self.alpha = 0.0f;
         self.hidden = NO;
-        self.userInteractionEnabled = YES;
         [self makeKeyWindow];
     }
+    
+    // if something's been added to this window, then this window should have interaction
+    self.userInteractionEnabled = YES;
     
     if (self.subviews.count > 0)
     {
