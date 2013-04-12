@@ -175,7 +175,7 @@
 
 
 - (void)setAllowableCharacters:(NSString*)accepted {
-    unacceptedInput = [[NSCharacterSet characterSetWithCharactersInString:accepted] invertedSet];
+    unacceptedInput = [[[NSCharacterSet characterSetWithCharactersInString:accepted] invertedSet] retain];
     self.textField.delegate = self;
 }
 
@@ -226,9 +226,9 @@
         return YES;
 }
 
-- (void)dealloc
-{
-    [unacceptedInput release];
+- (void)dealloc {
+    if (unacceptedInput)
+        [unacceptedInput release];
     self.callBack = nil;
     [super dealloc];
 }
