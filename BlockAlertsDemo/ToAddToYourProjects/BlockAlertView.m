@@ -377,7 +377,7 @@ static UIFont *buttonFont = nil;
                                               _view.center = center;
                                           } 
                                           completion:^(BOOL finished) {
-                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"AlertViewFinishedAnimations" object:nil];
+                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"AlertViewFinishedAnimations" object:self];
                                           }];
                      }];
     
