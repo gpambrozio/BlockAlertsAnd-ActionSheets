@@ -265,7 +265,7 @@ static UIFont *buttonFont = nil;
                                   minFontSize:10
                                actualFontSize:nil
                                      forWidth:_view.bounds.size.width-kAlertViewBorder*2
-                                lineBreakMode:UILineBreakModeClip];
+                                lineBreakMode:NSLineBreakByClipping];
             
             size.width = MAX(size.width, 80);
             if (size.width + 2 * kAlertViewBorder < width)
