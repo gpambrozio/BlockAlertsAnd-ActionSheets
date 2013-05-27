@@ -152,6 +152,8 @@ static UIFont *buttonFont = nil;
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"action-%@-button.png", color]];
         image = [image stretchableImageWithLeftCapWidth:(int)(image.size.width)>>1 topCapHeight:0];
         
+        UIImage *highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"action-%@-button-highlighted.png", color]];
+        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(kActionSheetBorder, _height, _view.bounds.size.width-kActionSheetBorder*2, kActionSheetButtonHeight);
         button.titleLabel.font = buttonFont;
@@ -171,6 +173,10 @@ static UIFont *buttonFont = nil;
         button.tag = i++;
         
         [button setBackgroundImage:image forState:UIControlStateNormal];
+        if (highlightedImage)
+        {
+            [button setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
+        }
         [button setTitleColor:kActionSheetButtonTextColor forState:UIControlStateNormal];
         [button setTitleShadowColor:kActionSheetButtonShadowColor forState:UIControlStateNormal];
         [button setTitle:title forState:UIControlStateNormal];
