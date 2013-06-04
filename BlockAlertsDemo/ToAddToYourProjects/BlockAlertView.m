@@ -220,6 +220,10 @@ static UIFont *buttonFont = nil;
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"alert-%@-button.png", color]];
         image = [image stretchableImageWithLeftCapWidth:(int)(image.size.width+1)>>1 topCapHeight:0];
         
+        UIImage *highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"alert-%@-button-highlighted.png", color]];
+        
+        highlightedImage = [highlightedImage stretchableImageWithLeftCapWidth:(int)(highlightedImage.size.width+1)>>1 topCapHeight:0];
+        
         CGFloat maxHalfWidth = floorf((_view.bounds.size.width-kAlertViewBorder*3)*0.5);
         CGFloat width = _view.bounds.size.width-kAlertViewBorder*2;
         CGFloat xOffset = kAlertViewBorder;
@@ -295,6 +299,10 @@ static UIFont *buttonFont = nil;
         button.tag = i+1;
         
         [button setBackgroundImage:image forState:UIControlStateNormal];
+        if (highlightedImage)
+        {
+            [button setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
+        }
         [button setTitleColor:kAlertViewButtonTextColor forState:UIControlStateNormal];
         [button setTitleShadowColor:kAlertViewButtonShadowColor forState:UIControlStateNormal];
         [button setTitle:title forState:UIControlStateNormal];
