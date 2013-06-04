@@ -205,6 +205,10 @@ static UIFont *buttonFont = nil;
     [self addButtonWithTitle:title color:@"red" block:block];
 }
 
+- (void)addButtonWithTitle:(NSString *)title imageIdentifier:(NSString*)identifier block:(void (^)())block {
+    [self addButtonWithTitle:title color:identifier block:block];
+}
+
 - (void)show
 {
     _shown = YES;

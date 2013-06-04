@@ -27,6 +27,9 @@
 - (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block;
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())block;
 
+// Images should be named in the form "alert-IDENTIFIER-button.png"
+- (void)addButtonWithTitle:(NSString *)title imageIdentifier:(NSString*)identifier block:(void (^)())block;
+
 - (void)addComponents:(CGRect)frame;
 
 - (void)show;
