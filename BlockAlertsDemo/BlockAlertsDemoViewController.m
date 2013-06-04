@@ -30,7 +30,7 @@
     [alert addButtonWithTitle:@"Show Action Sheet on top" block:^{
         [self showActionSheet:nil];
     }];
-    [alert addButtonWithTitle:@"Show another alert" block:^{
+    [alert addButtonWithTitle:@"Show another alert" imageIdentifier:@"green" block:^{
         [self showAlert:nil];
     }];
     [alert show];
