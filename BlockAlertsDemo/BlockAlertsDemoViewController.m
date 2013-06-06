@@ -27,7 +27,7 @@
     
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];
     [alert setDestructiveButtonWithTitle:@"Kill!" block:nil];
-    [alert addButtonWithTitle:@"Show Action Sheet on top" block:^{
+    [alert addButtonWithTitle:@"Show Action Sheet on top" imageIdentifier:@"yellow" block:^{
         [self showActionSheet:nil];
     }];
     [alert addButtonWithTitle:@"Show another alert" imageIdentifier:@"green" block:^{
