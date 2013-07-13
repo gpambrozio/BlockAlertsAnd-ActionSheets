@@ -59,6 +59,7 @@
         theTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
         theTextField.delegate = self;
+        theTextField.text = defaultText;
         
         self.textField = theTextField;
     }
@@ -71,13 +72,14 @@
     
 }
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
+- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultTxt {
     
     self = [super initWithTitle:title message:message];
     
     if (self) {
         maxLength = 0;
         buttonIndexForReturn = 1;
+        defaultText = defaultTxt;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
@@ -91,9 +93,9 @@
     return self;
 }
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block: (TextFieldReturnCallBack) block {
+- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultTxt block: (TextFieldReturnCallBack) block {
     
-    self = [self initWithTitle:title message:message defaultText:defaultText];
+    self = [self initWithTitle:title message:message defaultText:defaultTxt];
     
     if (self) {
         self.callBack = block;
