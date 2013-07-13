@@ -37,7 +37,7 @@
 
 + (BlockTableAlertView *)tableAlertWithTitle:(NSString *)title message:(NSString *)message
 {
-    return [[[BlockTableAlertView alloc] initWithTitle:title message:message] autorelease];
+    return [[BlockTableAlertView alloc] initWithTitle:title message:message];
 }
 
 

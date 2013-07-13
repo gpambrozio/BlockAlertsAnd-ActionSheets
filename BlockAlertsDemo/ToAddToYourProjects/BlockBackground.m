@@ -17,53 +17,13 @@ static BlockBackground *_sharedInstance = nil;
 
 + (BlockBackground*)sharedInstance
 {
-    if (_sharedInstance != nil) {
-        return _sharedInstance;
-    }
-
-    @synchronized(self) {
-        if (_sharedInstance == nil) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!_sharedInstance)
             _sharedInstance = [[self alloc] init];
-        }
-    }
+    });
     
     return _sharedInstance;
-}
-
-+ (id)allocWithZone:(NSZone*)zone
-{
-    @synchronized(self) {
-        if (_sharedInstance == nil) {
-            _sharedInstance = [super allocWithZone:zone];
-            return _sharedInstance;
-        }
-    }
-    NSAssert(NO, @ "[BlockBackground alloc] explicitly called on singleton class.");
-    return nil;
-}
-
-- (id)copyWithZone:(NSZone*)zone
-{
-    return self;
-}
-
-- (id)retain
-{
-    return self;
-}
-
-- (unsigned)retainCount
-{
-    return UINT_MAX;
-}
-
-- (oneway void)release
-{
-}
-
-- (id)autorelease
-{
-    return self;
 }
 
 - (void)setRotation:(NSNotification*)notification
@@ -144,7 +104,7 @@ static BlockBackground *_sharedInstance = nil;
 
     if (self.hidden)
     {
-        _previousKeyWindow = [[[UIApplication sharedApplication] keyWindow] retain];
+        _previousKeyWindow = [[UIApplication sharedApplication] keyWindow];
         self.alpha = 0.0f;
         self.hidden = NO;
         [self makeKeyWindow];
@@ -164,8 +124,6 @@ static BlockBackground *_sharedInstance = nil;
         backgroundView.frame = self.bounds;
         backgroundView.contentMode = UIViewContentModeScaleToFill;
         [self addSubview:backgroundView];
-        [backgroundView release];
-        [_backgroundImage release];
         _backgroundImage = nil;
     }
     
@@ -196,7 +154,6 @@ static BlockBackground *_sharedInstance = nil;
     {
         self.hidden = YES;
         [_previousKeyWindow makeKeyWindow];
-        [_previousKeyWindow release];
         _previousKeyWindow = nil;
     }
     else
