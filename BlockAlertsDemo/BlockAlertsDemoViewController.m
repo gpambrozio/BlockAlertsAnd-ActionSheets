@@ -10,6 +10,7 @@
 #import "BlockAlertView.h"
 #import "BlockActionSheet.h"
 #import "BlockTextPromptAlertView.h"
+#import "BlockTableAlertView.h"
 
 @implementation BlockAlertsDemoViewController
 @synthesize testKeyboard;
@@ -95,6 +96,32 @@
     [alert addButtonWithTitle:@"Okay" block:^{
         NSLog(@"Text: %@", textField.text);
     }];
+    [alert show];
+}
+
+- (IBAction)showTableAlert:(id)sender
+{
+    BlockTableAlertView *alert = [[BlockTableAlertView alloc] initWithTitle:@"Prompt Title" message:@"This is a simple table view"];
+    
+    NSArray *sampleArray = [NSArray arrayWithObjects:@"Row 1", @"Row 2", @"Row 3", @"Row 4", @"Row 5", nil];
+    alert.numberOfRowsInTableAlert = ^(BlockTableAlertView *alertView){
+        return [sampleArray count];
+    };
+    alert.cellForRow = ^(BlockTableAlertView *alertView, NSInteger row){
+        static NSString *CellIdentifier = @"CellIdentifier";
+        
+        UITableViewCell *cell = [alertView.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        
+        cell.textLabel.text = [sampleArray objectAtIndex:row];
+        
+        return cell;
+    };
+    alert.didSelectRow = ^(BlockTableAlertView *alertView, NSInteger row){
+        NSLog(@"Selected row: %d", row);
+    };
     [alert show];
 }
 
