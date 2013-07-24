@@ -551,7 +551,6 @@ static UIFont *buttonFont = nil;
 
 - (void)animateFadeIn
 {
-    NSLog(@"fadingin");
     [UIView animateWithDuration:0.4 animations:^{
         [BlockBackground sharedInstance].alpha = 1.0f;
     }
