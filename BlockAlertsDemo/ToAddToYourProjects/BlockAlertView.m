@@ -362,6 +362,10 @@ static UIFont *buttonFont = nil;
             frame.origin.x = frame.size.width * 2;
             break;
             
+        case BlockAnimateFadeIn:
+            frame.origin.y = floorf(([BlockBackground sharedInstance].bounds.size.height - _height) * 0.5);
+            break;
+            
         default:
             frame.origin.y = -_height;
             break;
@@ -416,12 +420,18 @@ static UIFont *buttonFont = nil;
             secondPoint.x = firstPoint.x + kAlertViewBounce;
             break;
             
+        case BlockAnimateFadeIn:
+            [self animateFadeIn];
+            break;
+            
         default:
             firstPoint.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) - kAlertViewBounce;
             secondPoint.y = firstPoint.y - kAlertViewBounce;
             break;
     }
-    [self animateEnteringAlertTo:firstPoint thenTo:secondPoint];
+    if (_direction != BlockAnimateFadeIn) {
+        [self animateEnteringAlertTo:firstPoint thenTo:secondPoint];
+    }
     
     [self retain];
 }
@@ -468,12 +478,18 @@ static UIFont *buttonFont = nil;
                 secondPoint.x = (frame.size.width * 2) + kAlertViewBounce;
                 break;
                 
+            case BlockAnimateFadeIn:
+                [self animateFadeOut];
+                break;
+                
             default:
                 firstPoint.y += kAlertViewBounce;
                 secondPoint.y = -frame.size.height - kAlertViewBounce;
                 break;
         }
-        [self animateExitingAlertTo:firstPoint thenTo:secondPoint];
+        if (_direction != BlockAnimateFadeIn) {
+            [self animateExitingAlertTo:firstPoint thenTo:secondPoint];
+        }
     }
     else
     {
@@ -531,6 +547,29 @@ static UIFont *buttonFont = nil;
                                               [self autorelease];
                                           }];
                      }];
+}
+
+- (void)animateFadeIn
+{
+    NSLog(@"fadingin");
+    [UIView animateWithDuration:0.4 animations:^{
+        [BlockBackground sharedInstance].alpha = 1.0f;
+    }
+    completion:^(BOOL finished) {
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"AlertViewFinishedAnimations" object:self];
+    }];
+}
+
+- (void)animateFadeOut
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
+    }
+    completion:^(BOOL finished) {
+        [[BlockBackground sharedInstance] removeView:_view];
+        [_view release]; _view = nil;
+        [self autorelease];
+    }];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

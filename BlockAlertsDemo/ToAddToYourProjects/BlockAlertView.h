@@ -11,7 +11,8 @@ typedef enum {
     BlockAnimateFromTop,
     BlockAnimateFromBottom,
     BlockAnimateFromLeft,
-    BlockAnimateFromRight
+    BlockAnimateFromRight,
+    BlockAnimateFadeIn
 } BlockAnimationDirection;
 
 @interface BlockAlertView : NSObject {
