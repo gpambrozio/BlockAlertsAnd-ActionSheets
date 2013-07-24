@@ -5,11 +5,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class BlockAlertView;
+
 typedef enum {
-    AnimateFromTop,
-    AnimateFromBottom,
-    AnimateFromLeft,
-    AnimateFromRight
+    BlockAnimateFromTop,
+    BlockAnimateFromBottom,
+    BlockAnimateFromLeft,
+    BlockAnimateFromRight
 } BlockAnimationDirection;
 
 @interface BlockAlertView : NSObject {

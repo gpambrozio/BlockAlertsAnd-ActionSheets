@@ -165,7 +165,7 @@ static UIFont *buttonFont = nil;
         
         _vignetteBackground = NO;
         
-        _direction = AnimateFromBottom;
+        _direction = BlockAnimateFromTop;
     }
     
     return self;
@@ -344,20 +344,20 @@ static UIFont *buttonFont = nil;
     CGRect frame = _view.frame;
     frame.size.height = _height;
     switch (_direction) {
-        case AnimateFromTop:
+        case BlockAnimateFromTop:
             frame.origin.y = - _height;
             break;
             
-        case AnimateFromBottom:
+        case BlockAnimateFromBottom:
             frame.origin.y = _height * 2;
             break;
             
-        case AnimateFromLeft:
+        case BlockAnimateFromLeft:
             frame.origin.y = floorf(([BlockBackground sharedInstance].bounds.size.height - _height) * 0.5);
             frame.origin.x = -frame.size.width;
             break;
             
-        case AnimateFromRight:
+        case BlockAnimateFromRight:
             frame.origin.y = floorf(([BlockBackground sharedInstance].bounds.size.height - _height) * 0.5);
             frame.origin.x = frame.size.width * 2;
             break;
@@ -396,22 +396,22 @@ static UIFont *buttonFont = nil;
     __block CGPoint secondPoint = _view.center;
     
     switch (_direction) {
-        case AnimateFromTop:
+        case BlockAnimateFromTop:
             firstPoint.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) + kAlertViewBounce;
             secondPoint.y = firstPoint.y - kAlertViewBounce;
             break;
             
-        case AnimateFromBottom:
+        case BlockAnimateFromBottom:
             firstPoint.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) - kAlertViewBounce;
             secondPoint.y = firstPoint.y + kAlertViewBounce;
             break;
             
-        case AnimateFromLeft:
+        case BlockAnimateFromLeft:
             firstPoint.x = floorf([BlockBackground sharedInstance].bounds.size.width * 0.5) + kAlertViewBounce;
             secondPoint.x = firstPoint.x - kAlertViewBounce;
             break;
             
-        case AnimateFromRight:
+        case BlockAnimateFromRight:
             firstPoint.x = floorf([BlockBackground sharedInstance].bounds.size.width * 0.5) - kAlertViewBounce;
             secondPoint.x = firstPoint.x + kAlertViewBounce;
             break;
@@ -448,22 +448,22 @@ static UIFont *buttonFont = nil;
         CGRect frame = _view.frame;
         
         switch (_direction) {
-            case AnimateFromTop:
+            case BlockAnimateFromTop:
                 firstPoint.y += kAlertViewBounce;
                 secondPoint.y = -frame.size.height - kAlertViewBounce;
                 break;
                 
-            case AnimateFromBottom:
+            case BlockAnimateFromBottom:
                 firstPoint.y -= kAlertViewBounce;
                 secondPoint.y = (frame.size.height * 2) + kAlertViewBounce;
                 break;
                 
-            case AnimateFromLeft:
+            case BlockAnimateFromLeft:
                 firstPoint.x += kAlertViewBounce;
                 secondPoint.x = -frame.size.width - kAlertViewBounce;
                 break;
                 
-            case AnimateFromRight:
+            case BlockAnimateFromRight:
                 firstPoint.x -= kAlertViewBounce;
                 secondPoint.x = (frame.size.width * 2) + kAlertViewBounce;
                 break;
