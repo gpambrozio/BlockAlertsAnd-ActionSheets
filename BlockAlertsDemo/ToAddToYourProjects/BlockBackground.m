@@ -192,17 +192,21 @@ static BlockBackground *_sharedInstance = nil;
         [topView removeFromSuperview];
     }
     
-    if (self.subviews.count == 0)
+    self.hidden = YES;
+    [_previousKeyWindow makeKeyWindow];
+
+    //Remaining subviews added elsewhere should be handed off to the previous key window
+    if (self.subviews.count > 0)
     {
-        self.hidden = YES;
-        [_previousKeyWindow makeKeyWindow];
-        [_previousKeyWindow release];
-        _previousKeyWindow = nil;
+        for (UIView* aView in self.subviews) {
+            [aView removeFromSuperview];
+            [_previousKeyWindow addSubview:aView];
+        }
+        ((UIView*)[_previousKeyWindow.subviews lastObject]).userInteractionEnabled = YES;
     }
-    else
-    {
-        ((UIView*)[self.subviews lastObject]).userInteractionEnabled = YES;
-    }
+
+    [_previousKeyWindow release];
+    _previousKeyWindow = nil;
 }
 
 - (void)drawRect:(CGRect)rect 
