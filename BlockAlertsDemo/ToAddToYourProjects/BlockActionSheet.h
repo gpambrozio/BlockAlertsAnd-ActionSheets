@@ -13,6 +13,7 @@
     UIView *_view;
     NSMutableArray *_blocks;
     CGFloat _height;
+    BlockActionSheet* _strongSelf;
 }
 
 @property (nonatomic, readonly) UIView *view;
