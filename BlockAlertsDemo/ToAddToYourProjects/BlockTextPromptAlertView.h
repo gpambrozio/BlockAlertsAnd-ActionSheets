@@ -18,6 +18,7 @@ typedef BOOL(^TextFieldReturnCallBack)(BlockTextPromptAlertView *);
     NSCharacterSet *unacceptedInput;
     NSInteger maxLength;
     NSInteger buttonIndexForReturn;
+    NSString* defaultText;
 }
 
 @property (nonatomic, retain) UITextField *textField;
