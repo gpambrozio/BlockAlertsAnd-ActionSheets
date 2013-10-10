@@ -22,54 +22,22 @@
 @synthesize textField, callBack;
 
 
-
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText {
-    return [self promptWithTitle:title message:message defaultText:defaultText block:nil];
-}
-
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block:(TextFieldReturnCallBack)block {
-    return [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:defaultText block:block] autorelease];
-}
-
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField {
-    return [self promptWithTitle:title message:message textField:textField block:nil];
-}
-
-
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField block:(TextFieldReturnCallBack) block{
-    BlockTextPromptAlertView *prompt = [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:nil block:block] autorelease];
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message withPlaceholdersForTextFields:(NSArray*)placeHolderArray block:(TextFieldReturnCallBack) block{
     
-    *textField = prompt.textField;
+    BlockTextPromptAlertView *prompt = [[[BlockTextPromptAlertView alloc] initWithTitle:title message:message defaultText:nil textPlaceholders:placeHolderArray block:block] autorelease];
     
     return prompt;
 }
 
-- (void)addComponents:(CGRect)frame {
-    [super addComponents:frame];
+- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultTxt textPlaceholders:(NSArray*)placeholderArray block: (TextFieldReturnCallBack) block {
+    placeholders = placeholderArray;
+    self = [self initWithTitle:title message:message defaultText:defaultTxt];
     
-    if (!self.textField) {
-        UITextField *theTextField = [[UITextField alloc] initWithFrame:CGRectMake(kTextBoxHorizontalMargin, _height, frame.size.width - kTextBoxHorizontalMargin * 2, kTextBoxHeight)];
-        
-        [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
-        [theTextField setBorderStyle:UITextBorderStyleRoundedRect];
-        [theTextField setTextAlignment:NSTextAlignmentCenter];
-        [theTextField setClearButtonMode:UITextFieldViewModeAlways];
-        
-        theTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        
-        theTextField.delegate = self;
-        theTextField.text = defaultText;
-        
-        self.textField = theTextField;
-    }
-    else {
-        self.textField.frame = CGRectMake(kTextBoxHorizontalMargin, _height, frame.size.width - kTextBoxHorizontalMargin * 2, kTextBoxHeight);
+    if (self) {
+        self.callBack = block;
     }
     
-    [_view addSubview:self.textField];
-    _height += kTextBoxHeight + kTextBoxSpacing;
-    
+    return self;
 }
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultTxt {
@@ -93,16 +61,64 @@
     return self;
 }
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultTxt block: (TextFieldReturnCallBack) block {
+#pragma mark - Set up text fields
+
+- (void)addComponents:(CGRect)frame {
+    [super addComponents:frame];
     
-    self = [self initWithTitle:title message:message defaultText:defaultTxt];
+    numberOfPlaceholders = [placeholders count];
+    if (numberOfPlaceholders == 0) {
+        numberOfPlaceholders = 1;
+        [self createTextFieldWithPlaceholderAtIndex:numberOfPlaceholders withFrame:frame];
+    }
+    int i;
+    for (i = 0; i<numberOfPlaceholders; i++) {
+        [self createTextFieldWithPlaceholderAtIndex:i withFrame:frame];
+    }
+}
+
+- (void)createTextFieldWithPlaceholderAtIndex:(int)i withFrame:(CGRect)frame{
+    UITextField *theTextField = [[UITextField alloc] initWithFrame:CGRectMake(kTextBoxHorizontalMargin, _height, frame.size.width - kTextBoxHorizontalMargin * 2, kTextBoxHeight)];
+    NSString *placeholderString = [placeholders objectAtIndex:i];
     
-    if (self) {
-        self.callBack = block;
+    [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
+    [theTextField setBorderStyle:UITextBorderStyleRoundedRect];
+    [theTextField setTextAlignment:NSTextAlignmentLeft];
+    [theTextField setClearButtonMode:UITextFieldViewModeAlways];
+    
+    theTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    theTextField.delegate = self;
+    theTextField.text = defaultText;
+    theTextField.placeholder = placeholderString;
+    theTextField.tag = i + 1; // We don't wan't the tag to ever be zero as it needs to be unique
+    
+    [_view addSubview:theTextField];
+    _height += kTextBoxHeight + kTextBoxSpacing;
+}
+
+#pragma mark - Get text in created textfields
+
+-(NSMutableArray*)getArrayOfTextInAlertViewTextFields{
+    
+    NSMutableArray *searchCollection = [[[NSMutableArray alloc] init] autorelease];
+    
+    int i;
+    for (i = 1; i<numberOfPlaceholders + 1; i++) {
+        if ([(UITextField *)[self.view viewWithTag:i] text] == NULL) {
+            [searchCollection addObject:@""];
+        }
+        else {
+            
+            [searchCollection addObject:[(UITextField *)[self.view viewWithTag:i] text]];
+        }
     }
     
-    return self;
+    return searchCollection;
 }
+
+#pragma mark - Button & keyboards methods
 
 - (void)show {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -172,9 +188,15 @@
                          }
                          completion:nil];
     }
-
+    
 }
 
+
+- (void)setButtonIndexForReturn:(NSInteger)index {
+    buttonIndexForReturn = index;
+}
+
+#pragma mark - Text Field Delegate Methods
 
 - (void)setAllowableCharacters:(NSString*)accepted {
     unacceptedInput = [[[NSCharacterSet characterSetWithCharactersInString:accepted] invertedSet] retain];
@@ -191,9 +213,6 @@
     self.textField.delegate = self;
 }
 
-- (void)setButtonIndexForReturn:(NSInteger)index {
-    buttonIndexForReturn = index;
-}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)_textField{
     if(callBack){
@@ -224,7 +243,7 @@
     
     if ([[string componentsSeparatedByCharactersInSet:unacceptedInput] count] > 1)
         return NO;
-    else 
+    else
         return YES;
 }
 
