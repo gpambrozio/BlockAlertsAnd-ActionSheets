@@ -24,49 +24,64 @@
 
 // Action Sheet constants
 
-#define kActionSheetBounce         10
-#define kActionSheetBorder         10
-#define kActionSheetButtonHeight   45
-#define kActionSheetTopMargin      15
+#define kActionSheetBounce          10
+#define kActionSheetBorderSides		10
+#define kActionSheetBorderTop		1
+#define kActionSheetButtonHeight	45
+#define kActionSheetTopMargin		15
+#define kActionSheetTitlePadding	15
+#define kActionSheetCancelMargin	6
 
-#define kActionSheetTitleFont           [UIFont systemFontOfSize:18]
-#define kActionSheetTitleTextColor      [UIColor whiteColor]
-#define kActionSheetTitleShadowColor    [UIColor blackColor]
-#define kActionSheetTitleShadowOffset   CGSizeMake(0, -1)
+#define kActionSheetTitleFont           [UIFont systemFontOfSize:16]
+#define kActionSheetTitleTextColor      [UIColor grayColor]
+#define kActionSheetTitleShadowColor    [UIColor clearColor]
+#define kActionSheetTitleShadowOffset   CGSizeMake(0, 0)
 
-#define kActionSheetButtonFont          [UIFont boldSystemFontOfSize:20]
-#define kActionSheetButtonTextColor     [UIColor whiteColor]
-#define kActionSheetButtonShadowColor   [UIColor blackColor]
-#define kActionSheetButtonShadowOffset  CGSizeMake(0, -1)
-
-#define kActionSheetBackground              @"action-sheet-panel.png"
-#define kActionSheetBackgroundCapHeight     30
+#define kActionSheetButtonFont          [UIFont systemFontOfSize:20]
+#define kActionSheetCancelFont			[UIFont boldSystemFontOfSize:20]
+#define kActionSheetButtonTextColor     [UIColor colorWithRed:19/255.0 green:144/255.0 blue:255/255.0 alpha:1.0]
+#define kActionSheetButtonDestructColor	[UIColor redColor]
+#define kActionSheetButtonShadowColor   [UIColor clearColor]
+#define kActionSheetButtonShadowOffset  CGSizeMake(0, 0)
 
 
 // Alert View constants
 
-#define kAlertViewBounce         20
+#define kAlertViewBounce         10
 #define kAlertViewBorder         (NeedsLandscapePhoneTweaks ? 5 : 10)
 #define kAlertButtonHeight       (NeedsLandscapePhoneTweaks ? 35 : 44)
 
 
 #define kAlertViewTitleFont             [UIFont boldSystemFontOfSize:20]
-#define kAlertViewTitleTextColor        [UIColor colorWithWhite:244.0/255.0 alpha:1.0]
-#define kAlertViewTitleShadowColor      [UIColor blackColor]
-#define kAlertViewTitleShadowOffset     CGSizeMake(0, -1)
+#define kAlertViewTitleTextColor        [UIColor blackColor];
+#define kAlertViewTitleShadowColor      [UIColor clearColor]
+#define kAlertViewTitleShadowOffset     CGSizeMake(0, 0)
+#define kAlertViewTitlePadding			5
 
-#define kAlertViewMessageFont           [UIFont systemFontOfSize:18]
-#define kAlertViewMessageTextColor      [UIColor colorWithWhite:244.0/255.0 alpha:1.0]
-#define kAlertViewMessageShadowColor    [UIColor blackColor]
-#define kAlertViewMessageShadowOffset   CGSizeMake(0, -1)
+#define kAlertViewMessageFont           [UIFont systemFontOfSize:14]
+#define kAlertViewMessageTextColor      [UIColor blackColor]
+#define kAlertViewMessageShadowColor    [UIColor clearColor]
+#define kAlertViewMessageShadowOffset   CGSizeMake(0, 0)
+#define kAlertViewMessagePadding        10
 
-#define kAlertViewButtonFont            [UIFont boldSystemFontOfSize:18]
-#define kAlertViewButtonTextColor       [UIColor whiteColor]
-#define kAlertViewButtonShadowColor     [UIColor blackColor]
-#define kAlertViewButtonShadowOffset    CGSizeMake(0, -1)
+#define kAlertViewCancelFont            [UIFont boldSystemFontOfSize:18]
+#define kAlertViewButtonFont            [UIFont systemFontOfSize:18]
+#define kAlertViewButtonTextColor       [UIColor colorWithRed:19/255.0 green:144/255.0 blue:255/255.0 alpha:1.0]
+#define KAlertViewDestructColor			[UIColor redColor]
+#define kAlertViewButtonShadowColor     [UIColor clearColor]
+#define kAlertViewButtonShadowOffset    CGSizeMake(0, 0)
 
-#define kAlertViewBackground            @"alert-window.png"
-#define kAlertViewBackgroundLandscape   @"alert-window-landscape.png"
+
+#define kAlertViewBackgroundWidth		280
+#define kAlertViewBackground            @""
+#define kAlertViewBackgroundLandscape   @""
 #define kAlertViewBackgroundCapHeight   38
+
+
+typedef enum {
+	kBlockButtonDefault,
+	kBlockButtonCancel,
+	kBlockButtonDestroy
+} BlockButtonType;
 
 #endif

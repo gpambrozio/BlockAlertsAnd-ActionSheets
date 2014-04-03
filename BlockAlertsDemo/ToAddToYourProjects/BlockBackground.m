@@ -174,7 +174,10 @@ static BlockBackground *_sharedInstance = nil;
 
 - (void)reduceAlphaIfEmpty
 {
-    if (self.subviews.count == 1 || (self.subviews.count == 2 && [[self.subviews objectAtIndex:0] isKindOfClass:[UIImageView class]]))
+    //JB - Adding a check to see if there's an outstanding animation. This is a fix for MonkeyTalk, because apparently MT slows things down just enough
+    //        that the views are still animating, and not removed, at this point.
+    BOOL animating = (self.subviews.count > 1 && [[[[self.subviews objectAtIndex:0] layer] animationKeys] count] > 0);
+    if (self.subviews.count == 1 || animating || (self.subviews.count == 2 && [[self.subviews objectAtIndex:0] isKindOfClass:[UIImageView class]]))
     {
         self.alpha = 0.0f;
         self.userInteractionEnabled = NO;
@@ -212,7 +215,7 @@ static BlockBackground *_sharedInstance = nil;
     
 	size_t locationsCount = 2;
 	CGFloat locations[2] = {0.0f, 1.0f};
-	CGFloat colors[8] = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.75f}; 
+	CGFloat colors[8] = {0.6f,0.6f,0.0f,0.0f,0.0f,0.0f,0.2f,0.75f};
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 	CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, colors, locations, locationsCount);
 	CGColorSpaceRelease(colorSpace);
