@@ -52,11 +52,12 @@
         
         [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
-        [theTextField setBorderStyle:UITextBorderStyleRoundedRect];
+        [theTextField setBorderStyle:UITextBorderStyleNone];
         [theTextField setTextAlignment:NSTextAlignmentCenter];
         [theTextField setClearButtonMode:UITextFieldViewModeAlways];
         
         theTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//        theTextField.backgroundColor = [UIColor lightGrayColor];
         
         theTextField.delegate = self;
         theTextField.text = defaultText;
@@ -70,6 +71,9 @@
     [_view addSubview:self.textField];
     _height += kTextBoxHeight + kTextBoxSpacing;
     
+    CGRect bgFrame = self.backgroundImageView.frame;
+    bgFrame.size.height += kTextBoxHeight + kTextBoxSpacing;
+    self.backgroundImageView.frame = bgFrame;
 }
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultTxt {

@@ -13,6 +13,8 @@
     UIView *_view;
     NSMutableArray *_blocks;
     CGFloat _height;
+	BOOL _hasTitle;
+	BOOL _hasCancel;
 }
 
 @property (nonatomic, readonly) UIView *view;

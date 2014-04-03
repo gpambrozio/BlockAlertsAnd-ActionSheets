@@ -12,9 +12,10 @@
 @synthesize view = _view;
 @synthesize vignetteBackground = _vignetteBackground;
 
-static UIImage *background = nil;
+//static UIImage *background = nil;
 static UIFont *titleFont = nil;
 static UIFont *buttonFont = nil;
+static UIFont *cancelFont = nil;
 
 #pragma mark - init
 
@@ -22,10 +23,9 @@ static UIFont *buttonFont = nil;
 {
     if (self == [BlockActionSheet class])
     {
-        background = [UIImage imageNamed:kActionSheetBackground];
-        background = [[background stretchableImageWithLeftCapWidth:0 topCapHeight:kActionSheetBackgroundCapHeight] retain];
         titleFont = [kActionSheetTitleFont retain];
         buttonFont = [kActionSheetButtonFont retain];
+		cancelFont = [kActionSheetCancelFont retain];
     }
 }
 
@@ -50,11 +50,15 @@ static UIFont *buttonFont = nil;
 
         if (title)
         {
-            CGSize size = [title sizeWithFont:titleFont
-                            constrainedToSize:CGSizeMake(frame.size.width-kActionSheetBorder*2, 1000)
-                                lineBreakMode:NSLineBreakByWordWrapping];
-            
-            UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kActionSheetBorder, _height, frame.size.width-kActionSheetBorder*2, size.height)];
+			_hasTitle = YES;
+            NSDictionary *attributes = @{NSFontAttributeName:titleFont};
+            CGSize size = [title boundingRectWithSize:CGSizeMake(frame.size.width-kActionSheetBorderSides*2, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:attributes context:nil].size;
+            UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kActionSheetBorderSides + kActionSheetTitlePadding,
+																		   _height + kActionSheetTitlePadding,
+																		   frame.size.width-kActionSheetBorderSides*2-kActionSheetTitlePadding*2,
+																		   size.height)];
+
+			UIImage *backgroundImage = [UIImage imageNamed:@"action-button-top.png"];
             labelView.font = titleFont;
             labelView.numberOfLines = 0;
             labelView.lineBreakMode = NSLineBreakByWordWrapping;
@@ -66,11 +70,20 @@ static UIFont *buttonFont = nil;
             labelView.text = title;
             
             labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
-            [_view addSubview:labelView];
+			
+			UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(labelView.frame.origin.x-kActionSheetTitlePadding,
+																						_height,
+																						labelView.frame.size.width+kActionSheetTitlePadding*2,
+																						labelView.frame.size.height + kActionSheetTitlePadding*2)];
+			backgroundImage = [backgroundImage stretchableImageWithLeftCapWidth:(int)(backgroundImage.size.width)>>1 topCapHeight:0];
+			[backgroundView setImage:backgroundImage];
+			[_view addSubview:backgroundView];
+			[_view addSubview:labelView];
+			
             [labelView release];
+			[backgroundView release];
             
-            _height += size.height + 5;
+            _height += size.height + kActionSheetTitlePadding*2 + 1;
         }
         _vignetteBackground = NO;
     }
@@ -90,73 +103,108 @@ static UIFont *buttonFont = nil;
     return _blocks.count;
 }
 
-- (void)addButtonWithTitle:(NSString *)title color:(NSString*)color block:(void (^)())block atIndex:(NSInteger)index
+- (void)addButtonWithTitle:(NSString *)title buttonType:(BlockButtonType)type block:(void (^)())block atIndex:(NSInteger)index
 {
-    if (index >= 0)
+	NSValue *typeVal = [NSValue valueWithBytes:&type objCType:@encode(BlockButtonType)];
+	if(type == kBlockButtonCancel){
+		_hasCancel = YES;
+		[_blocks addObject:[NSArray arrayWithObjects:
+                               block ? [[block copy] autorelease] : [NSNull null],
+                               title,
+                               typeVal,
+							   nil]];
+	} else if (index >= 0)
     {
+		if(index == _blocks.count - 1){
+			index--;
+		}
         [_blocks insertObject:[NSArray arrayWithObjects:
                                block ? [[block copy] autorelease] : [NSNull null],
                                title,
-                               color,
+                               typeVal,
                                nil]
                       atIndex:index];
     }
     else
     {
-        [_blocks addObject:[NSArray arrayWithObjects:
+        [_blocks insertObject:[NSArray arrayWithObjects:
                             block ? [[block copy] autorelease] : [NSNull null],
                             title,
-                            color,
-                            nil]];
+                            typeVal,
+                            nil]
+							atIndex:_blocks.count - 1];
     }
 }
 
 - (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block
 {
-    [self addButtonWithTitle:title color:@"red" block:block atIndex:-1];
+    [self addButtonWithTitle:title buttonType:kBlockButtonDestroy block:block atIndex:-1];
 }
 
 - (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block
 {
-    [self addButtonWithTitle:title color:@"black" block:block atIndex:-1];
+    [self addButtonWithTitle:title buttonType:kBlockButtonCancel block:block atIndex:-1];
 }
 
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())block 
 {
-    [self addButtonWithTitle:title color:@"gray" block:block atIndex:-1];
+    [self addButtonWithTitle:title buttonType:kBlockButtonDefault block:block atIndex:-1];
 }
 
 - (void)setDestructiveButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block
 {
-    [self addButtonWithTitle:title color:@"red" block:block atIndex:index];
+    [self addButtonWithTitle:title buttonType:kBlockButtonDestroy block:block atIndex:index];
 }
 
 - (void)setCancelButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block
 {
-    [self addButtonWithTitle:title color:@"black" block:block atIndex:index];
+    [self addButtonWithTitle:title buttonType:kBlockButtonCancel block:block atIndex:index];
 }
 
 - (void)addButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block 
 {
-    [self addButtonWithTitle:title color:@"gray" block:block atIndex:index];
+    [self addButtonWithTitle:title buttonType:kBlockButtonDefault block:block atIndex:index];
 }
 
 - (void)showInView:(UIView *)view
 {
     NSUInteger i = 1;
+	BOOL topIsUsed = _hasTitle;
     for (NSArray *block in _blocks)
     {
         NSString *title = [block objectAtIndex:1];
-        NSString *color = [block objectAtIndex:2];
+        BlockButtonType buttonType;
+		[[block objectAtIndex:2] getValue:&buttonType];
+
+		UIImage *image;
+		if(buttonType == kBlockButtonCancel) {
+			image = [UIImage imageNamed:@"action-button.png"];
+			image = [image stretchableImageWithLeftCapWidth:7 topCapHeight:7];
+		}else if(i == _blocks.count-1){
+			image = [UIImage imageNamed:@"action-button-bottom.png"];
+			image = [image stretchableImageWithLeftCapWidth:7 topCapHeight:7];
+		}else if(topIsUsed){
+			image = [UIImage imageNamed:@"action-button-mid.png"];
+			image = [image stretchableImageWithLeftCapWidth:2 topCapHeight:0];
+		}else {
+			image = [UIImage imageNamed:@"action-button-top.png"];
+			image = [image stretchableImageWithLeftCapWidth:(int)(image.size.width)>>1 topCapHeight:0];
+			topIsUsed = YES;
+		}
+			image = [image stretchableImageWithLeftCapWidth:7 topCapHeight:7];
         
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"action-%@-button.png", color]];
-        image = [image stretchableImageWithLeftCapWidth:(int)(image.size.width)>>1 topCapHeight:0];
-        
-        UIImage *highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"action-%@-button-highlighted.png", color]];
-        
+//        UIImage *highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"action-%@-button-highlighted.png", color]];
+		
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(kActionSheetBorder, _height, _view.bounds.size.width-kActionSheetBorder*2, kActionSheetButtonHeight);
-        button.titleLabel.font = buttonFont;
+        button.frame = CGRectMake(kActionSheetBorderSides, _height, _view.bounds.size.width-kActionSheetBorderSides*2, kActionSheetButtonHeight);
+		if(buttonType == kBlockButtonCancel){
+			_height += kActionSheetCancelMargin;
+			button.frame = CGRectMake(kActionSheetBorderSides, _height, _view.bounds.size.width-kActionSheetBorderSides*2, kActionSheetButtonHeight);
+			_height += kActionSheetCancelMargin;
+			button.titleLabel.font = cancelFont;
+		} else {
+			button.titleLabel.font = buttonFont;
+		}
         if (IOS_LESS_THAN_6) {
 #pragma clan diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -173,11 +221,12 @@ static UIFont *buttonFont = nil;
         button.tag = i++;
         
         [button setBackgroundImage:image forState:UIControlStateNormal];
-        if (highlightedImage)
-        {
-            [button setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
-        }
-        [button setTitleColor:kActionSheetButtonTextColor forState:UIControlStateNormal];
+		
+		if(buttonType == kBlockButtonDestroy){
+			[button setTitleColor:kActionSheetButtonDestructColor forState:UIControlStateNormal];
+		}else {
+			[button setTitleColor:kActionSheetButtonTextColor forState:UIControlStateNormal];
+		}
         [button setTitleShadowColor:kActionSheetButtonShadowColor forState:UIControlStateNormal];
         [button setTitle:title forState:UIControlStateNormal];
         button.accessibilityLabel = title;
@@ -187,15 +236,8 @@ static UIFont *buttonFont = nil;
         button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
         [_view addSubview:button];
-        _height += kActionSheetButtonHeight + kActionSheetBorder;
+        _height += kActionSheetButtonHeight + kActionSheetBorderTop;
     }
-    
-    UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
-    modalBackground.image = background;
-    modalBackground.contentMode = UIViewContentModeScaleToFill;
-    modalBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [_view insertSubview:modalBackground atIndex:0];
-    [modalBackground release];
     
     [BlockBackground sharedInstance].vignetteBackground = _vignetteBackground;
     [[BlockBackground sharedInstance] addToMainWindow:_view];
@@ -207,7 +249,7 @@ static UIFont *buttonFont = nil;
     __block CGPoint center = _view.center;
     center.y -= _height + kActionSheetBounce;
     
-    [UIView animateWithDuration:0.4
+    [UIView animateWithDuration:0.25
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
@@ -241,7 +283,7 @@ static UIFont *buttonFont = nil;
     {
         CGPoint center = _view.center;
         center.y += _view.bounds.size.height;
-        [UIView animateWithDuration:0.4
+        [UIView animateWithDuration:0.25
                               delay:0.0
                             options:UIViewAnimationOptionCurveEaseIn
                          animations:^{
