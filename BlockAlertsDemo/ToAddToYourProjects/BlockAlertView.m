@@ -153,6 +153,7 @@ static UIFont *buttonFont = nil;
         _view.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
         _blocks = [[NSMutableArray alloc] init];
+        _completionBlocks = [[NSMutableArray alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(setupDisplay) 
@@ -175,19 +176,30 @@ static UIFont *buttonFont = nil;
     [_backgroundImage release];
     [_view release];
     [_blocks release];
+    [_completionBlocks release];
     [super dealloc];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Public
 
-- (void)addButtonWithTitle:(NSString *)title color:(NSString*)color block:(void (^)())block 
+- (void)addButtonWithTitle:(NSString *)title color:(NSString*)color block:(void (^)())block
+{
+    [self addButtonWithTitle:title color:color block:block completion:nil];
+}
+
+- (void)addButtonWithTitle:(NSString *)title color:(NSString*)color block:(void (^)())block completion:(void (^)())completionBlock
 {
     [_blocks addObject:[NSArray arrayWithObjects:
                         block ? [[block copy] autorelease] : [NSNull null],
                         title,
                         color,
                         nil]];
+    [_completionBlocks addObject:[NSArray arrayWithObjects:
+                                  completionBlock ? [[completionBlock copy] autorelease] : [NSNull null],
+                                  title,
+                                  color,
+                                  nil]];
 }
 
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())block 
@@ -203,6 +215,25 @@ static UIFont *buttonFont = nil;
 - (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block
 {
     [self addButtonWithTitle:title color:@"red" block:block];
+}
+
+- (void)addButtonWithTitle:(NSString *)title imageIdentifier:(NSString*)identifier block:(void (^)())block {
+    [self addButtonWithTitle:title color:identifier block:block];
+}
+
+- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"gray" block:block completion:completionBlock];
+}
+
+- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"black" block:block completion:completionBlock];
+}
+
+- (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"red" block:block completion:completionBlock];
 }
 
 - (void)addButtonWithTitle:(NSString *)title imageIdentifier:(NSString*)identifier block:(void (^)())block {
@@ -402,6 +433,7 @@ static UIFont *buttonFont = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
+    // Block execution
     if (buttonIndex >= 0 && buttonIndex < [_blocks count])
     {
         id obj = [[_blocks objectAtIndex: buttonIndex] objectAtIndex:0];
@@ -432,9 +464,22 @@ static UIFont *buttonFont = nil;
                                                   [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
                                               } 
                                               completion:^(BOOL finished) {
+                                                  
+                                                  // Completion block
+                                                  if (buttonIndex >= 0 && buttonIndex < [_completionBlocks count])
+                                                  {
+                                                      id obj = [[_completionBlocks objectAtIndex: buttonIndex] objectAtIndex:0];
+                                                      if (![obj isEqual:[NSNull null]])
+                                                      {
+                                                          ((void (^)())obj)();
+                                                      }
+                                                  }
+                                                  
+                                                  // Release
                                                   [[BlockBackground sharedInstance] removeView:_view];
                                                   [_view release]; _view = nil;
                                                   [self autorelease];
+                                                  
                                               }];
                          }];
     }

@@ -9,6 +9,7 @@
 @protected
     UIView *_view;
     NSMutableArray *_blocks;
+    NSMutableArray *_completionBlocks;
     CGFloat _height;
     NSString *_title;
     NSString *_message;
@@ -23,9 +24,15 @@
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message;
 
+// Add button with block
 - (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block;
 - (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block;
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())block;
+
+// Add button with block and animation completion block
+- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock;
+- (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock;
+- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock;
 
 // Images should be named in the form "alert-IDENTIFIER-button.png"
 - (void)addButtonWithTitle:(NSString *)title imageIdentifier:(NSString*)identifier block:(void (^)())block;
