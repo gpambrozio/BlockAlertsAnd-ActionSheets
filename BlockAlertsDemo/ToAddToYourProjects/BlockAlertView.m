@@ -236,8 +236,8 @@ static UIFont *buttonFont = nil;
     [self addButtonWithTitle:title color:@"red" block:block completion:completionBlock];
 }
 
-- (void)addButtonWithTitle:(NSString *)title imageIdentifier:(NSString*)identifier block:(void (^)())block {
-    [self addButtonWithTitle:title color:identifier block:block];
+- (void)addButtonWithTitle:(NSString *)title imageIdentifier:(NSString*)identifier block:(void (^)())block completion:(void (^)())completionBlock {
+    [self addButtonWithTitle:title color:identifier block:block completion:completionBlock];
 }
 
 - (void)show
