@@ -39,5 +39,6 @@
 @property(nonatomic, retain) UIImage *backgroundImage;
 @property(nonatomic, readonly) UIScrollView *view;
 @property(nonatomic, readwrite) BOOL vignetteBackground;
+@property(nonatomic, retain) UIColor *tintColor;
 
 @end
