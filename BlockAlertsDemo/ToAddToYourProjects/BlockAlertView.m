@@ -12,6 +12,7 @@
 @synthesize view = _view;
 @synthesize backgroundImage = _backgroundImage;
 @synthesize vignetteBackground = _vignetteBackground;
+@synthesize tintColor = _tintColor;
 
 static UIImage *background = nil;
 static UIImage *backgroundlandscape = nil;
@@ -299,7 +300,6 @@ static UIFont *buttonFont = nil;
 
   //_height += 10;  // Margin for the shadow // not sure where this came from, but it's making things look strange (I
   // don't see a shadow, either)
-
   if (_height < background.size.height) {
     CGFloat offset = background.size.height - _height;
     _height = background.size.height;
@@ -313,6 +313,7 @@ static UIFont *buttonFont = nil;
   }
 
   // Ragta: aggiungo qua:
+  CGFloat heightBackground = _height;
   UIWindow *parentView = [BlockBackground sharedInstance];
   if (_height > parentView.bounds.size.height) {
     CGSize csize = _view.contentSize;
@@ -321,18 +322,25 @@ static UIFont *buttonFont = nil;
     _height = parentView.bounds.size.height;
   }
 
-  // fine Ragta
   CGRect frame = _view.frame;
   frame.origin.y = -_height;
   frame.size.height = _height;
   _view.frame = frame;
 
-  UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
+  // UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
+  UIImageView *modalBackground =
+      [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, heightBackground)];
 
   if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
     modalBackground.image = backgroundlandscape;
   else
     modalBackground.image = background;
+
+  if (_tintColor) {
+    modalBackground.image = [modalBackground.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    modalBackground.tintColor = _tintColor;
+  }
+  // fine Ragta
 
   modalBackground.contentMode = UIViewContentModeScaleToFill;
   modalBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
