@@ -109,6 +109,13 @@ static BlockBackground *_sharedInstance = nil;
             break;
     }
     
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending){
+        if(UIInterfaceOrientationIsLandscape(orientation)) {
+            newCenter = CGPointMake(newCenter.y, newCenter.x);
+        }
+        rotateAngle = 0;
+    }
+    
     self.transform = CGAffineTransformMakeRotation(rotateAngle);
     self.center = newCenter;
     
@@ -125,6 +132,11 @@ static BlockBackground *_sharedInstance = nil;
         self.userInteractionEnabled = NO;
         self.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.5f];
         self.vignetteBackground = NO;
+        
+        if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending){
+            UIViewController *temp = [UIViewController new];
+            self.rootViewController = temp;
+        }
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(setRotation:)
