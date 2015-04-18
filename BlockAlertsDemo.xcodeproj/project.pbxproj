@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74336BA61AE2F9F70067C1FF /* BlockAlertViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 74336BA51AE2F9F70067C1FF /* BlockAlertViewTests.m */; };
 		B5422F0B1705EB6200CF13D7 /* BlockTableAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5422F0A1705EB6200CF13D7 /* BlockTableAlertView.m */; };
 		B583D771175E3C31002A35C0 /* alert-green-button.png in Resources */ = {isa = PBXBuildFile; fileRef = B583D76F175E3C31002A35C0 /* alert-green-button.png */; };
 		B583D772175E3C31002A35C0 /* alert-green-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B583D770175E3C31002A35C0 /* alert-green-button@2x.png */; };
@@ -54,7 +55,20 @@
 		ECFC5F0114EB1DA4004BFD45 /* BlockTextPromptAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFC5EFD14EB1DA4004BFD45 /* BlockTextPromptAlertView.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		74336BA71AE2F9F70067C1FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC90169114BB629F00EF52E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC90169914BB629F00EF52E1;
+			remoteInfo = BlockAlertsDemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		74336BA11AE2F9F70067C1FF /* BlockAlertsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlockAlertsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		74336BA41AE2F9F70067C1FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74336BA51AE2F9F70067C1FF /* BlockAlertViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockAlertViewTests.m; sourceTree = "<group>"; };
 		B5422F091705EB6200CF13D7 /* BlockTableAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTableAlertView.h; sourceTree = "<group>"; };
 		B5422F0A1705EB6200CF13D7 /* BlockTableAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTableAlertView.m; sourceTree = "<group>"; };
 		B583D76F175E3C31002A35C0 /* alert-green-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-green-button.png"; sourceTree = "<group>"; };
@@ -114,6 +128,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		74336B9E1AE2F9F70067C1FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EC90169714BB629F00EF52E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -127,19 +148,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		74336BA21AE2F9F70067C1FF /* BlockAlertsTests */ = {
+			isa = PBXGroup;
+			children = (
+				74336BA51AE2F9F70067C1FF /* BlockAlertViewTests.m */,
+				74336BA31AE2F9F70067C1FF /* Supporting Files */,
+			);
+			path = BlockAlertsTests;
+			sourceTree = "<group>";
+		};
+		74336BA31AE2F9F70067C1FF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				74336BA41AE2F9F70067C1FF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		EC90168F14BB629F00EF52E1 = {
 			isa = PBXGroup;
 			children = (
 				EC9016A414BB629F00EF52E1 /* BlockAlertsDemo */,
+				74336BA21AE2F9F70067C1FF /* BlockAlertsTests */,
 				EC90169D14BB629F00EF52E1 /* Frameworks */,
 				EC90169B14BB629F00EF52E1 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		EC90169B14BB629F00EF52E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				EC90169A14BB629F00EF52E1 /* BlockAlertsDemo.app */,
+				74336BA11AE2F9F70067C1FF /* BlockAlertsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -264,6 +306,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		74336BA01AE2F9F70067C1FF /* BlockAlertsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74336BAB1AE2F9F70067C1FF /* Build configuration list for PBXNativeTarget "BlockAlertsTests" */;
+			buildPhases = (
+				74336B9D1AE2F9F70067C1FF /* Sources */,
+				74336B9E1AE2F9F70067C1FF /* Frameworks */,
+				74336B9F1AE2F9F70067C1FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				74336BA81AE2F9F70067C1FF /* PBXTargetDependency */,
+			);
+			name = BlockAlertsTests;
+			productName = BlockAlertsTests;
+			productReference = 74336BA11AE2F9F70067C1FF /* BlockAlertsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		EC90169914BB629F00EF52E1 /* BlockAlertsDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC9016B814BB629F00EF52E1 /* Build configuration list for PBXNativeTarget "BlockAlertsDemo" */;
@@ -289,6 +349,12 @@
 			attributes = {
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "CodeCrop Software";
+				TargetAttributes = {
+					74336BA01AE2F9F70067C1FF = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = EC90169914BB629F00EF52E1;
+					};
+				};
 			};
 			buildConfigurationList = EC90169414BB629F00EF52E1 /* Build configuration list for PBXProject "BlockAlertsDemo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -303,11 +369,19 @@
 			projectRoot = "";
 			targets = (
 				EC90169914BB629F00EF52E1 /* BlockAlertsDemo */,
+				74336BA01AE2F9F70067C1FF /* BlockAlertsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		74336B9F1AE2F9F70067C1FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EC90169814BB629F00EF52E1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -352,6 +426,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		74336B9D1AE2F9F70067C1FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74336BA61AE2F9F70067C1FF /* BlockAlertViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EC90169614BB629F00EF52E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -368,6 +450,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		74336BA81AE2F9F70067C1FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC90169914BB629F00EF52E1 /* BlockAlertsDemo */;
+			targetProxy = 74336BA71AE2F9F70067C1FF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EC9016A714BB629F00EF52E1 /* InfoPlist.strings */ = {
@@ -389,6 +479,41 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		74336BA91AE2F9F70067C1FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BlockAlertsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BlockAlertsDemo.app/BlockAlertsDemo";
+			};
+			name = Debug;
+		};
+		74336BAA1AE2F9F70067C1FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BlockAlertsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BlockAlertsDemo.app/BlockAlertsDemo";
+			};
+			name = Release;
+		};
 		EC9016B614BB629F00EF52E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -461,6 +586,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		74336BAB1AE2F9F70067C1FF /* Build configuration list for PBXNativeTarget "BlockAlertsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74336BA91AE2F9F70067C1FF /* Debug */,
+				74336BAA1AE2F9F70067C1FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		EC90169414BB629F00EF52E1 /* Build configuration list for PBXProject "BlockAlertsDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
