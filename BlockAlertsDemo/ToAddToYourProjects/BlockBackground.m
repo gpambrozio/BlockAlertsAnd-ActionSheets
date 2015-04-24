@@ -186,7 +186,22 @@ static BlockBackground *_sharedInstance = nil;
 
 - (void)reduceAlphaIfEmpty
 {
-    if (self.subviews.count == 1 || (self.subviews.count == 2 && [[self.subviews objectAtIndex:0] isKindOfClass:[UIImageView class]]))
+    NSMutableArray *remainingViews = NSMutableArray.new;
+
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[UIImageView class]]) {
+            // do nothing, this is the background
+        }
+        else if (CGRectEqualToRect(view.bounds, self.bounds)) {
+            // also do nothing, this is a different type of background
+        }
+        else {
+            [remainingViews addObject:view];
+        }
+    }
+    
+    
+    if (remainingViews.count == 1)
     {
         self.alpha = 0.0f;
         self.userInteractionEnabled = NO;
