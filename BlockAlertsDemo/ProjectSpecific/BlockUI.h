@@ -19,6 +19,11 @@
 
 #endif
 
+#ifndef IOS_LESS_THAN_7
+#define IOS_LESS_THAN_7 !([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)
+
+#endif
+
 #define NeedsLandscapePhoneTweaks (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
 
 
