@@ -40,5 +40,7 @@
 @property(nonatomic, readonly) UIScrollView *view;
 @property(nonatomic, readwrite) BOOL vignetteBackground;
 @property(nonatomic, retain) UIColor *tintColor;
+@property(nonatomic, retain) UIColor *textColor;
+@property(nonatomic, retain) UIColor *titleColor;
 
 @end
