@@ -13,6 +13,7 @@
 @synthesize backgroundImage = _backgroundImage;
 @synthesize vignetteBackground = _vignetteBackground;
 @synthesize tintColor = _tintColor;
+@synthesize textColor = _textColor, titleColor = _titleColor;
 
 static UIImage *background = nil;
 static UIImage *backgroundlandscape = nil;
@@ -73,7 +74,7 @@ static UIFont *buttonFont = nil;
     labelView.font = titleFont;
     labelView.numberOfLines = 0;
     labelView.lineBreakMode = NSLineBreakByWordWrapping;
-    labelView.textColor = kAlertViewTitleTextColor;
+    labelView.textColor = self.titleColor;
     labelView.backgroundColor = [UIColor clearColor];
     labelView.textAlignment = NSTextAlignmentCenter;
     labelView.shadowColor = kAlertViewTitleShadowColor;
@@ -95,7 +96,7 @@ static UIFont *buttonFont = nil;
     labelView.font = messageFont;
     labelView.numberOfLines = 0;
     labelView.lineBreakMode = NSLineBreakByWordWrapping;
-    labelView.textColor = kAlertViewMessageTextColor;
+    labelView.textColor = self.textColor;
     labelView.backgroundColor = [UIColor clearColor];
     labelView.textAlignment = NSTextAlignmentCenter;
     labelView.shadowColor = kAlertViewMessageShadowColor;
@@ -155,7 +156,8 @@ static UIFont *buttonFont = nil;
                                              selector:@selector(setupDisplay)
                                                  name:UIApplicationDidChangeStatusBarOrientationNotification
                                                object:nil];
-
+    self.titleColor = kAlertViewTitleTextColor;
+    self.textColor = kAlertViewMessageTextColor;
     if ([self class] == [BlockAlertView class]) [self setupDisplay];
 
     _vignetteBackground = NO;
