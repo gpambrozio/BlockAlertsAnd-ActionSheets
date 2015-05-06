@@ -68,6 +68,10 @@ static BlockBackground *_sharedInstance = nil;
 
 - (void)setRotation:(NSNotification*)notification
 {
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending){
+        return;
+    }
+    
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
     CGRect orientationFrame = [UIScreen mainScreen].bounds;

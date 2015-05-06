@@ -154,10 +154,15 @@ static UIFont *buttonFont = nil;
         
         _blocks = [[NSMutableArray alloc] init];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                 selector:@selector(setupDisplay) 
-                                                     name:UIApplicationDidChangeStatusBarOrientationNotification 
-                                                   object:nil];   
+        if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending){
+            // don't register for notification, rotation is handled by iOS on 8+
+        }
+        else {        
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(setupDisplay) 
+                                                         name:UIApplicationDidChangeStatusBarOrientationNotification 
+                                                       object:nil];
+        }
         
         if ([self class] == [BlockAlertView class])
             [self setupDisplay];
@@ -344,6 +349,7 @@ static UIFont *buttonFont = nil;
     frame.size.height = _height;
     _view.frame = frame;
     
+
     UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
     
     if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
