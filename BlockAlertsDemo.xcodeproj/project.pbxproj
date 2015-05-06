@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5299D711AFA932C00A57DF0 /* alert-window-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = B5299D6F1AFA932C00A57DF0 /* alert-window-landscape.png */; };
+		B5299D721AFA932C00A57DF0 /* alert-window-landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5299D701AFA932C00A57DF0 /* alert-window-landscape@2x.png */; };
 		B5422F0B1705EB6200CF13D7 /* BlockTableAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5422F0A1705EB6200CF13D7 /* BlockTableAlertView.m */; };
 		B583D771175E3C31002A35C0 /* alert-green-button.png in Resources */ = {isa = PBXBuildFile; fileRef = B583D76F175E3C31002A35C0 /* alert-green-button.png */; };
 		B583D772175E3C31002A35C0 /* alert-green-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B583D770175E3C31002A35C0 /* alert-green-button@2x.png */; };
@@ -55,6 +57,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B5299D6F1AFA932C00A57DF0 /* alert-window-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window-landscape.png"; sourceTree = "<group>"; };
+		B5299D701AFA932C00A57DF0 /* alert-window-landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window-landscape@2x.png"; sourceTree = "<group>"; };
 		B5422F091705EB6200CF13D7 /* BlockTableAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTableAlertView.h; sourceTree = "<group>"; };
 		B5422F0A1705EB6200CF13D7 /* BlockTableAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTableAlertView.m; sourceTree = "<group>"; };
 		B583D76F175E3C31002A35C0 /* alert-green-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-green-button.png"; sourceTree = "<group>"; };
@@ -230,6 +234,8 @@
 				EC9016E314BB679C00EF52E1 /* alert-gray-button@2x.png */,
 				EC9016E414BB679C00EF52E1 /* alert-red-button.png */,
 				EC9016E514BB679C00EF52E1 /* alert-red-button@2x.png */,
+				B5299D6F1AFA932C00A57DF0 /* alert-window-landscape.png */,
+				B5299D701AFA932C00A57DF0 /* alert-window-landscape@2x.png */,
 				EC9016E614BB679C00EF52E1 /* alert-window.png */,
 				EC9016E714BB679C00EF52E1 /* alert-window@2x.png */,
 			);
@@ -322,6 +328,7 @@
 				EC9016ED14BB679C00EF52E1 /* action-gray-button-selected@2x.png in Resources */,
 				EC9016EE14BB679C00EF52E1 /* action-gray-button.png in Resources */,
 				EC9016EF14BB679C00EF52E1 /* action-gray-button@2x.png in Resources */,
+				B5299D711AFA932C00A57DF0 /* alert-window-landscape.png in Resources */,
 				EC9016F014BB679C00EF52E1 /* action-red-button-selected.png in Resources */,
 				EC9016F114BB679C00EF52E1 /* action-red-button-selected@2x.png in Resources */,
 				EC9016F214BB679C00EF52E1 /* action-red-button.png in Resources */,
@@ -334,6 +341,7 @@
 				EC9016F914BB679C00EF52E1 /* alert-gray-button@2x.png in Resources */,
 				EC9016FA14BB679C00EF52E1 /* alert-red-button.png in Resources */,
 				EC9016FB14BB679C00EF52E1 /* alert-red-button@2x.png in Resources */,
+				B5299D721AFA932C00A57DF0 /* alert-window-landscape@2x.png in Resources */,
 				EC9016FC14BB679C00EF52E1 /* alert-window.png in Resources */,
 				EC9016FD14BB679C00EF52E1 /* alert-window@2x.png in Resources */,
 				ECAF5FFB14BE66B00095B359 /* arrived.png in Resources */,
@@ -438,7 +446,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlockAlertsDemo/BlockAlertsDemo-Prefix.pch";
 				INFOPLIST_FILE = "BlockAlertsDemo/BlockAlertsDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -451,7 +459,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlockAlertsDemo/BlockAlertsDemo-Prefix.pch";
 				INFOPLIST_FILE = "BlockAlertsDemo/BlockAlertsDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
