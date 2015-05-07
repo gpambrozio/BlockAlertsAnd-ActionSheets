@@ -17,10 +17,18 @@
 }
 
 + (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message;
++ (BlockAlertView *)alertWithTitle:(NSString *)title
+                           message:(NSString *)message
+                         tintColor:(UIColor *)tintColor
+                         textColor:(UIColor *)textColor;
+
 + (void)showInfoAlertWithTitle:(NSString *)title message:(NSString *)message;
 + (void)showErrorAlert:(NSError *)error;
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message;
+- (id)initWithTitle:(NSString *)title
+            message:(NSString *)message
+          tintColor:(UIColor *)tintColor
+          textColor:(UIColor *)textColor;
 
 - (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block;
 - (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block;
@@ -41,6 +49,7 @@
 @property(nonatomic, readwrite) BOOL vignetteBackground;
 @property(nonatomic, retain) UIColor *tintColor;
 @property(nonatomic, retain) UIColor *textColor;
-@property(nonatomic, retain) UIColor *titleColor;
+@property(nonatomic, retain) UIFont *messageFont;
+@property(nonatomic) BOOL allButtonInLine;
 
 @end
