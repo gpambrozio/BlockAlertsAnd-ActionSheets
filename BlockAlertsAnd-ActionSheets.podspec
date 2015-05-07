@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "BlockAlertsAnd-ActionSheets"
-  s.version      = "1.0.8"
+  s.version      = "1.0.9"
   s.summary  	 = 'Beautifully done UIAlertView and UIActionSheet replacements inspired by TweetBot.'
   s.homepage     = "https://github.com/taymer/BlockAlertsAnd-ActionSheets"
   s.license      = 'MIT'
