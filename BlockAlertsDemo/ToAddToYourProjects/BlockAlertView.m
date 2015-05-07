@@ -152,10 +152,16 @@ static UIFont *buttonFont = nil;
 
     _blocks = [[NSMutableArray alloc] init];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setupDisplay)
-                                                 name:UIApplicationDidChangeStatusBarOrientationNotification
-                                               object:nil];
+      if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending){
+          // don't register for notification, rotation is handled by iOS on 8+
+      }
+      else {        
+          [[NSNotificationCenter defaultCenter] addObserver:self
+                                                   selector:@selector(setupDisplay) 
+                                                       name:UIApplicationDidChangeStatusBarOrientationNotification 
+                                                     object:nil];
+      }
+
     self.titleColor = kAlertViewTitleTextColor;
     self.textColor = kAlertViewMessageTextColor;
     if ([self class] == [BlockAlertView class]) [self setupDisplay];
