@@ -50,9 +50,19 @@ static UIFont *buttonFont = nil;
 
         if (title)
         {
-            CGSize size = [title sizeWithFont:titleFont
-                            constrainedToSize:CGSizeMake(frame.size.width-kActionSheetBorder*2, 1000)
-                                lineBreakMode:NSLineBreakByWordWrapping];
+            CGSize size;
+            if (IOS_LESS_THAN_7) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                size = [title sizeWithFont:titleFont constrainedToSize:CGSizeMake(frame.size.width-kActionSheetBorder*2, 1000) lineBreakMode:NSLineBreakByWordWrapping];
+#pragma clang diagnostic pop
+            }
+            else {
+                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+                size = [title boundingRectWithSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSParagraphStyleAttributeName : paragraphStyle, NSFontAttributeName : titleFont} context:nil].size;
+                size = CGSizeMake(ceilf(size.width), ceilf(size.height));
+            }
             
             UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kActionSheetBorder, _height, frame.size.width-kActionSheetBorder*2, size.height)];
             labelView.font = titleFont;
@@ -158,10 +168,10 @@ static UIFont *buttonFont = nil;
         button.frame = CGRectMake(kActionSheetBorder, _height, _view.bounds.size.width-kActionSheetBorder*2, kActionSheetButtonHeight);
         button.titleLabel.font = buttonFont;
         if (IOS_LESS_THAN_6) {
-#pragma clan diagnostic push
+#pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
             button.titleLabel.minimumFontSize = 10;
-#pragma clan diagnostic pop
+#pragma clang diagnostic pop
         }
         else {
             button.titleLabel.minimumScaleFactor = 0.1;
@@ -266,7 +276,7 @@ static UIFont *buttonFont = nil;
 - (void)buttonClicked:(id)sender 
 {
     /* Run the button's block */
-    int buttonIndex = [(UIButton *)sender tag] - 1;
+    NSInteger buttonIndex = [(UIButton *)sender tag] - 1;
     [self dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }
 
