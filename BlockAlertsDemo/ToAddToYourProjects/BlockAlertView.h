@@ -25,6 +25,8 @@
 + (void)showInfoAlertWithTitle:(NSString *)title message:(NSString *)message;
 + (void)showErrorAlert:(NSError *)error;
 
+- (id)initWithTitle:(NSString *)title message:(NSString *)message;
+
 - (id)initWithTitle:(NSString *)title
             message:(NSString *)message
           tintColor:(UIColor *)tintColor
