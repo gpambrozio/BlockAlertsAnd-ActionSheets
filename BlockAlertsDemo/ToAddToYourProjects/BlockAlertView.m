@@ -150,6 +150,10 @@ static UIFont *buttonFont = nil;
   if (_shown) [self show];
 }
 
+- (id)initWithTitle:(NSString *)title message:(NSString *)message {
+  return [self initWithTitle:title message:message tintColor:nil textColor:nil];
+}
+
 - (id)initWithTitle:(NSString *)title
             message:(NSString *)message
           tintColor:(UIColor *)tintColor
