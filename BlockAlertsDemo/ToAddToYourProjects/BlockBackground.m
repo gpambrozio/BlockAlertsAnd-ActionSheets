@@ -52,7 +52,7 @@ static BlockBackground *_sharedInstance = nil;
     return self;
 }
 
-- (unsigned)retainCount
+- (NSUInteger)retainCount
 {
     return UINT_MAX;
 }
@@ -68,6 +68,10 @@ static BlockBackground *_sharedInstance = nil;
 
 - (void)setRotation:(NSNotification*)notification
 {
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending){
+        return;
+    }
+    
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
     CGRect orientationFrame = [UIScreen mainScreen].bounds;
@@ -109,6 +113,13 @@ static BlockBackground *_sharedInstance = nil;
             break;
     }
     
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending){
+        if(UIInterfaceOrientationIsLandscape(orientation)) {
+            newCenter = CGPointMake(newCenter.y, newCenter.x);
+        }
+        rotateAngle = 0;
+    }
+    
     self.transform = CGAffineTransformMakeRotation(rotateAngle);
     self.center = newCenter;
     
@@ -125,6 +136,11 @@ static BlockBackground *_sharedInstance = nil;
         self.userInteractionEnabled = NO;
         self.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.5f];
         self.vignetteBackground = NO;
+        
+        if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending){
+            UIViewController *temp = [UIViewController new];
+            self.rootViewController = temp;
+        }
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(setRotation:)
@@ -174,7 +190,22 @@ static BlockBackground *_sharedInstance = nil;
 
 - (void)reduceAlphaIfEmpty
 {
-    if (self.subviews.count == 1 || (self.subviews.count == 2 && [[self.subviews objectAtIndex:0] isKindOfClass:[UIImageView class]]))
+    NSMutableArray *remainingViews = NSMutableArray.new;
+
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[UIImageView class]]) {
+            // do nothing, this is the background
+        }
+        else if (CGRectEqualToRect(view.bounds, self.bounds)) {
+            // also do nothing, this is a different type of background
+        }
+        else {
+            [remainingViews addObject:view];
+        }
+    }
+    
+    
+    if (remainingViews.count == 1)
     {
         self.alpha = 0.0f;
         self.userInteractionEnabled = NO;

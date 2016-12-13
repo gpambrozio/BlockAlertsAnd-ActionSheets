@@ -65,9 +65,19 @@ static UIFont *buttonFont = nil;
 - (void)addComponents:(CGRect)frame {
     if (_title)
     {
-        CGSize size = [_title sizeWithFont:titleFont
-                         constrainedToSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000)
-                             lineBreakMode:NSLineBreakByWordWrapping];
+        CGSize size;
+        if (IOS_LESS_THAN_7) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            size = [_title sizeWithFont:titleFont constrainedToSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000) lineBreakMode:NSLineBreakByWordWrapping];
+#pragma clang diagnostic pop
+        }
+        else {
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            size = [_title boundingRectWithSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSParagraphStyleAttributeName : paragraphStyle, NSFontAttributeName : titleFont} context:nil].size;
+            size = CGSizeMake(ceilf(size.width), ceilf(size.height));
+        }
         
         UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kAlertViewBorder, _height, frame.size.width-kAlertViewBorder*2, size.height)];
         labelView.font = titleFont;
@@ -87,9 +97,19 @@ static UIFont *buttonFont = nil;
     
     if (_message)
     {
-        CGSize size = [_message sizeWithFont:messageFont
-                           constrainedToSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000)
-                               lineBreakMode:NSLineBreakByWordWrapping];
+        CGSize size;
+        if (IOS_LESS_THAN_7) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            size = [_message sizeWithFont:messageFont constrainedToSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000) lineBreakMode:NSLineBreakByWordWrapping];
+#pragma clang diagnostic pop
+        }
+        else {
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            size = [_message boundingRectWithSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSParagraphStyleAttributeName : paragraphStyle, NSFontAttributeName : messageFont} context:nil].size;
+            size = CGSizeMake(ceilf(size.width), ceilf(size.height));
+        }
         
         UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kAlertViewBorder, _height, frame.size.width-kAlertViewBorder*2, size.height)];
         labelView.font = messageFont;
@@ -155,10 +175,15 @@ static UIFont *buttonFont = nil;
         _blocks = [[NSMutableArray alloc] init];
         _completionBlocks = [[NSMutableArray alloc] init];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                 selector:@selector(setupDisplay) 
-                                                     name:UIApplicationDidChangeStatusBarOrientationNotification 
-                                                   object:nil];   
+        if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending){
+            // don't register for notification, rotation is handled by iOS on 8+
+        }
+        else {        
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(setupDisplay) 
+                                                         name:UIApplicationDidChangeStatusBarOrientationNotification 
+                                                       object:nil];
+        }
         
         if ([self class] == [BlockAlertView class])
             [self setupDisplay];
@@ -272,22 +297,37 @@ static UIFont *buttonFont = nil;
         {
             // In this case there's another button.
             // Let's check if they fit on the same line.
-            CGSize size = [title sizeWithFont:buttonFont 
-                                  minFontSize:10 
-                               actualFontSize:nil
-                                     forWidth:_view.bounds.size.width-kAlertViewBorder*2 
-                                lineBreakMode:NSLineBreakByClipping];
+            CGSize size;
+            if (IOS_LESS_THAN_7) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                size = [title sizeWithFont:buttonFont minFontSize:10 actualFontSize:nil forWidth:_view.bounds.size.width-kAlertViewBorder*2 lineBreakMode:NSLineBreakByClipping];
+#pragma clang diagnostic pop
+            }
+            else {
+                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                paragraphStyle.lineBreakMode = NSLineBreakByClipping;
+                size = [title boundingRectWithSize:CGSizeMake(_view.bounds.size.width-kAlertViewBorder*2, _height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSParagraphStyleAttributeName : paragraphStyle,NSFontAttributeName : buttonFont} context:nil].size;
+                size = CGSizeMake(ceilf(size.width), ceilf(size.height));
+            }
             
             if (size.width < maxHalfWidth - kAlertViewBorder)
             {
                 // It might fit. Check the next Button
                 NSArray *block2 = [_blocks objectAtIndex:i+1];
                 NSString *title2 = [block2 objectAtIndex:1];
-                size = [title2 sizeWithFont:buttonFont 
-                                minFontSize:10 
-                             actualFontSize:nil
-                                   forWidth:_view.bounds.size.width-kAlertViewBorder*2 
-                              lineBreakMode:NSLineBreakByClipping];
+                if (IOS_LESS_THAN_7) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                    size = [title2 sizeWithFont:buttonFont minFontSize:10 actualFontSize:nil forWidth:_view.bounds.size.width-kAlertViewBorder*2 lineBreakMode:NSLineBreakByClipping];
+#pragma clang diagnostic pop
+                }
+                else {
+                    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                    paragraphStyle.lineBreakMode = NSLineBreakByClipping;
+                    size = [title2 boundingRectWithSize:CGSizeMake(_view.bounds.size.width-kAlertViewBorder*2, _height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSParagraphStyleAttributeName : paragraphStyle, NSFontAttributeName : buttonFont} context:nil].size;
+                    size = CGSizeMake(ceilf(size.width), ceilf(size.height));
+                }
                 
                 if (size.width < maxHalfWidth - kAlertViewBorder)
                 {
@@ -300,11 +340,19 @@ static UIFont *buttonFont = nil;
         else if (_blocks.count  == 1)
         {
             // In this case this is the ony button. We'll size according to the text
-            CGSize size = [title sizeWithFont:buttonFont
-                                  minFontSize:10
-                               actualFontSize:nil
-                                     forWidth:_view.bounds.size.width-kAlertViewBorder*2
-                                lineBreakMode:NSLineBreakByClipping];
+            CGSize size;
+            if (IOS_LESS_THAN_7) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                size = [title sizeWithFont:buttonFont minFontSize:10 actualFontSize:nil forWidth:_view.bounds.size.width-kAlertViewBorder*2 lineBreakMode:NSLineBreakByClipping];
+#pragma clang diagnostic pop
+            }
+            else {
+                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                paragraphStyle.lineBreakMode = NSLineBreakByClipping;
+                size = [title boundingRectWithSize:CGSizeMake(_view.bounds.size.width-kAlertViewBorder*2, _height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSParagraphStyleAttributeName : paragraphStyle, NSFontAttributeName : buttonFont} context:nil].size;
+                size = CGSizeMake(ceilf(size.width), ceilf(size.height));
+            }
             
             size.width = MAX(size.width, 80);
             if (size.width + 2 * kAlertViewBorder < width)
@@ -318,14 +366,14 @@ static UIFont *buttonFont = nil;
         button.frame = CGRectMake(xOffset, _height, width, kAlertButtonHeight);
         button.titleLabel.font = buttonFont;
         if (IOS_LESS_THAN_6) {
-#pragma clan diagnostic push
+#pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
             button.titleLabel.minimumFontSize = 10;
-#pragma clan diagnostic pop
+            button.titleLabel.adjustsLetterSpacingToFitWidth = YES;
+#pragma clang diagnostic pop
         }
         else {
             button.titleLabel.adjustsFontSizeToFitWidth = YES;
-            button.titleLabel.adjustsLetterSpacingToFitWidth = YES;
             button.titleLabel.minimumScaleFactor = 0.1;
         }
         button.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -375,6 +423,7 @@ static UIFont *buttonFont = nil;
     frame.size.height = _height;
     _view.frame = frame;
     
+
     UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
     
     if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
@@ -497,7 +546,7 @@ static UIFont *buttonFont = nil;
 - (void)buttonClicked:(id)sender 
 {
     /* Run the button's block */
-    int buttonIndex = [(UIButton *)sender tag] - 1;
+    NSInteger buttonIndex = [(UIButton *)sender tag] - 1;
     [self dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }
 

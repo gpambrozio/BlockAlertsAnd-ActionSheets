@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5299D711AFA932C00A57DF0 /* alert-window-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = B5299D6F1AFA932C00A57DF0 /* alert-window-landscape.png */; };
+		B5299D721AFA932C00A57DF0 /* alert-window-landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5299D701AFA932C00A57DF0 /* alert-window-landscape@2x.png */; };
 		B5422F0B1705EB6200CF13D7 /* BlockTableAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5422F0A1705EB6200CF13D7 /* BlockTableAlertView.m */; };
+		B556A26B1AFCEF6600244D9C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B556A26A1AFCEF6600244D9C /* Default-568h@2x.png */; };
 		B583D771175E3C31002A35C0 /* alert-green-button.png in Resources */ = {isa = PBXBuildFile; fileRef = B583D76F175E3C31002A35C0 /* alert-green-button.png */; };
 		B583D772175E3C31002A35C0 /* alert-green-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B583D770175E3C31002A35C0 /* alert-green-button@2x.png */; };
 		B5D5B43A1760E4BB000B5F91 /* alert-yellow-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D5B4391760E4BB000B5F91 /* alert-yellow-button@2x.png */; };
@@ -55,8 +58,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B5299D6F1AFA932C00A57DF0 /* alert-window-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window-landscape.png"; sourceTree = "<group>"; };
+		B5299D701AFA932C00A57DF0 /* alert-window-landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window-landscape@2x.png"; sourceTree = "<group>"; };
 		B5422F091705EB6200CF13D7 /* BlockTableAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTableAlertView.h; sourceTree = "<group>"; };
 		B5422F0A1705EB6200CF13D7 /* BlockTableAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTableAlertView.m; sourceTree = "<group>"; };
+		B556A26A1AFCEF6600244D9C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B583D76F175E3C31002A35C0 /* alert-green-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-green-button.png"; sourceTree = "<group>"; };
 		B583D770175E3C31002A35C0 /* alert-green-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-green-button@2x.png"; sourceTree = "<group>"; };
 		B5D5B4391760E4BB000B5F91 /* alert-yellow-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-yellow-button@2x.png"; sourceTree = "<group>"; };
@@ -130,6 +136,7 @@
 		EC90168F14BB629F00EF52E1 = {
 			isa = PBXGroup;
 			children = (
+				B556A26A1AFCEF6600244D9C /* Default-568h@2x.png */,
 				EC9016A414BB629F00EF52E1 /* BlockAlertsDemo */,
 				EC90169D14BB629F00EF52E1 /* Frameworks */,
 				EC90169B14BB629F00EF52E1 /* Products */,
@@ -230,6 +237,8 @@
 				EC9016E314BB679C00EF52E1 /* alert-gray-button@2x.png */,
 				EC9016E414BB679C00EF52E1 /* alert-red-button.png */,
 				EC9016E514BB679C00EF52E1 /* alert-red-button@2x.png */,
+				B5299D6F1AFA932C00A57DF0 /* alert-window-landscape.png */,
+				B5299D701AFA932C00A57DF0 /* alert-window-landscape@2x.png */,
 				EC9016E614BB679C00EF52E1 /* alert-window.png */,
 				EC9016E714BB679C00EF52E1 /* alert-window@2x.png */,
 			);
@@ -287,7 +296,11 @@
 		EC90169114BB629F00EF52E1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+<<<<<<< HEAD
 				LastUpgradeCheck = 0610;
+=======
+				LastUpgradeCheck = 0630;
+>>>>>>> gpambrozio/master
 				ORGANIZATIONNAME = "CodeCrop Software";
 			};
 			buildConfigurationList = EC90169414BB629F00EF52E1 /* Build configuration list for PBXProject "BlockAlertsDemo" */;
@@ -315,6 +328,7 @@
 				EC9016A914BB629F00EF52E1 /* InfoPlist.strings in Resources */,
 				EC9016B514BB629F00EF52E1 /* BlockAlertsDemoViewController.xib in Resources */,
 				EC9016E814BB679C00EF52E1 /* action-black-button-selected.png in Resources */,
+				B556A26B1AFCEF6600244D9C /* Default-568h@2x.png in Resources */,
 				EC9016E914BB679C00EF52E1 /* action-black-button-selected@2x.png in Resources */,
 				EC9016EA14BB679C00EF52E1 /* action-black-button.png in Resources */,
 				EC9016EB14BB679C00EF52E1 /* action-black-button@2x.png in Resources */,
@@ -322,6 +336,7 @@
 				EC9016ED14BB679C00EF52E1 /* action-gray-button-selected@2x.png in Resources */,
 				EC9016EE14BB679C00EF52E1 /* action-gray-button.png in Resources */,
 				EC9016EF14BB679C00EF52E1 /* action-gray-button@2x.png in Resources */,
+				B5299D711AFA932C00A57DF0 /* alert-window-landscape.png in Resources */,
 				EC9016F014BB679C00EF52E1 /* action-red-button-selected.png in Resources */,
 				EC9016F114BB679C00EF52E1 /* action-red-button-selected@2x.png in Resources */,
 				EC9016F214BB679C00EF52E1 /* action-red-button.png in Resources */,
@@ -334,6 +349,7 @@
 				EC9016F914BB679C00EF52E1 /* alert-gray-button@2x.png in Resources */,
 				EC9016FA14BB679C00EF52E1 /* alert-red-button.png in Resources */,
 				EC9016FB14BB679C00EF52E1 /* alert-red-button@2x.png in Resources */,
+				B5299D721AFA932C00A57DF0 /* alert-window-landscape@2x.png in Resources */,
 				EC9016FC14BB679C00EF52E1 /* alert-window.png in Resources */,
 				EC9016FD14BB679C00EF52E1 /* alert-window@2x.png in Resources */,
 				ECAF5FFB14BE66B00095B359 /* arrived.png in Resources */,
@@ -405,6 +421,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -440,6 +457,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -461,7 +479,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlockAlertsDemo/BlockAlertsDemo-Prefix.pch";
 				INFOPLIST_FILE = "BlockAlertsDemo/BlockAlertsDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -474,7 +492,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlockAlertsDemo/BlockAlertsDemo-Prefix.pch";
 				INFOPLIST_FILE = "BlockAlertsDemo/BlockAlertsDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

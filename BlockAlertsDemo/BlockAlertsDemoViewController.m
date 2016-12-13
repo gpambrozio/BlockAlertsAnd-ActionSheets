@@ -120,7 +120,7 @@
         return cell;
     };
     alert.didSelectRow = ^(BlockTableAlertView *alertView, NSInteger row){
-        NSLog(@"Selected row: %d", row);
+        NSLog(@"Selected row: %ld", (long)row);
     };
     [alert show];
 }
