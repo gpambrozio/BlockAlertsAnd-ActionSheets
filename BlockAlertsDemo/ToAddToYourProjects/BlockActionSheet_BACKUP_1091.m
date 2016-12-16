@@ -31,9 +31,7 @@ static UIFont *buttonFont = nil;
   return [[[BlockActionSheet alloc] initWithTitle:title tintColor:nil textColor:nil] autorelease];
 }
 
-+ (id)sheetWithTitle:(NSString *)title tintColor:(UIColor *)tintColor textColor:(UIColor *)textColor {
-  return [[[BlockActionSheet alloc] initWithTitle:title tintColor:tintColor textColor:textColor] autorelease];
-}
+<<<<<<< HEAD
 - (id)initWithTitle:(NSString *)title 
 {
     if ((self = [super init]))
@@ -79,6 +77,22 @@ static UIFont *buttonFont = nil;
             
             labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
+            [_view addSubview:labelView];
+            [labelView release];
+            
+            _height += size.height + 5;
+        }
+        _vignetteBackground = NO;
+=======
++ (id)sheetWithTitle:(NSString *)title tintColor:(UIColor *)tintColor textColor:(UIColor *)textColor {
+  return [[[BlockActionSheet alloc] initWithTitle:title tintColor:tintColor textColor:textColor] autorelease];
+}
+
+- (id)initWithTitle:(NSString *)title tintColor:(UIColor *)tintColor textColor:(UIColor *)textColor {
+  if ((self = [super init])) {
+    UIWindow *parentView = [BlockBackground sharedInstance];
+    CGRect frame = parentView.bounds;
+
     _view = [[UIView alloc] initWithFrame:frame];
 
     _view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
@@ -113,6 +127,7 @@ static UIFont *buttonFont = nil;
       [labelView release];
 
       _height += size.height + 5;
+>>>>>>> 111301187903f7428f6cbcc23db28b269c4ede51
     }
     _vignetteBackground = NO;
   }
@@ -120,19 +135,27 @@ static UIFont *buttonFont = nil;
   return self;
 }
 
+<<<<<<< HEAD
 - (void) dealloc 
 {
     [_view release];
     [_blocks release];
     [_completionBlocks release];
-	[_tintColor release];
     [super dealloc];
+=======
+- (void)dealloc {
+  [_view release];
+  [_blocks release];
+  [_tintColor release];
+  [super dealloc];
+>>>>>>> 111301187903f7428f6cbcc23db28b269c4ede51
 }
 
 - (NSUInteger)buttonCount {
   return _blocks.count;
 }
 
+<<<<<<< HEAD
 #pragma mark - Add buttons
 
 - (void)addButtonWithTitle:(NSString *)title color:(NSString*)color block:(void (^)())block atIndex:(NSInteger)index
@@ -176,8 +199,26 @@ static UIFont *buttonFont = nil;
     }
 }
 
+#pragma mark - Add buttons with block
+
+- (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block
+{
+    [self addButtonWithTitle:title color:@"red" block:block atIndex:-1];
+=======
+- (void)addButtonWithTitle:(NSString *)title color:(NSString *)color block:(void (^)())block atIndex:(NSInteger)index {
+  if (index >= 0) {
+    [_blocks
+        insertObject:[NSArray arrayWithObjects:block ? [[block copy] autorelease] : [NSNull null], title, color, nil]
+             atIndex:index];
+  } else {
+    [_blocks
+        addObject:[NSArray arrayWithObjects:block ? [[block copy] autorelease] : [NSNull null], title, color, nil]];
+  }
+}
+
 - (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block {
   [self addButtonWithTitle:title color:@"red" block:block atIndex:-1];
+>>>>>>> 111301187903f7428f6cbcc23db28b269c4ede51
 }
 
 - (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block {
@@ -188,8 +229,16 @@ static UIFont *buttonFont = nil;
   [self addButtonWithTitle:title color:@"gray" block:block atIndex:-1];
 }
 
+<<<<<<< HEAD
+#pragma mark - Add buttons at index with block
+
+- (void)setDestructiveButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block
+{
+    [self addButtonWithTitle:title color:@"red" block:block atIndex:index];
+=======
 - (void)setDestructiveButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block {
   [self addButtonWithTitle:title color:@"red" block:block atIndex:index];
+>>>>>>> 111301187903f7428f6cbcc23db28b269c4ede51
 }
 
 - (void)setCancelButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block {
@@ -200,6 +249,7 @@ static UIFont *buttonFont = nil;
   [self addButtonWithTitle:title color:@"gray" block:block atIndex:index];
 }
 
+<<<<<<< HEAD
 #pragma mark - Add button with block and animation completion block
 
 - (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock
@@ -283,44 +333,39 @@ static UIFont *buttonFont = nil;
         
         [_view addSubview:button];
         _height += kActionSheetButtonHeight + kActionSheetBorder;
-    }
-    
-    UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
-    modalBackground.image = background;
-    modalBackground.contentMode = UIViewContentModeScaleToFill;
-    modalBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [_view insertSubview:modalBackground atIndex:0];
-    [modalBackground release];
-    
-    [BlockBackground sharedInstance].vignetteBackground = _vignetteBackground;
-    [[BlockBackground sharedInstance] addToMainWindow:_view];
-    CGRect frame = _view.frame;
-    frame.origin.y = [BlockBackground sharedInstance].bounds.size.height;
-    frame.size.height = _height + kActionSheetBounce;
-    _view.frame = frame;
-    
-    __block CGPoint center = _view.center;
-    center.y -= _height + kActionSheetBounce;
-    
-    [UIView animateWithDuration:0.4
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         [BlockBackground sharedInstance].alpha = 1.0f;
-                         _view.center = center;
-                     } completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.1
-                                               delay:0.0
-                                             options:UIViewAnimationOptionAllowUserInteraction
-                                          animations:^{
-                                              center.y += kActionSheetBounce;
-                                              _view.center = center;
-                                          } completion:nil];
-                     }];
-    
-    [self retain];
-}
+=======
+- (void)showInView:(UIView *)view {
+  NSUInteger i = 1;
+  for (NSArray *block in _blocks) {
+    NSString *title = [block objectAtIndex:1];
+    NSString *color = [block objectAtIndex:2];
 
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"action-%@-button.png", color]];
+    image = [image stretchableImageWithLeftCapWidth:(int)(image.size.width) >> 1 topCapHeight:0];
+
+    UIImage *highlightedImage =
+        [UIImage imageNamed:[NSString stringWithFormat:@"action-%@-button-highlighted.png", color]];
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(kActionSheetBorder, _height, _view.bounds.size.width - kActionSheetBorder * 2,
+                              kActionSheetButtonHeight);
+    button.titleLabel.font = buttonFont;
+    if (IOS_LESS_THAN_6) {
+#pragma clan diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+      button.titleLabel.minimumFontSize = 10;
+#pragma clan diagnostic pop
+    } else {
+      button.titleLabel.minimumScaleFactor = 0.1;
+>>>>>>> 111301187903f7428f6cbcc23db28b269c4ede51
+    }
+    button.titleLabel.adjustsFontSizeToFitWidth = YES;
+    button.titleLabel.textAlignment = NSTextAlignmentCenter;
+    button.titleLabel.shadowOffset = kActionSheetButtonShadowOffset;
+    button.backgroundColor = [UIColor clearColor];
+    button.tag = i++;
+
+<<<<<<< HEAD
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated 
 {
     // Block Execution
@@ -331,16 +376,59 @@ static UIFont *buttonFont = nil;
         {
             ((void (^)())obj)();
         }
+=======
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    if (highlightedImage) {
+      [button setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
+>>>>>>> 111301187903f7428f6cbcc23db28b269c4ede51
     }
-    
-    if (animated)
-    {
-        CGPoint center = _view.center;
-        center.y += _view.bounds.size.height;
-        [UIView animateWithDuration:0.4
+    [button setTitleColor:kActionSheetButtonTextColor forState:UIControlStateNormal];
+    [button setTitleShadowColor:kActionSheetButtonShadowColor forState:UIControlStateNormal];
+    [button setTitle:title forState:UIControlStateNormal];
+    button.accessibilityLabel = title;
+
+    [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+
+    button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
+    [_view addSubview:button];
+    _height += kActionSheetButtonHeight + kActionSheetBorder;
+  }
+
+  UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
+  modalBackground.image = background;
+  if (_tintColor) {
+    modalBackground.image = [modalBackground.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    modalBackground.tintColor = _tintColor;
+  }
+  modalBackground.contentMode = UIViewContentModeScaleToFill;
+  modalBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  [_view insertSubview:modalBackground atIndex:0];
+  [modalBackground release];
+
+  [BlockBackground sharedInstance].vignetteBackground = _vignetteBackground;
+  [[BlockBackground sharedInstance] addToMainWindow:_view];
+  CGRect frame = _view.frame;
+  frame.origin.y = [BlockBackground sharedInstance].bounds.size.height;
+  frame.size.height = _height + kActionSheetBounce;
+  _view.frame = frame;
+
+  __block CGPoint center = _view.center;
+  center.y -= _height + kActionSheetBounce;
+
+  [UIView animateWithDuration:0.4
+      delay:0.0
+      options:UIViewAnimationOptionCurveEaseOut
+      animations:^{
+        [BlockBackground sharedInstance].alpha = 1.0f;
+        _view.center = center;
+      }
+      completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1
                               delay:0.0
-                            options:UIViewAnimationOptionCurveEaseIn
+                            options:UIViewAnimationOptionAllowUserInteraction
                          animations:^{
+<<<<<<< HEAD
                              _view.center = center;
                              [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
                          } completion:^(BOOL finished) {
@@ -367,16 +455,63 @@ static UIFont *buttonFont = nil;
         [[BlockBackground sharedInstance] removeView:_view];
         [_view release]; _view = nil;
         [self autorelease];
+=======
+                           center.y += kActionSheetBounce;
+                           _view.center = center;
+                         }
+                         completion:nil];
+      }];
+
+  [self retain];
+}
+
+- (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
+  if (buttonIndex >= 0 && buttonIndex < [_blocks count]) {
+    id obj = [[_blocks objectAtIndex:buttonIndex] objectAtIndex:0];
+    if (![obj isEqual:[NSNull null]]) {
+      ((void (^)())obj)();
+>>>>>>> 111301187903f7428f6cbcc23db28b269c4ede51
     }
+  }
+
+  if (animated) {
+    CGPoint center = _view.center;
+    center.y += _view.bounds.size.height;
+    [UIView animateWithDuration:0.4
+        delay:0.0
+        options:UIViewAnimationOptionCurveEaseIn
+        animations:^{
+          _view.center = center;
+          [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
+        }
+        completion:^(BOOL finished) {
+          [[BlockBackground sharedInstance] removeView:_view];
+          [_view release];
+          _view = nil;
+          [self autorelease];
+        }];
+  } else {
+    [[BlockBackground sharedInstance] removeView:_view];
+    [_view release];
+    _view = nil;
+    [self autorelease];
+  }
 }
 
 #pragma mark - Action
 
+<<<<<<< HEAD
 - (void)buttonClicked:(id)sender 
 {
     /* Run the button's block */
     NSInteger buttonIndex = [(UIButton *)sender tag] - 1;
     [self dismissWithClickedButtonIndex:buttonIndex animated:YES];
+=======
+- (void)buttonClicked:(id)sender {
+  /* Run the button's block */
+  int buttonIndex = [(UIButton *)sender tag] - 1;
+  [self dismissWithClickedButtonIndex:buttonIndex animated:YES];
+>>>>>>> 111301187903f7428f6cbcc23db28b269c4ede51
 }
 
 @end

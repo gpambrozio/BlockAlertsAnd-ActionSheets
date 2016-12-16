@@ -9,12 +9,19 @@
  * A simple block-enabled API wrapper on top of UIActionSheet.
  */
 @interface BlockActionSheet : NSObject {
+<<<<<<< HEAD
 @private
     UIView *_view;
     NSMutableArray *_blocks;
     NSMutableArray *_completionBlocks;
     CGFloat _height;
-	UIColor *_tintColor;
+=======
+ @private
+  UIView *_view;
+  NSMutableArray *_blocks;
+  CGFloat _height;
+  UIColor *_tintColor;
+>>>>>>> 111301187903f7428f6cbcc23db28b269c4ede51
 }
 
 @property(nonatomic, readonly) UIView *view;
@@ -29,14 +36,21 @@
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())block;
 - (void)addButtonWithTitle:(NSString *)title color:(NSString *)color block:(void (^)())block atIndex:(NSInteger)index;
 
-- (void)setCancelButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block;
-- (void)setDestructiveButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block;
-- (void)addButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block;
+<<<<<<< HEAD
+// Add buttons with block
+- (void)setCancelButtonWithTitle:(NSString *) title block:(void (^)()) block;
+- (void)setDestructiveButtonWithTitle:(NSString *) title block:(void (^)()) block;
+- (void)addButtonWithTitle:(NSString *) title block:(void (^)()) block;
 
 // Add buttons at index with block
 - (void)setCancelButtonWithTitle:(NSString *) title atIndex:(NSInteger)index block:(void (^)()) block;
 - (void)setDestructiveButtonWithTitle:(NSString *) title atIndex:(NSInteger)index block:(void (^)()) block;
 - (void)addButtonWithTitle:(NSString *) title atIndex:(NSInteger)index block:(void (^)()) block;
+=======
+- (void)setCancelButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block;
+- (void)setDestructiveButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block;
+- (void)addButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block;
+>>>>>>> 111301187903f7428f6cbcc23db28b269c4ede51
 
 // Add button with block and animation completion block
 - (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock;

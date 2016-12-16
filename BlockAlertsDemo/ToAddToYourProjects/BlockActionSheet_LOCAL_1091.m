@@ -18,22 +18,22 @@ static UIFont *buttonFont = nil;
 
 #pragma mark - init
 
-+ (void)initialize {
-  if (self == [BlockActionSheet class]) {
-    background = [UIImage imageNamed:kActionSheetBackground];
-    background = [[background stretchableImageWithLeftCapWidth:0 topCapHeight:kActionSheetBackgroundCapHeight] retain];
-    titleFont = [kActionSheetTitleFont retain];
-    buttonFont = [kActionSheetButtonFont retain];
-  }
++ (void)initialize
+{
+    if (self == [BlockActionSheet class])
+    {
+        background = [UIImage imageNamed:kActionSheetBackground];
+        background = [[background stretchableImageWithLeftCapWidth:0 topCapHeight:kActionSheetBackgroundCapHeight] retain];
+        titleFont = [kActionSheetTitleFont retain];
+        buttonFont = [kActionSheetButtonFont retain];
+    }
 }
 
-+ (id)sheetWithTitle:(NSString *)title {
-  return [[[BlockActionSheet alloc] initWithTitle:title tintColor:nil textColor:nil] autorelease];
++ (id)sheetWithTitle:(NSString *)title
+{
+    return [[[BlockActionSheet alloc] initWithTitle:title] autorelease];
 }
 
-+ (id)sheetWithTitle:(NSString *)title tintColor:(UIColor *)tintColor textColor:(UIColor *)textColor {
-  return [[[BlockActionSheet alloc] initWithTitle:title tintColor:tintColor textColor:textColor] autorelease];
-}
 - (id)initWithTitle:(NSString *)title 
 {
     if ((self = [super init]))
@@ -79,45 +79,15 @@ static UIFont *buttonFont = nil;
             
             labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
-    _view = [[UIView alloc] initWithFrame:frame];
-
-    _view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-
-    _blocks = [[NSMutableArray alloc] init];
-    _height = kActionSheetTopMargin;
-    _tintColor = [tintColor retain];
-    if (title) {
-      CGSize size = [title sizeWithFont:titleFont
-                      constrainedToSize:CGSizeMake(frame.size.width - kActionSheetBorder * 2, 1000)
-                          lineBreakMode:NSLineBreakByWordWrapping];
-
-      UILabel *labelView =
-          [[UILabel alloc] initWithFrame:CGRectMake(kActionSheetBorder, _height,
-                                                    frame.size.width - kActionSheetBorder * 2, size.height)];
-      labelView.font = titleFont;
-      labelView.numberOfLines = 0;
-      labelView.lineBreakMode = NSLineBreakByWordWrapping;
-      if (textColor)
-        labelView.textColor = textColor;
-      else
-        labelView.textColor = kActionSheetTitleTextColor;
-      labelView.backgroundColor = [UIColor clearColor];
-      labelView.textAlignment = NSTextAlignmentCenter;
-      labelView.shadowColor = kActionSheetTitleShadowColor;
-      labelView.shadowOffset = kActionSheetTitleShadowOffset;
-      labelView.text = title;
-
-      labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
-      [_view addSubview:labelView];
-      [labelView release];
-
-      _height += size.height + 5;
+            [_view addSubview:labelView];
+            [labelView release];
+            
+            _height += size.height + 5;
+        }
+        _vignetteBackground = NO;
     }
-    _vignetteBackground = NO;
-  }
-
-  return self;
+    
+    return self;
 }
 
 - (void) dealloc 
@@ -125,12 +95,12 @@ static UIFont *buttonFont = nil;
     [_view release];
     [_blocks release];
     [_completionBlocks release];
-	[_tintColor release];
     [super dealloc];
 }
 
-- (NSUInteger)buttonCount {
-  return _blocks.count;
+- (NSUInteger)buttonCount
+{
+    return _blocks.count;
 }
 
 #pragma mark - Add buttons
@@ -176,28 +146,38 @@ static UIFont *buttonFont = nil;
     }
 }
 
-- (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block {
-  [self addButtonWithTitle:title color:@"red" block:block atIndex:-1];
+#pragma mark - Add buttons with block
+
+- (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block
+{
+    [self addButtonWithTitle:title color:@"red" block:block atIndex:-1];
 }
 
-- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block {
-  [self addButtonWithTitle:title color:@"black" block:block atIndex:-1];
+- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block
+{
+    [self addButtonWithTitle:title color:@"black" block:block atIndex:-1];
 }
 
-- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block {
-  [self addButtonWithTitle:title color:@"gray" block:block atIndex:-1];
+- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block 
+{
+    [self addButtonWithTitle:title color:@"gray" block:block atIndex:-1];
 }
 
-- (void)setDestructiveButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block {
-  [self addButtonWithTitle:title color:@"red" block:block atIndex:index];
+#pragma mark - Add buttons at index with block
+
+- (void)setDestructiveButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block
+{
+    [self addButtonWithTitle:title color:@"red" block:block atIndex:index];
 }
 
-- (void)setCancelButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block {
-  [self addButtonWithTitle:title color:@"black" block:block atIndex:index];
+- (void)setCancelButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block
+{
+    [self addButtonWithTitle:title color:@"black" block:block atIndex:index];
 }
 
-- (void)addButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block {
-  [self addButtonWithTitle:title color:@"gray" block:block atIndex:index];
+- (void)addButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block 
+{
+    [self addButtonWithTitle:title color:@"gray" block:block atIndex:index];
 }
 
 #pragma mark - Add button with block and animation completion block
