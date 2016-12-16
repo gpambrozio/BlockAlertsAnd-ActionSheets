@@ -7,7 +7,7 @@
 
 @interface BlockAlertView : NSObject {
 @protected
-    UIView *_view;
+    UIScrollView *_view;
     NSMutableArray *_blocks;
     NSMutableArray *_completionBlocks;
     CGFloat _height;
