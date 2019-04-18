@@ -81,7 +81,7 @@ Now get the project and have fun with it. Feel free to fork and add pull request
  [6]: http://www.getarrived.com/ "Arrived"
  [7]: http://itunes.apple.com/app/id439811947?mt=8 "Arrived iPhone app"
  [8]: http://tapbots.com/software/tweetbot/
- [9]: http://blog.codecropper.com/wp-content/uploads/2012/01/iOS-Simulator-Screen-shot-Jan-20-2012-4.28.18-PM-200x300.png "iOS Simulator Screen shot Jan 20, 2012 4.28.18 PM"
- [10]: http://blog.codecropper.com/wp-content/uploads/2012/01/iOS-Simulator-Screen-shot-Jan-20-2012-4.28.23-PM-200x300.png "iOS Simulator Screen shot Jan 20, 2012 4.28.23 PM"
+ [9]: https://web.archive.org/web/20141219043704im_/http://blog.codecropper.com/wp-content/uploads/2012/01/iOS-Simulator-Screen-shot-Jan-20-2012-4.28.18-PM-200x300.png "iOS Simulator Screen shot Jan 20, 2012 4.28.18 PM"
+ [10]: https://web.archive.org/web/20141219043704im_/http://blog.codecropper.com/wp-content/uploads/2012/01/iOS-Simulator-Screen-shot-Jan-20-2012-4.28.23-PM-200x300.png "iOS Simulator Screen shot Jan 20, 2012 4.28.23 PM"
  [11]: http://www.getarrived.com "Arrived"
  [12]: https://github.com/Arrived/BlockAlertsAnd-ActionSheets
