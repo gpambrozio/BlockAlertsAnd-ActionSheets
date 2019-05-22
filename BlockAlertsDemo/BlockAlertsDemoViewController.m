@@ -72,7 +72,7 @@
 - (IBAction)goNuts:(id)sender
 {
     for (int i=0; i<6; i++)
-     {
+    {
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5 * i * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             if (arc4random() % 2 == 0)
@@ -80,13 +80,14 @@
             else
                 [self showActionSheet:nil];
         });
-     }
+    }
 }
 
 - (IBAction)showTextPrompt:(id)sender
 {
-    UITextField *textField;
-    BlockTextPromptAlertView *alert = [BlockTextPromptAlertView promptWithTitle:@"Prompt Title" message:@"With prompts you do have to keep in mind limited screen space due to the keyboard" textField:&textField block:^(BlockTextPromptAlertView *alert){
+    //The number of placeholders passed in defines how many textfields will be added to the alertview
+    NSArray* placeHolderArray = [[[NSArray alloc] initWithObjects:@"TextField 1",@"TextField 2", @"TextField 3", nil] autorelease];
+    BlockTextPromptAlertView *alert = [BlockTextPromptAlertView promptWithTitle:@"Prompt Title" message:@"With prompts you do have to keep in mind limited screen space due to the keyboard" withPlaceholdersForTextFields:placeHolderArray block:^(BlockTextPromptAlertView *alert){
         [alert.textField resignFirstResponder];
         return YES;
     }];
@@ -94,7 +95,12 @@
     
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];
     [alert addButtonWithTitle:@"Okay" block:^{
-        NSLog(@"Text: %@", textField.text);
+        NSMutableArray *textField = [alert getArrayOfTextInAlertViewTextFields];
+        int textfieldCount = [textField count];
+        int i;
+        for (i=0; i<textfieldCount; i++) {
+            NSLog(@"Textfield %d Text: %@", i,[textField objectAtIndex:i]);
+        }
     }];
     [alert show];
 }

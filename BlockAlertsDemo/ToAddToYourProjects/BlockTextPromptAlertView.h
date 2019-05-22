@@ -19,6 +19,8 @@ typedef BOOL(^TextFieldReturnCallBack)(BlockTextPromptAlertView *);
     NSInteger maxLength;
     NSInteger buttonIndexForReturn;
     NSString* defaultText;
+    NSArray* placeholders;
+    int numberOfPlaceholders;
 }
 
 @property (nonatomic, retain) UITextField *textField;
@@ -26,16 +28,13 @@ typedef BOOL(^TextFieldReturnCallBack)(BlockTextPromptAlertView *);
 @property (nonatomic, assign) BOOL disableAutoBecomeFirstResponder;
 @property (nonatomic, assign) BOOL selectAllOnBeginEdit;
 
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block:(TextFieldReturnCallBack) block;
++ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message withPlaceholdersForTextFields:(NSArray*)placeHolderArray block:(TextFieldReturnCallBack) block;
 
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField;
-
-+ (BlockTextPromptAlertView *)promptWithTitle:(NSString *)title message:(NSString *)message textField:(out UITextField**)textField block:(TextFieldReturnCallBack) block;
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText;
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText block: (TextFieldReturnCallBack) block;
+- (id)initWithTitle:(NSString *)title message:(NSString *)message defaultText:(NSString*)defaultText textPlaceholders:(NSArray*)placeholderArray block: (TextFieldReturnCallBack) block;
+- (NSMutableArray*)getArrayOfTextInAlertViewTextFields;
 
 @property (readwrite, copy) BlockTextPromptAlertShouldDismiss shouldDismiss;
 
