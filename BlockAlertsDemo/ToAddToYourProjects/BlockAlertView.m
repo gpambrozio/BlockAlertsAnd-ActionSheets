@@ -12,6 +12,7 @@
 @synthesize view = _view;
 @synthesize backgroundImage = _backgroundImage;
 @synthesize vignetteBackground = _vignetteBackground;
+@synthesize direction = _direction;
 
 static UIImage *background = nil;
 static UIImage *backgroundlandscape = nil;
@@ -159,7 +160,7 @@ static UIFont *buttonFont = nil;
         [self show];
 }
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message 
+- (id)initWithTitle:(NSString *)title message:(NSString *)message
 {
     self = [super init];
     
@@ -188,6 +189,8 @@ static UIFont *buttonFont = nil;
             [self setupDisplay];
         
         _vignetteBackground = NO;
+        
+        _direction = BlockAnimateFromTop;
     }
     
     return self;
@@ -386,10 +389,35 @@ static UIFont *buttonFont = nil;
         }
     }
     
-    
     CGRect frame = _view.frame;
-    frame.origin.y = - _height;
     frame.size.height = _height;
+    switch (_direction) {
+        case BlockAnimateFromTop:
+            frame.origin.y = - _height;
+            break;
+            
+        case BlockAnimateFromBottom:
+            frame.origin.y = _height * 2;
+            break;
+            
+        case BlockAnimateFromLeft:
+            frame.origin.y = floorf(([BlockBackground sharedInstance].bounds.size.height - _height) * 0.5);
+            frame.origin.x = -frame.size.width;
+            break;
+            
+        case BlockAnimateFromRight:
+            frame.origin.y = floorf(([BlockBackground sharedInstance].bounds.size.height - _height) * 0.5);
+            frame.origin.x = frame.size.width * 2;
+            break;
+            
+        case BlockAnimateFadeIn:
+            frame.origin.y = floorf(([BlockBackground sharedInstance].bounds.size.height - _height) * 0.5);
+            break;
+            
+        default:
+            frame.origin.y = -_height;
+            break;
+    }
     _view.frame = frame;
     
 
@@ -415,32 +443,44 @@ static UIFont *buttonFont = nil;
     [BlockBackground sharedInstance].vignetteBackground = _vignetteBackground;
     [[BlockBackground sharedInstance] addToMainWindow:_view];
 
-    __block CGPoint center = _view.center;
-    center.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) + kAlertViewBounce;
-    
     _cancelBounce = NO;
     
-    [UIView animateWithDuration:0.4
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         [BlockBackground sharedInstance].alpha = 1.0f;
-                         _view.center = center;
-                     } 
-                     completion:^(BOOL finished) {
-                         if (_cancelBounce) return;
-                         
-                         [UIView animateWithDuration:0.1
-                                               delay:0.0
-                                             options:0
-                                          animations:^{
-                                              center.y -= kAlertViewBounce;
-                                              _view.center = center;
-                                          } 
-                                          completion:^(BOOL finished) {
-                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"AlertViewFinishedAnimations" object:self];
-                                          }];
-                     }];
+    __block CGPoint firstPoint = _view.center;
+    __block CGPoint secondPoint = _view.center;
+    
+    switch (_direction) {
+        case BlockAnimateFromTop:
+            firstPoint.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) + kAlertViewBounce;
+            secondPoint.y = firstPoint.y - kAlertViewBounce;
+            break;
+            
+        case BlockAnimateFromBottom:
+            firstPoint.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) - kAlertViewBounce;
+            secondPoint.y = firstPoint.y + kAlertViewBounce;
+            break;
+            
+        case BlockAnimateFromLeft:
+            firstPoint.x = floorf([BlockBackground sharedInstance].bounds.size.width * 0.5) + kAlertViewBounce;
+            secondPoint.x = firstPoint.x - kAlertViewBounce;
+            break;
+            
+        case BlockAnimateFromRight:
+            firstPoint.x = floorf([BlockBackground sharedInstance].bounds.size.width * 0.5) - kAlertViewBounce;
+            secondPoint.x = firstPoint.x + kAlertViewBounce;
+            break;
+            
+        case BlockAnimateFadeIn:
+            [self animateFadeIn];
+            break;
+            
+        default:
+            firstPoint.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) - kAlertViewBounce;
+            secondPoint.y = firstPoint.y - kAlertViewBounce;
+            break;
+    }
+    if (_direction != BlockAnimateFadeIn) {
+        [self animateEnteringAlertTo:firstPoint thenTo:secondPoint];
+    }
     
     [self retain];
 }
@@ -462,30 +502,43 @@ static UIFont *buttonFont = nil;
     
     if (animated)
     {
-        [UIView animateWithDuration:0.1
-                              delay:0.0
-                            options:0
-                         animations:^{
-                             CGPoint center = _view.center;
-                             center.y += 20;
-                             _view.center = center;
-                         } 
-                         completion:^(BOOL finished) {
-                             [UIView animateWithDuration:0.4
-                                                   delay:0.0 
-                                                 options:UIViewAnimationOptionCurveEaseIn
-                                              animations:^{
-                                                  CGRect frame = _view.frame;
-                                                  frame.origin.y = -frame.size.height;
-                                                  _view.frame = frame;
-                                                  [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
-                                              } 
-                                              completion:^(BOOL finished) {
-                                                  [[BlockBackground sharedInstance] removeView:_view];
-                                                  [_view release]; _view = nil;
-                                                  [self autorelease];
-                                              }];
-                         }];
+        CGPoint firstPoint = _view.center;
+        CGPoint secondPoint = _view.center;
+        CGRect frame = _view.frame;
+        
+        switch (_direction) {
+            case BlockAnimateFromTop:
+                firstPoint.y += kAlertViewBounce;
+                secondPoint.y = -frame.size.height - kAlertViewBounce;
+                break;
+                
+            case BlockAnimateFromBottom:
+                firstPoint.y -= kAlertViewBounce;
+                secondPoint.y = (frame.size.height * 2) + kAlertViewBounce;
+                break;
+                
+            case BlockAnimateFromLeft:
+                firstPoint.x += kAlertViewBounce;
+                secondPoint.x = -frame.size.width - kAlertViewBounce;
+                break;
+                
+            case BlockAnimateFromRight:
+                firstPoint.x -= kAlertViewBounce;
+                secondPoint.x = (frame.size.width * 2) + kAlertViewBounce;
+                break;
+                
+            case BlockAnimateFadeIn:
+                [self animateFadeOut];
+                break;
+                
+            default:
+                firstPoint.y += kAlertViewBounce;
+                secondPoint.y = -frame.size.height - kAlertViewBounce;
+                break;
+        }
+        if (_direction != BlockAnimateFadeIn) {
+            [self animateExitingAlertTo:firstPoint thenTo:secondPoint];
+        }
     }
     else
     {
@@ -493,6 +546,78 @@ static UIFont *buttonFont = nil;
         [_view release]; _view = nil;
         [self autorelease];
     }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Animations
+- (void)animateEnteringAlertTo:(CGPoint)firstPoint thenTo:(CGPoint)secondPoint
+{
+    [UIView animateWithDuration:0.4
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         [BlockBackground sharedInstance].alpha = 1.0f;
+                         _view.center = firstPoint;
+                     }
+                     completion:^(BOOL finished) {
+                         if (_cancelBounce) return;
+                         
+                         [UIView animateWithDuration:0.1
+                                               delay:0.0
+                                             options:0
+                                          animations:^{
+                                              _view.center = secondPoint;
+                                          }
+                                          completion:^(BOOL finished) {
+                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"AlertViewFinishedAnimations" object:self];
+                                          }];
+                     }];
+}
+
+- (void)animateExitingAlertTo:(CGPoint)firstPoint thenTo:(CGPoint)secondPoint
+{
+    [UIView animateWithDuration:0.1
+                          delay:0.0
+                        options:0
+                     animations:^{
+                         _view.center = firstPoint;
+                     }
+                     completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.4
+                                               delay:0.0
+                                             options:UIViewAnimationOptionCurveEaseIn
+                                          animations:^{
+                                              _view.center = secondPoint;
+                                              [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
+                                          }
+                                          completion:^(BOOL finished) {
+                                              [[BlockBackground sharedInstance] removeView:_view];
+                                              [_view release]; _view = nil;
+                                              [self autorelease];
+                                          }];
+                     }];
+}
+
+- (void)animateFadeIn
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        [BlockBackground sharedInstance].alpha = 1.0f;
+    }
+    completion:^(BOOL finished) {
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"AlertViewFinishedAnimations" object:self];
+    }];
+}
+
+- (void)animateFadeOut
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
+    }
+    completion:^(BOOL finished) {
+        [[BlockBackground sharedInstance] removeView:_view];
+        [_view release]; _view = nil;
+        [self autorelease];
+    }];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

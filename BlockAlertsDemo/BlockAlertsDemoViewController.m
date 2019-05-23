@@ -34,6 +34,7 @@
     [alert addButtonWithTitle:@"Show another alert" imageIdentifier:@"green" block:^{
         [self showAlert:nil];
     }];
+    alert.direction = BlockAnimateFromTop;
     [alert show];
 }
 

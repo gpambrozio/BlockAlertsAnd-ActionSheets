@@ -5,6 +5,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class BlockAlertView;
+
+typedef enum {
+    BlockAnimateFromTop,
+    BlockAnimateFromBottom,
+    BlockAnimateFromLeft,
+    BlockAnimateFromRight,
+    BlockAnimateFadeIn
+} BlockAnimationDirection;
+
 @interface BlockAlertView : NSObject {
 @protected
     UIView *_view;
@@ -37,6 +47,7 @@
 
 - (void)setupDisplay;
 
+@property (nonatomic, readwrite) BlockAnimationDirection direction;
 @property (nonatomic, retain) UIImage *backgroundImage;
 @property (nonatomic, readonly) UIView *view;
 @property (nonatomic, readwrite) BOOL vignetteBackground;
