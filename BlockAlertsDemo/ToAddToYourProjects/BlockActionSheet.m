@@ -18,10 +18,8 @@ static UIFont *buttonFont = nil;
 
 #pragma mark - init
 
-+ (void)initialize
-{
-    if (self == [BlockActionSheet class])
-    {
++ (void)initialize {
+    if (self == [BlockActionSheet class]) {
         background = [UIImage imageNamed:kActionSheetBackground];
         background = [[background stretchableImageWithLeftCapWidth:0 topCapHeight:kActionSheetBackgroundCapHeight] retain];
         titleFont = [kActionSheetTitleFont retain];
@@ -29,15 +27,16 @@ static UIFont *buttonFont = nil;
     }
 }
 
-+ (id)sheetWithTitle:(NSString *)title
-{
-    return [[[BlockActionSheet alloc] initWithTitle:title] autorelease];
++ (id)sheetWithTitle:(NSString *)title {
+    return [[[BlockActionSheet alloc] initWithTitle:title tintColor:nil textColor:nil] autorelease];
 }
 
-- (id)initWithTitle:(NSString *)title 
-{
-    if ((self = [super init]))
-    {
++ (id)sheetWithTitle:(NSString *)title tintColor:(UIColor *)tintColor textColor:(UIColor *)textColor {
+    return [[[BlockActionSheet alloc] initWithTitle:title tintColor:tintColor textColor:textColor] autorelease];
+}
+
+- (id)initWithTitle:(NSString *)title tintColor:(UIColor *)tintColor textColor:(UIColor *)textColor {
+    if ((self = [super init])) {
         UIWindow *parentView = [BlockBackground sharedInstance];
         CGRect frame = parentView.bounds;
         
@@ -47,27 +46,21 @@ static UIFont *buttonFont = nil;
         
         _blocks = [[NSMutableArray alloc] init];
         _height = kActionSheetTopMargin;
-
-        if (title)
-        {
-            CGSize size;
-            if (IOS_LESS_THAN_7) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                size = [title sizeWithFont:titleFont constrainedToSize:CGSizeMake(frame.size.width-kActionSheetBorder*2, 1000) lineBreakMode:NSLineBreakByWordWrapping];
-#pragma clang diagnostic pop
-            }
-            else {
-                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-                paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-                size = [title boundingRectWithSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSParagraphStyleAttributeName : paragraphStyle, NSFontAttributeName : titleFont} context:nil].size;
-                size = CGSizeMake(ceilf(size.width), ceilf(size.height));
-            }
+        _tintColor = [tintColor retain];
+        if (title) {
+            CGSize size = [title sizeWithFont:titleFont
+                            constrainedToSize:CGSizeMake(frame.size.width - kActionSheetBorder * 2, 1000)
+                                lineBreakMode:NSLineBreakByWordWrapping];
             
-            UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kActionSheetBorder, _height, frame.size.width-kActionSheetBorder*2, size.height)];
+            UILabel *labelView =
+            [[UILabel alloc] initWithFrame:CGRectMake(kActionSheetBorder, _height,
+                                                      frame.size.width - kActionSheetBorder * 2, size.height)];
             labelView.font = titleFont;
             labelView.numberOfLines = 0;
             labelView.lineBreakMode = NSLineBreakByWordWrapping;
+            if (textColor)
+            labelView.textColor = textColor;
+            else
             labelView.textColor = kActionSheetTitleTextColor;
             labelView.backgroundColor = [UIColor clearColor];
             labelView.textAlignment = NSTextAlignmentCenter;
@@ -76,7 +69,7 @@ static UIFont *buttonFont = nil;
             labelView.text = title;
             
             labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
+            
             [_view addSubview:labelView];
             [labelView release];
             
@@ -88,24 +81,42 @@ static UIFont *buttonFont = nil;
     return self;
 }
 
-- (void) dealloc 
+- (void) dealloc
 {
     [_view release];
     [_blocks release];
+    [_completionBlocks release];
+    [_tintColor release];
     [super dealloc];
 }
 
-- (NSUInteger)buttonCount
-{
+- (NSUInteger)buttonCount {
     return _blocks.count;
 }
 
+#pragma mark - Add buttons
+
 - (void)addButtonWithTitle:(NSString *)title color:(NSString*)color block:(void (^)())block atIndex:(NSInteger)index
+{
+    [self addButtonWithTitle:title
+                       color:color
+                       block:block
+                     atIndex:index
+                  completion:nil];
+}
+
+- (void)addButtonWithTitle:(NSString *)title color:(NSString*)color block:(void (^)())block atIndex:(NSInteger)index completion:(void (^)())completionBlock
 {
     if (index >= 0)
     {
         [_blocks insertObject:[NSArray arrayWithObjects:
                                block ? [[block copy] autorelease] : [NSNull null],
+                               title,
+                               color,
+                               nil]
+                      atIndex:index];
+        [_blocks insertObject:[NSArray arrayWithObjects:
+                               completionBlock ? [[completionBlock copy] autorelease] : [NSNull null],
                                title,
                                color,
                                nil]
@@ -118,38 +129,73 @@ static UIFont *buttonFont = nil;
                             title,
                             color,
                             nil]];
+        [_completionBlocks addObject:[NSArray arrayWithObjects:
+                                      completionBlock ? [[completionBlock copy] autorelease] : [NSNull null],
+                                      title,
+                                      color,
+                                      nil]];
     }
 }
 
-- (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block
-{
+- (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block {
     [self addButtonWithTitle:title color:@"red" block:block atIndex:-1];
 }
 
-- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block
-{
+- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block {
     [self addButtonWithTitle:title color:@"black" block:block atIndex:-1];
 }
 
-- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block 
-{
+- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block {
     [self addButtonWithTitle:title color:@"gray" block:block atIndex:-1];
 }
 
-- (void)setDestructiveButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block
-{
+- (void)setDestructiveButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block {
     [self addButtonWithTitle:title color:@"red" block:block atIndex:index];
 }
 
-- (void)setCancelButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block
-{
+- (void)setCancelButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block {
     [self addButtonWithTitle:title color:@"black" block:block atIndex:index];
 }
 
-- (void)addButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block 
-{
+- (void)addButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block {
     [self addButtonWithTitle:title color:@"gray" block:block atIndex:index];
 }
+
+#pragma mark - Add button with block and animation completion block
+
+- (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"red" block:block atIndex:-1 completion:completionBlock];
+}
+
+- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"black" block:block atIndex:-1 completion:completionBlock];
+}
+
+- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"gray" block:block atIndex:-1 completion:completionBlock];
+}
+
+#pragma mark - Add button at index with block and animation completion block
+
+- (void)setDestructiveButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"red" block:block atIndex:index completion:completionBlock];
+}
+
+- (void)setCancelButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"black" block:block atIndex:index completion:completionBlock];
+}
+
+- (void)addButtonWithTitle:(NSString *)title atIndex:(NSInteger)index block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"gray" block:block atIndex:index completion:completionBlock];
+}
+
+# pragma mark - Show / Hide
 
 - (void)showInView:(UIView *)view
 {
@@ -236,8 +282,9 @@ static UIFont *buttonFont = nil;
     [self retain];
 }
 
-- (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated 
+- (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
 {
+    // Block Execution
     if (buttonIndex >= 0 && buttonIndex < [_blocks count])
     {
         id obj = [[_blocks objectAtIndex: buttonIndex] objectAtIndex:0];
@@ -258,9 +305,22 @@ static UIFont *buttonFont = nil;
                              _view.center = center;
                              [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
                          } completion:^(BOOL finished) {
+                             
+                             //Completion block execution
+                             if (buttonIndex >= 0 && buttonIndex < [_completionBlocks count])
+                             {
+                                 id obj = [[_completionBlocks objectAtIndex: buttonIndex] objectAtIndex:0];
+                                 if (![obj isEqual:[NSNull null]])
+                                 {
+                                     ((void (^)())obj)();
+                                 }
+                             }
+                             
+                             // Release
                              [[BlockBackground sharedInstance] removeView:_view];
                              [_view release]; _view = nil;
                              [self autorelease];
+                             
                          }];
     }
     else
@@ -273,7 +333,7 @@ static UIFont *buttonFont = nil;
 
 #pragma mark - Action
 
-- (void)buttonClicked:(id)sender 
+- (void)buttonClicked:(id)sender
 {
     /* Run the button's block */
     NSInteger buttonIndex = [(UIButton *)sender tag] - 1;

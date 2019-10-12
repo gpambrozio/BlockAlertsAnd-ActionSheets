@@ -12,6 +12,10 @@
 @synthesize view = _view;
 @synthesize backgroundImage = _backgroundImage;
 @synthesize vignetteBackground = _vignetteBackground;
+@synthesize tintColor = _tintColor;
+@synthesize textColor = _textColor;
+@synthesize messageFont = _messageFont;
+@synthesize allButtonInLine = _allButtonInLine;
 
 static UIImage *background = nil;
 static UIImage *backgroundlandscape = nil;
@@ -19,18 +23,16 @@ static UIFont *titleFont = nil;
 static UIFont *messageFont = nil;
 static UIFont *buttonFont = nil;
 
-
 #pragma mark - init
 
-+ (void)initialize
-{
-    if (self == [BlockAlertView class])
-    {
++ (void)initialize {
+    if (self == [BlockAlertView class]) {
         background = [UIImage imageNamed:kAlertViewBackground];
         background = [[background stretchableImageWithLeftCapWidth:0 topCapHeight:kAlertViewBackgroundCapHeight] retain];
         
         backgroundlandscape = [UIImage imageNamed:kAlertViewBackgroundLandscape];
-        backgroundlandscape = [[backgroundlandscape stretchableImageWithLeftCapWidth:0 topCapHeight:kAlertViewBackgroundCapHeight] retain];
+        backgroundlandscape =
+        [[backgroundlandscape stretchableImageWithLeftCapWidth:0 topCapHeight:kAlertViewBackgroundCapHeight] retain];
         
         titleFont = [kAlertViewTitleFont retain];
         messageFont = [kAlertViewMessageFont retain];
@@ -38,22 +40,33 @@ static UIFont *buttonFont = nil;
     }
 }
 
-+ (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message
-{
-    return [[[BlockAlertView alloc] initWithTitle:title message:message] autorelease];
++ (BlockAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message {
+    return [[[BlockAlertView alloc] initWithTitle:title message:message tintColor:nil textColor:nil] autorelease];
 }
 
-+ (void)showInfoAlertWithTitle:(NSString *)title message:(NSString *)message
-{
-    BlockAlertView *alert = [[BlockAlertView alloc] initWithTitle:title message:message];
++ (BlockAlertView *)alertWithTitle:(NSString *)title
+                           message:(NSString *)message
+                         tintColor:(UIColor *)tintColor
+                         textColor:(UIColor *)textColor {
+    return [
+            [[BlockAlertView alloc] initWithTitle:title message:message tintColor:tintColor textColor:textColor] autorelease];
+}
+
++ (void)showInfoAlertWithTitle:(NSString *)title message:(NSString *)message {
+    BlockAlertView *alert = [[BlockAlertView alloc] initWithTitle:title message:message tintColor:nil textColor:nil];
     [alert setCancelButtonWithTitle:NSLocalizedString(@"Dismiss", nil) block:nil];
     [alert show];
     [alert release];
 }
 
-+ (void)showErrorAlert:(NSError *)error
-{
-    BlockAlertView *alert = [[BlockAlertView alloc] initWithTitle:NSLocalizedString(@"Operation Failed", nil) message:[NSString stringWithFormat:NSLocalizedString(@"The operation did not complete successfully: %@", nil), error]];
++ (void)showErrorAlert:(NSError *)error {
+    BlockAlertView *alert = [[BlockAlertView alloc]
+                             initWithTitle:NSLocalizedString(@"Operation Failed", nil)
+                             message:[NSString
+                                      stringWithFormat:NSLocalizedString(@"The operation did not complete successfully: %@", nil),
+                                      error]
+                             tintColor:nil
+                             textColor:nil];
     [alert setCancelButtonWithTitle:@"Dismiss" block:nil];
     [alert show];
     [alert release];
@@ -63,27 +76,17 @@ static UIFont *buttonFont = nil;
 #pragma mark - NSObject
 
 - (void)addComponents:(CGRect)frame {
-    if (_title)
-    {
-        CGSize size;
-        if (IOS_LESS_THAN_7) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            size = [_title sizeWithFont:titleFont constrainedToSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000) lineBreakMode:NSLineBreakByWordWrapping];
-#pragma clang diagnostic pop
-        }
-        else {
-            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-            size = [_title boundingRectWithSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSParagraphStyleAttributeName : paragraphStyle, NSFontAttributeName : titleFont} context:nil].size;
-            size = CGSizeMake(ceilf(size.width), ceilf(size.height));
-        }
+    if (_title) {
+        CGSize size = [_title sizeWithFont:titleFont
+                         constrainedToSize:CGSizeMake(frame.size.width - kAlertViewBorder * 2, 1000)
+                             lineBreakMode:NSLineBreakByWordWrapping];
         
-        UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kAlertViewBorder, _height, frame.size.width-kAlertViewBorder*2, size.height)];
+        UILabel *labelView = [[UILabel alloc]
+                              initWithFrame:CGRectMake(kAlertViewBorder, _height, frame.size.width - kAlertViewBorder * 2, size.height)];
         labelView.font = titleFont;
         labelView.numberOfLines = 0;
         labelView.lineBreakMode = NSLineBreakByWordWrapping;
-        labelView.textColor = kAlertViewTitleTextColor;
+        labelView.textColor = _textColor ? _textColor : kAlertViewTitleTextColor;
         labelView.backgroundColor = [UIColor clearColor];
         labelView.textAlignment = NSTextAlignmentCenter;
         labelView.shadowColor = kAlertViewTitleShadowColor;
@@ -95,27 +98,17 @@ static UIFont *buttonFont = nil;
         _height += size.height + kAlertViewBorder;
     }
     
-    if (_message)
-    {
-        CGSize size;
-        if (IOS_LESS_THAN_7) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            size = [_message sizeWithFont:messageFont constrainedToSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000) lineBreakMode:NSLineBreakByWordWrapping];
-#pragma clang diagnostic pop
-        }
-        else {
-            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-            size = [_message boundingRectWithSize:CGSizeMake(frame.size.width-kAlertViewBorder*2, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSParagraphStyleAttributeName : paragraphStyle, NSFontAttributeName : messageFont} context:nil].size;
-            size = CGSizeMake(ceilf(size.width), ceilf(size.height));
-        }
+    if (_message) {
+        CGSize size = [_message sizeWithFont:self.messageFont
+                           constrainedToSize:CGSizeMake(frame.size.width - kAlertViewBorder * 2, 1000)
+                               lineBreakMode:NSLineBreakByWordWrapping];
         
-        UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kAlertViewBorder, _height, frame.size.width-kAlertViewBorder*2, size.height)];
-        labelView.font = messageFont;
+        UILabel *labelView = [[UILabel alloc]
+                              initWithFrame:CGRectMake(kAlertViewBorder, _height, frame.size.width - kAlertViewBorder * 2, size.height)];
+        labelView.font = self.messageFont;
         labelView.numberOfLines = 0;
         labelView.lineBreakMode = NSLineBreakByWordWrapping;
-        labelView.textColor = kAlertViewMessageTextColor;
+        labelView.textColor = _textColor ? _textColor : kAlertViewMessageTextColor;
         labelView.backgroundColor = [UIColor clearColor];
         labelView.textAlignment = NSTextAlignmentCenter;
         labelView.shadowColor = kAlertViewMessageShadowColor;
@@ -128,8 +121,7 @@ static UIFont *buttonFont = nil;
     }
 }
 
-- (void)setupDisplay
-{
+- (void)setupDisplay {
     [[_view subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [obj removeFromSuperview];
     }];
@@ -150,77 +142,95 @@ static UIFont *buttonFont = nil;
     _height = kAlertViewBorder + 15;
     
     if (NeedsLandscapePhoneTweaks) {
-        _height -= 15; // landscape phones need to trimmed a bit
+        _height -= 15;  // landscape phones need to trimmed a bit
     }
-
+    
     [self addComponents:frame];
-
-    if (_shown)
-        [self show];
+    
+    if (_shown) [self show];
 }
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message 
-{
+- (id)initWithTitle:(NSString *)title message:(NSString *)message {
+    return [self initWithTitle:title message:message tintColor:nil textColor:nil];
+}
+
+- (id)initWithTitle:(NSString *)title
+            message:(NSString *)message
+          tintColor:(UIColor *)tintColor
+          textColor:(UIColor *)textColor {
     self = [super init];
     
-    if (self)
-    {
+    if (self) {
         _title = [title copy];
         _message = [message copy];
         
-        _view = [[UIView alloc] init];
+        _view = [[UIScrollView alloc] init];
         
-        _view.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        _view.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin |
+        UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
         _blocks = [[NSMutableArray alloc] init];
         
-        if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending){
+        if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedDescending) {
             // don't register for notification, rotation is handled by iOS on 8+
-        }
-        else {        
+        } else {
             [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(setupDisplay) 
-                                                         name:UIApplicationDidChangeStatusBarOrientationNotification 
+                                                     selector:@selector(setupDisplay)
+                                                         name:UIApplicationDidChangeStatusBarOrientationNotification
                                                        object:nil];
         }
         
-        if ([self class] == [BlockAlertView class])
-            [self setupDisplay];
-        
+        self.messageFont = messageFont;
+        if ([self class] == [BlockAlertView class]) [self setupDisplay];
+        _tintColor = [tintColor retain];
+        _textColor = [textColor retain];
         _vignetteBackground = NO;
     }
     
     return self;
 }
 
-- (void)dealloc 
-{
+- (void)dealloc {
     [_title release];
     [_message release];
     [_backgroundImage release];
     [_view release];
     [_blocks release];
+    [_messageFont release];
+    [_tintColor release];
+    [_textColor release];
+    [_completionBlocks release];
     [super dealloc];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Public
 
-- (void)addButtonWithTitle:(NSString *)title color:(NSString*)color block:(void (^)())block 
+- (void)addButtonWithTitle:(NSString *)title color:(NSString*)color block:(void (^)())block
+{
+    [self addButtonWithTitle:title color:color block:block completion:nil];
+}
+
+- (void)addButtonWithTitle:(NSString *)title color:(NSString*)color block:(void (^)())block completion:(void (^)())completionBlock
 {
     [_blocks addObject:[NSArray arrayWithObjects:
                         block ? [[block copy] autorelease] : [NSNull null],
                         title,
                         color,
                         nil]];
+    [_completionBlocks addObject:[NSArray arrayWithObjects:
+                                  completionBlock ? [[completionBlock copy] autorelease] : [NSNull null],
+                                  title,
+                                  color,
+                                  nil]];
 }
 
-- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block 
+- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block
 {
     [self addButtonWithTitle:title color:@"gray" block:block];
 }
 
-- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block 
+- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block
 {
     [self addButtonWithTitle:title color:@"black" block:block];
 }
@@ -234,6 +244,25 @@ static UIFont *buttonFont = nil;
     [self addButtonWithTitle:title color:identifier block:block];
 }
 
+- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"gray" block:block completion:completionBlock];
+}
+
+- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"black" block:block completion:completionBlock];
+}
+
+- (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block completion:(void (^)())completionBlock
+{
+    [self addButtonWithTitle:title color:@"red" block:block completion:completionBlock];
+}
+
+- (void)addButtonWithTitle:(NSString *)title imageIdentifier:(NSString*)identifier block:(void (^)())block completion:(void (^)())completionBlock {
+    [self addButtonWithTitle:title color:identifier block:block completion:completionBlock];
+}
+
 - (void)show
 {
     _shown = YES;
@@ -245,7 +274,7 @@ static UIFont *buttonFont = nil;
         NSArray *block = [_blocks objectAtIndex:i];
         NSString *title = [block objectAtIndex:1];
         NSString *color = [block objectAtIndex:2];
-
+        
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"alert-%@-button.png", color]];
         image = [image stretchableImageWithLeftCapWidth:(int)(image.size.width+1)>>1 topCapHeight:0];
         
@@ -365,11 +394,11 @@ static UIFont *buttonFont = nil;
         [_view addSubview:button];
         
         if (!isSecondButton)
-            _height += kAlertButtonHeight + kAlertViewBorder;
+        _height += kAlertButtonHeight + kAlertViewBorder;
         
         index++;
     }
-
+    
     //_height += 10;  // Margin for the shadow // not sure where this came from, but it's making things look strange (I don't see a shadow, either)
     
     if (_height < background.size.height)
@@ -392,14 +421,14 @@ static UIFont *buttonFont = nil;
     frame.size.height = _height;
     _view.frame = frame;
     
-
+    
     UIImageView *modalBackground = [[UIImageView alloc] initWithFrame:_view.bounds];
     
     if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
-        modalBackground.image = backgroundlandscape;
+    modalBackground.image = backgroundlandscape;
     else
-        modalBackground.image = background;
-
+    modalBackground.image = background;
+    
     modalBackground.contentMode = UIViewContentModeScaleToFill;
     modalBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_view insertSubview:modalBackground atIndex:0];
@@ -414,7 +443,7 @@ static UIFont *buttonFont = nil;
     
     [BlockBackground sharedInstance].vignetteBackground = _vignetteBackground;
     [[BlockBackground sharedInstance] addToMainWindow:_view];
-
+    
     __block CGPoint center = _view.center;
     center.y = floorf([BlockBackground sharedInstance].bounds.size.height * 0.5) + kAlertViewBounce;
     
@@ -426,7 +455,7 @@ static UIFont *buttonFont = nil;
                      animations:^{
                          [BlockBackground sharedInstance].alpha = 1.0f;
                          _view.center = center;
-                     } 
+                     }
                      completion:^(BOOL finished) {
                          if (_cancelBounce) return;
                          
@@ -436,7 +465,7 @@ static UIFont *buttonFont = nil;
                                           animations:^{
                                               center.y -= kAlertViewBounce;
                                               _view.center = center;
-                                          } 
+                                          }
                                           completion:^(BOOL finished) {
                                               [[NSNotificationCenter defaultCenter] postNotificationName:@"AlertViewFinishedAnimations" object:self];
                                           }];
@@ -445,12 +474,13 @@ static UIFont *buttonFont = nil;
     [self retain];
 }
 
-- (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated 
+- (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
 {
     _shown = NO;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
+    // Block execution
     if (buttonIndex >= 0 && buttonIndex < [_blocks count])
     {
         id obj = [[_blocks objectAtIndex: buttonIndex] objectAtIndex:0];
@@ -469,21 +499,34 @@ static UIFont *buttonFont = nil;
                              CGPoint center = _view.center;
                              center.y += 20;
                              _view.center = center;
-                         } 
+                         }
                          completion:^(BOOL finished) {
                              [UIView animateWithDuration:0.4
-                                                   delay:0.0 
+                                                   delay:0.0
                                                  options:UIViewAnimationOptionCurveEaseIn
                                               animations:^{
                                                   CGRect frame = _view.frame;
                                                   frame.origin.y = -frame.size.height;
                                                   _view.frame = frame;
                                                   [[BlockBackground sharedInstance] reduceAlphaIfEmpty];
-                                              } 
+                                              }
                                               completion:^(BOOL finished) {
+                                                  
+                                                  // Completion block
+                                                  if (buttonIndex >= 0 && buttonIndex < [_completionBlocks count])
+                                                  {
+                                                      id obj = [[_completionBlocks objectAtIndex: buttonIndex] objectAtIndex:0];
+                                                      if (![obj isEqual:[NSNull null]])
+                                                      {
+                                                          ((void (^)())obj)();
+                                                      }
+                                                  }
+                                                  
+                                                  // Release
                                                   [[BlockBackground sharedInstance] removeView:_view];
                                                   [_view release]; _view = nil;
                                                   [self autorelease];
+                                                  
                                               }];
                          }];
     }

@@ -296,7 +296,11 @@
 		EC90169114BB629F00EF52E1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+<<<<<<< HEAD
+				LastUpgradeCheck = 0610;
+=======
 				LastUpgradeCheck = 0630;
+>>>>>>> gpambrozio/master
 				ORGANIZATIONNAME = "CodeCrop Software";
 			};
 			buildConfigurationList = EC90169414BB629F00EF52E1 /* Build configuration list for PBXProject "BlockAlertsDemo" */;
